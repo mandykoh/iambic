@@ -67,8 +67,8 @@ namespace Naucera.Iambic
     /// grammar.</para>
     ///
     /// <para>
-    /// Whitespace is ignored, and rules do not need to be separated by line
-    /// breaks.</para>
+    /// Extra whitespace is ignored, and rules do not need to be separated by
+    /// line breaks.</para>
     ///
     /// <para>
     /// Comments may be inserted in the grammar using either single line (//)
@@ -117,7 +117,7 @@ namespace Naucera.Iambic
     /// <item>
     ///     <term>One-Or-More: e+</term>
     ///     <description>
-    ///     Matches the expression against the input sring one or more times.
+    ///     Matches the expression against the input string one or more times.
     ///     </description>
     /// </item>
     /// <item>
