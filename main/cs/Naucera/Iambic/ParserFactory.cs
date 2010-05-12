@@ -420,7 +420,7 @@ namespace Naucera.Iambic
 
         private static object ProcessBasicLiteral(Token token, ParseContext context, params object[] args)
         {
-            var pattern = context.ParsedText(token.ChildToken(0));
+            var pattern = context.MatchedText(token.ChildToken(0));
             pattern = LiteralTerminal.Unescape(pattern);
 
             return new LiteralTerminal(pattern);
@@ -434,7 +434,7 @@ namespace Naucera.Iambic
 
         private static object ProcessCustomMatcher(Token token, ParseContext context, params object[] args)
         {
-            var matcherName = context.ParsedText(token.ChildToken(0));
+            var matcherName = context.MatchedText(token.ChildToken(0));
             matcherName = matcherName.Substring(1, matcherName.Length - 2);
 
             return new CustomMatcherTerminal(matcherName);
@@ -490,7 +490,7 @@ namespace Naucera.Iambic
 
         private static object ProcessIdentifier(Token token, ParseContext context, params object[] args)
         {
-            return context.ParsedText(token.ChildToken(0));
+            return context.MatchedText(token.ChildToken(0));
         }
 
 
@@ -578,7 +578,7 @@ namespace Naucera.Iambic
 
         private static object ProcessRegexLiteral(Token token, ParseContext context, params object[] args)
         {
-            var pattern = context.ParsedText(token.ChildToken(0));
+            var pattern = context.MatchedText(token.ChildToken(0));
             pattern = PatternTerminal.Unescape(pattern);
 
             return new PatternTerminal(pattern);
@@ -614,7 +614,7 @@ namespace Naucera.Iambic
 
             // Wrap the expression if a quantifier is present
             if (token.ChildCount > 1) {
-                var quantifier = context.ParsedText(token.ChildToken(1));
+                var quantifier = context.MatchedText(token.ChildToken(1));
 
                 if (quantifier.StartsWith("?"))
                     return new Optional(expression);

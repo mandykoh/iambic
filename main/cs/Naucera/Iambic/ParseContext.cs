@@ -337,7 +337,7 @@ namespace Naucera.Iambic
         /// been parsed.
         /// </summary>
         
-        public string ParsedText(Token token)
+        public string MatchedText(Token token)
         {
             return token.MatchedText(mBaseText);
         }
