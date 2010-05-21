@@ -98,6 +98,35 @@ namespace Naucera.Iambic
 
 
         [Test]
+        public void ShouldReplaceTokensWithValuesFromProcessors()
+        {
+            var p = new Parser(
+                new ParseRule("A", new Sequence(new RuleRef("B"), new RuleRef("C"), new RuleRef("D")))
+                    .ReplacingMatchesWith((token, ctx, args) => new [] { token[0], token[1], token[2] }),
+
+                new ParseRule("B", new LiteralTerminal("b"))
+                    .ReplacingMatchesWith((token, ctx, args) => "Matched B"),
+
+                new ParseRule("C", new LiteralTerminal("c"))
+                    .ReplacingMatchesWith((token, ctx, args) => "Matched C"),
+
+                new ParseRule("D", new LiteralTerminal("d"))
+                    .ReplacingMatchesWith((token, ctx, args) => "Matched D")
+            );
+
+            var result = p.Parse("bcd");
+
+            Assert.IsAssignableFrom(typeof(object[]), result);
+
+            var tokens = (object[])result;
+
+            Assert.AreEqual("Matched B", tokens[0]);
+            Assert.AreEqual("Matched C", tokens[1]);
+            Assert.AreEqual("Matched D", tokens[2]);
+        }
+
+
+        [Test]
         public void ShouldRequireAtLeastOneRule()
         {
             try {
