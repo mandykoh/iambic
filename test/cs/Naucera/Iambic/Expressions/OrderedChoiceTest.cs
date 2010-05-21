@@ -20,6 +20,30 @@ namespace Naucera.Iambic.Expressions
 
 
         [Test]
+        public void ShouldMarkEntireExpressionAsErrorWhenNoSubExpressionsMatch()
+        {
+            const string text = "d";
+
+            var orderedChoice = new OrderedChoice(
+                new LiteralTerminal("a"),
+                new LiteralTerminal("b"),
+                new LiteralTerminal("c")
+            );
+
+            var p = new Parser(new ParseRule("A", orderedChoice)) { MaxErrors = 3 };
+
+            try {
+                p.Parse(text);
+                Assert.Fail("Expression matched but should not have");
+            }
+            catch (SyntaxException e) {
+                Assert.AreEqual(1, e.Context.ErrorCount);
+                Assert.AreEqual(orderedChoice, e.Context.Expected);
+            }
+        }
+
+
+        [Test]
         public void ShouldMatchOneSubExpression()
         {
             var p = new Parser(

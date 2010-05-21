@@ -66,18 +66,18 @@ namespace Naucera.Iambic.Expressions
             context.BeginExpression(state);
 
             // Parse each subexpression until the first match
-            for (; state.index < ExpressionCount; ++state.index) {
-                var expr = Expression(state.index);
-                Token t;
+            for (; state.Index < ExpressionCount; ++state.Index) {
+                var expr = Expression(state.Index);
 
                 // Parsing succeeded on a subexpression - return the result
+                Token t;
                 if (expr.Parse(context, rule, out t)) {
                     context.EndExpression();
                     result = t;
                     return true;
                 }
 
-                context.Offset = state.offset;
+                context.Offset = state.Offset;
             }
 
             context.EndExpression();
@@ -103,20 +103,20 @@ namespace Naucera.Iambic.Expressions
 
         private sealed class OrderedChoiceMemento : Memento
         {
-            internal readonly int offset;
-            internal int index;
+            internal readonly int Offset;
+            internal int Index;
 
 
             internal OrderedChoiceMemento(ParseContext context)
             {
-                offset = context.Offset;
+                Offset = context.Offset;
             }
 
 
             private OrderedChoiceMemento(OrderedChoiceMemento m)
             {
-                this.offset = m.offset;
-                this.index = m.index;
+                Offset = m.Offset;
+                Index = m.Index;
             }
 
 
