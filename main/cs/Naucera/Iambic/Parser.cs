@@ -24,6 +24,7 @@ namespace Naucera.Iambic
         readonly ParseRule[] mRules;
         readonly Dictionary<string, GrammarConstruct> mConstructNameMap;
         int mMaxErrors = 1;
+        string mSectionSeparator;
 
 
         /// <summary>
@@ -88,11 +89,24 @@ namespace Naucera.Iambic
 
 
         /// <summary>
-        /// Returns the number of grammar rules defined for this parser.
+        /// The number of grammar rules defined for this parser.
         /// </summary>
         
         public int RuleCount {
             get { return mRules.Length; }
+        }
+
+
+        /// <summary>
+        /// The separator between text sections, or null if the entire text is
+        /// treated as a single section. Examples of sections include lines,
+        /// comma separated records, or any other text delimited by a fixed
+        /// string.
+        /// </summary>
+        
+        public string SectionSeparator {
+            get { return mSectionSeparator; }
+            set { mSectionSeparator = value; }
         }
 
 
@@ -188,7 +202,7 @@ namespace Naucera.Iambic
 
                 if (mRules[0].Parse(context, out token)) {
                     if (context.HasErrors)
-                        throw new SyntaxException(context, token);
+                        throw new SyntaxException(context, token, mSectionSeparator);
 
                     var result = ReplaceTokens(context, token, args);
 
@@ -203,7 +217,7 @@ namespace Naucera.Iambic
                     break;
             }
 
-            throw new SyntaxException(context, token);
+            throw new SyntaxException(context, token, mSectionSeparator);
         }
 
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Naucera.Iambic
@@ -17,6 +18,7 @@ namespace Naucera.Iambic
 
         readonly ParseContext mContext;
         readonly Token mResult;
+        readonly List<string> mErrorMessages;
 
 
         /// <summary>
@@ -24,10 +26,11 @@ namespace Naucera.Iambic
         /// incomplete parse result.
         /// </summary>
         
-        public SyntaxException(ParseContext context, Token result) : base(BuildErrorMessages(context))
+        internal SyntaxException(ParseContext context, Token result, string sectionSeparator)
         {
             mContext = context;
             mResult = result;
+            mErrorMessages = BuildErrorMessages(context, sectionSeparator);
         }
 
 
@@ -49,6 +52,27 @@ namespace Naucera.Iambic
         }
 
 
+        public override string Message {
+            get {
+                var text = new StringBuilder();
+
+                if (mContext.ErrorCount > 1)
+                    text.AppendLine();
+                
+                foreach (var message in mErrorMessages) {
+                    if (mContext.ErrorCount > 1)
+                        text.Append(' ');
+
+                    text.AppendLine(message);
+                }
+
+                text.Append(base.Message);
+
+                return text.ToString();
+            }
+        }
+
+
         /// <summary>
         /// The result of the parsing.
         /// </summary>
@@ -58,24 +82,14 @@ namespace Naucera.Iambic
         }
 
 
-        static string BuildErrorMessages(ParseContext context)
+        static List<string> BuildErrorMessages(ParseContext context, string sectionSeparator)
         {
-            var newLine = Environment.NewLine;
-            var text = new StringBuilder();
+            var messages = new List<string>();
             var textLength = context.BaseText.Length;
-
-            if (context.ErrorCount > 1)
-                text.Append(newLine);
+            var errorLocations = ErrorLocations(context, sectionSeparator);
 
             for (var i = 0; i < context.ErrorCount; ++i) {
                 var error = context.GetError(i);
-
-                if (i > 0)
-                    text.Append(newLine);
-
-                if (context.ErrorCount > 1)
-                    text.Append(' ');
-
                 var found = context.BaseText.Substring(error.Token.Offset);
 
                 // Truncate the "found" text before the start of the next error
@@ -86,15 +100,52 @@ namespace Naucera.Iambic
                         found = found.Substring(0, length);
                 }
 
+                found = found.Replace("\n", "");
+
                 if (found.Length > 0)
-                    text.Append("Expected " + error.Expected + " but found " + Truncate(found) + " when matching " + GetConstructName(error.Token.Origin));
+                    messages.Add("Expected " + error.Expected + " but found " + Truncate(found) + " when matching " + GetConstructName(error.Token.Origin) + " " + errorLocations[i]);
                 else if (error.Token.Offset + found.Length >= textLength)
-                    text.Append("Expected " + error.Expected + " but reached end of input when matching " + GetConstructName(error.Token.Origin));
+                    messages.Add("Expected " + error.Expected + " but reached end of input when matching " + GetConstructName(error.Token.Origin) + " " + errorLocations[i]);
                 else
-                    text.Append("Expected " + error.Expected + " but was missing when matching " + GetConstructName(error.Token.Origin));
+                    messages.Add("Expected " + error.Expected + " but was missing when matching " + GetConstructName(error.Token.Origin) + " " + errorLocations[i]);
             }
 
-            return text.ToString();
+            return messages;
+        }
+
+
+        static List<string> ErrorLocations(ParseContext context, string sectionSeparator)
+        {
+            var locations = new List<string>(context.ErrorCount);
+            var section = 0;
+            var sectionOffset = 0;
+            var nextSectionOffset = (sectionSeparator == null ? 0 : -sectionSeparator.Length);
+
+            for (var i = 0; i < context.ErrorCount; ++i) {
+                var error = context.GetError(i);
+
+                if (sectionSeparator != null) {
+                    while (error.Token.Offset >= nextSectionOffset) {
+                        ++section;
+                        sectionOffset = nextSectionOffset + sectionSeparator.Length;
+
+                        if (nextSectionOffset + sectionSeparator.Length < context.BaseText.Length) {
+                            nextSectionOffset = context.BaseText.IndexOf(sectionSeparator, nextSectionOffset + sectionSeparator.Length);
+                            if (nextSectionOffset == -1)
+                                nextSectionOffset = context.BaseText.Length + 1;
+                        }
+                        else
+                            nextSectionOffset = context.BaseText.Length + 1;
+                    }
+
+                    var column = Math.Max(0, error.Token.Offset - sectionOffset) + 1;
+                    locations.Add("(" + section + "," + column + ")");
+                }
+                else
+                    locations.Add("(" + (error.Token.Offset + 1) + ")");
+            }
+
+            return locations;
         }
 
 
@@ -111,6 +162,16 @@ namespace Naucera.Iambic
         public ParseError GetError(int index)
         {
             return mContext.GetError(index);
+        }
+
+
+        /// <summary>
+        /// Returns the parse error message at the specified index.
+        /// </summary>
+        
+        public string GetErrorMessage(int index)
+        {
+            return mErrorMessages[index];
         }
 
 

@@ -31,7 +31,7 @@ namespace Naucera.Iambic
             get { return mExpected; }
         }
 
-            
+
         /// <summary>
         /// The parsed token.
         /// </summary>

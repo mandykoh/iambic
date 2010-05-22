@@ -7,6 +7,74 @@ namespace Naucera.Iambic
     public class ParserTest
     {
         [Test]
+        public void ShouldIncludeErrorOffsetsOnParsingFailure()
+        {
+            var p = new Parser(
+                new ParseRule("A", new Sequence(new RuleRef("B"), new RuleRef("C"), new RuleRef("D"), new RuleRef("EOF"))),
+                new ParseRule("B", new LiteralTerminal("bee")),
+                new ParseRule("C", new LiteralTerminal("cee")),
+                new ParseRule("D", new LiteralTerminal("dee")),
+                new ParseRule("EOF", new PatternTerminal("$"))
+            ) { MaxErrors = 4 };
+
+            try {
+                p.Parse("cee");
+                Assert.Fail("Expected exception was not thrown");
+            }
+            catch (SyntaxException e) {
+                Assert.AreEqual(2, e.ErrorCount);
+                Assert.IsTrue(e.GetErrorMessage(0).EndsWith("(1)"));
+                Assert.IsTrue(e.GetErrorMessage(1).EndsWith("(4)"));
+            }
+        }
+
+
+        [Test]
+        public void ShouldIncludeErrorOffsetsWithSectionNumbersOnEmptyInput()
+        {
+            var p = new Parser(
+                new ParseRule("A", new Sequence(new RuleRef("B"), new RuleRef("C"), new RuleRef("D"), new RuleRef("EOF"))),
+                new ParseRule("B", new PatternTerminal("bee\\s*")),
+                new ParseRule("C", new PatternTerminal("cee\\s*")),
+                new ParseRule("D", new PatternTerminal("dee\\s*")),
+                new ParseRule("EOF", new PatternTerminal("$"))
+                ) { MaxErrors = 4, SectionSeparator = "\n" };
+
+            try {
+                p.Parse("");
+                Assert.Fail("Expected exception was not thrown");
+            }
+            catch (SyntaxException e) {
+                Assert.AreEqual(1, e.ErrorCount);
+                Assert.IsTrue(e.GetErrorMessage(0).EndsWith("(1,1)"));
+            }
+        }
+
+
+        [Test]
+        public void ShouldIncludeErrorOffsetsWithSectionNumbersOnParsingFailure()
+        {
+            var p = new Parser(
+                new ParseRule("A", new Sequence(new RuleRef("B"), new RuleRef("C"), new RuleRef("D"), new RuleRef("EOF"))),
+                new ParseRule("B", new PatternTerminal("bee\\s*")),
+                new ParseRule("C", new PatternTerminal("cee\\s*")),
+                new ParseRule("D", new PatternTerminal("dee\\s*")),
+                new ParseRule("EOF", new PatternTerminal("$"))
+            ) { MaxErrors = 4, SectionSeparator = "\n" };
+
+            try {
+                p.Parse("\ncee\n  ");
+                Assert.Fail("Expected exception was not thrown");
+            }
+            catch (SyntaxException e) {
+                Assert.AreEqual(2, e.ErrorCount);
+                Assert.IsTrue(e.GetErrorMessage(0).EndsWith("(2,1)"));
+                Assert.IsTrue(e.GetErrorMessage(1).EndsWith("(3,3)"));
+            }
+        }
+
+
+        [Test]
         public void ShouldMapRuleIndicesToRules()
         {
             var ruleA = new ParseRule("RuleA", new LiteralTerminal("a"));
@@ -127,6 +195,19 @@ namespace Naucera.Iambic
 
 
         [Test]
+        public void ShouldRequireAtLeastOneRule()
+        {
+            try {
+                new Parser();
+                Assert.Fail("Expected exception was not thrown");
+            }
+            catch (EmptyGrammarException) {
+                // Expected exception
+            }
+        }
+
+
+        [Test]
         public void ShouldReturnErrorsInOrderOfAppearance()
         {
             var p = new Parser(
@@ -145,19 +226,6 @@ namespace Naucera.Iambic
                 Assert.AreEqual(2, e.ErrorCount);
                 Assert.AreEqual("'b'", e.GetError(0).Expected.ToString());
                 Assert.AreEqual("'d'", e.GetError(1).Expected.ToString());
-            }
-        }
-
-
-        [Test]
-        public void ShouldRequireAtLeastOneRule()
-        {
-            try {
-                new Parser();
-                Assert.Fail("Expected exception was not thrown");
-            }
-            catch (EmptyGrammarException) {
-                // Expected exception
             }
         }
 
