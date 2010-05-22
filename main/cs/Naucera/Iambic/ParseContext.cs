@@ -20,17 +20,19 @@ namespace Naucera.Iambic
     public sealed class ParseContext
     {
         static readonly Dictionary<int, CacheEntry> EmptyRuleCache = new Dictionary<int, CacheEntry>();
+        static readonly List<ParseError> EmptyErrorsList = new List<ParseError>(0);
 
-        readonly Dictionary<int, CacheEntry>[] mRuleCaches;
-        readonly List<Token> mErrors = new List<Token>();
         readonly string mBaseText;
         readonly bool mErrorRecoveryEnabled;
+        readonly Dictionary<int, CacheEntry>[] mRuleCaches;
+
         int mOffset;
         readonly List<ParseExpression.Memento> mExpressionStateStack = new List<ParseExpression.Memento>();
         List<ParseExpression.Memento> mErrorStateStack;
+        int mErrorStackIndex = -1;
+        List<ParseError> mErrors = EmptyErrorsList;
         Token mErrorStateToken;
         ParseExpression mExpected;
-        int mErrorStackIndex = -1;
         bool mCompensating;
 
 
@@ -38,8 +40,7 @@ namespace Naucera.Iambic
         /// Creates a ParseContext for the specified parser and text.
         /// </summary>
 
-        public ParseContext(Parser parser,
-                            string text)
+        internal ParseContext(Parser parser, string text)
         {
             mBaseText = text;
             mErrorRecoveryEnabled = parser.MaxErrors > 1;
@@ -79,21 +80,13 @@ namespace Naucera.Iambic
 
 
         /// <summary>
-        /// The expected expression, if a parsing error was encountered.
-        /// </summary>
-
-        public ParseExpression Expected {
-            get { return mExpected; }
-        }
-
-
-        /// <summary>
         /// Flag indicating if any parse errors have been encountered.
         /// </summary>
         
         public bool HasErrors {
             get { return mErrors.Count > 0; }
         }
+
 
         /// <summary>
         /// The furthest error token encountered so far, or null if none have
@@ -104,6 +97,7 @@ namespace Naucera.Iambic
             get { return mErrorStateToken; }
         }
 
+
         /// <summary>
         /// The current parsing offset in the source text.
         /// </summary>
@@ -112,6 +106,7 @@ namespace Naucera.Iambic
             get { return mOffset; }
             internal set { mOffset = value; }
         }
+
 
         /// <summary>
         /// Flag indicating if error recovery is in progress.
@@ -213,7 +208,10 @@ namespace Naucera.Iambic
 
         internal ParseContext BeginRecovery()
         {
-            mErrors.Add(mErrorStateToken);
+            if (mErrors == EmptyErrorsList)
+                mErrors = new List<ParseError>(1);
+
+            mErrors.Add(new ParseError(mErrorStateToken, mExpected));
 
             mCompensating = true;
             mOffset = mErrorStateToken.Offset;
@@ -322,10 +320,10 @@ namespace Naucera.Iambic
 
 
         /// <summary>
-        /// Returns the error with the specified index.
+        /// Returns the parse error with the specified index.
         /// </summary>
         
-        public Token GetError(int i)
+        public ParseError GetError(int i)
         {
             return mErrors[i];
         }
@@ -391,7 +389,7 @@ namespace Naucera.Iambic
             if (mErrorStateToken == null || mErrorStateToken.Offset < mOffset) {
                 mErrorStateToken = result;
 
-                // Copy the expression state stack to use as the errored state
+                // Copy the expression state stack to use as the errored state);
                 if (mErrorRecoveryEnabled) {
                     mErrorStateStack = new List<ParseExpression.Memento>(mExpressionStateStack.Count);
                     for (var i = 0; i < mExpressionStateStack.Count; ++i) {

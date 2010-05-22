@@ -13,10 +13,10 @@ namespace Naucera.Iambic
     
     public class SyntaxException : Exception
     {
-        private const int MismatchLength = 32;
+        const int MismatchPreviewLength = 32;
 
-        private readonly ParseContext context;
-        private readonly Token result;
+        readonly ParseContext mContext;
+        readonly Token mResult;
 
 
         /// <summary>
@@ -24,11 +24,10 @@ namespace Naucera.Iambic
         /// incomplete parse result.
         /// </summary>
         
-        public SyntaxException(ParseContext context, Token result)
-            : base(BuildErrorMessages(context))
+        public SyntaxException(ParseContext context, Token result) : base(BuildErrorMessages(context))
         {
-            this.context = context;
-            this.result = result;
+            mContext = context;
+            mResult = result;
         }
 
 
@@ -37,7 +36,16 @@ namespace Naucera.Iambic
         /// </summary>
         
         public ParseContext Context {
-            get { return context; }
+            get { return mContext; }
+        }
+
+
+        /// <summary>
+        /// Number of parse errors encountered.
+        /// </summary>
+        
+        public int ErrorCount {
+            get { return mContext.ErrorCount; }
         }
 
 
@@ -46,11 +54,11 @@ namespace Naucera.Iambic
         /// </summary>
         
         public Token Result {
-            get { return result; }
+            get { return mResult; }
         }
 
 
-        private static string BuildErrorMessages(ParseContext context)
+        static string BuildErrorMessages(ParseContext context)
         {
             var newLine = Environment.NewLine;
             var text = new StringBuilder();
@@ -60,7 +68,7 @@ namespace Naucera.Iambic
                 text.Append(newLine);
 
             for (var i = 0; i < context.ErrorCount; ++i) {
-                var token = context.GetError(i);
+                var error = context.GetError(i);
 
                 if (i > 0)
                     text.Append(newLine);
@@ -68,47 +76,51 @@ namespace Naucera.Iambic
                 if (context.ErrorCount > 1)
                     text.Append(' ');
 
-                var found = context.BaseText.Substring(token.Offset);
+                var found = context.BaseText.Substring(error.Token.Offset);
 
                 // Truncate the "found" text before the start of the next error
                 if (i + 1 < context.ErrorCount) {
                     var nextError = context.GetError(i + 1);
-                    var length = nextError.Offset - token.Offset;
+                    var length = nextError.Token.Offset - error.Token.Offset;
                     if (found.Length > length)
                         found = found.Substring(0, length);
                 }
 
-                if (found.Length > 0) {
-                    text.Append("Expected " + context.Expected + " but found "
-                        + Truncate(found) + " when matching " + GetConstructName(token.Origin));
-                }
-                else if (token.Offset + found.Length >= textLength) {
-                    text.Append("Expected " + context.Expected
-                        + " but reached end of input when matching " + GetConstructName(token.Origin));
-                }
-                else {
-                    text.Append("Expected " + context.Expected
-                        + " but was missing when matching " + GetConstructName(token.Origin));
-                }
+                if (found.Length > 0)
+                    text.Append("Expected " + error.Expected + " but found " + Truncate(found) + " when matching " + GetConstructName(error.Token.Origin));
+                else if (error.Token.Offset + found.Length >= textLength)
+                    text.Append("Expected " + error.Expected + " but reached end of input when matching " + GetConstructName(error.Token.Origin));
+                else
+                    text.Append("Expected " + error.Expected + " but was missing when matching " + GetConstructName(error.Token.Origin));
             }
 
             return text.ToString();
         }
 
 
-        private static string GetConstructName(GrammarConstruct construct)
+        static string GetConstructName(GrammarConstruct construct)
         {
             return construct == null ? "null" : construct.Name;
         }
 
 
-        private static string Truncate(string text)
+        /// <summary>
+        /// Returns the parse error at the specified index.
+        /// </summary>
+        
+        public ParseError GetError(int index)
+        {
+            return mContext.GetError(index);
+        }
+
+
+        static string Truncate(string text)
         {
             if (text == null)
                 return null;
 
-            if (text.Length > MismatchLength)
-                return text.Substring(0, MismatchLength) + "...";
+            if (text.Length > MismatchPreviewLength)
+                return text.Substring(0, MismatchPreviewLength) + "...";
 
             return text;
         }

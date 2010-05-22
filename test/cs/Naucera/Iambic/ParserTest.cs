@@ -127,6 +127,29 @@ namespace Naucera.Iambic
 
 
         [Test]
+        public void ShouldReturnErrorsInOrderOfAppearance()
+        {
+            var p = new Parser(
+                new ParseRule("A", new Sequence(new RuleRef("B"), new RuleRef("C"), new RuleRef("D"), new RuleRef("EOF"))),
+                new ParseRule("B", new LiteralTerminal("b")),
+                new ParseRule("C", new LiteralTerminal("c")),
+                new ParseRule("D", new LiteralTerminal("d")),
+                new ParseRule("EOF", new PatternTerminal("$"))
+            ) { MaxErrors = 4 };
+
+            try {
+                p.Parse("c");
+                Assert.Fail("Expected exception was not thrown");
+            }
+            catch (SyntaxException e) {
+                Assert.AreEqual(2, e.ErrorCount);
+                Assert.AreEqual("'b'", e.GetError(0).Expected.ToString());
+                Assert.AreEqual("'d'", e.GetError(1).Expected.ToString());
+            }
+        }
+
+
+        [Test]
         public void ShouldRequireAtLeastOneRule()
         {
             try {

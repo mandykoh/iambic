@@ -37,8 +37,8 @@ namespace Naucera.Iambic.Expressions
                 Assert.Fail("Expression matched but should not have");
             }
             catch (SyntaxException e) {
-                Assert.AreEqual(1, e.Context.ErrorCount);
-                Assert.AreEqual(orderedChoice, e.Context.Expected);
+                Assert.AreEqual(1, e.ErrorCount);
+                Assert.AreEqual(orderedChoice, e.GetError(0).Expected);
             }
         }
 
