@@ -45,7 +45,7 @@ namespace Naucera.Iambic
 			var expected = new StringBuilder()
 				.AppendLine("<Expression>")
 				.AppendLine("  <Term>")
-				.AppendLine("	<Value>1</Value>")
+				.AppendLine("    <Value>1</Value>")
 				.AppendLine("  </Term>")
 				.AppendLine("  <Plus>+</Plus>")
 				.AppendLine("  <Term><Value>2</Value>*<Value>3</Value></Term>")
