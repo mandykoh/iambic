@@ -72,7 +72,7 @@ namespace Naucera.Iambic
 		/// <exception cref="InvalidOperationException">
 		/// Thrown if the rule has already been compiled.</exception>
 
-		internal void Compile(Parser parser)
+		internal void Compile<T>(Parser<T> parser)
 		{
 			if (index != UncompiledRuleIndex)
 				throw new InvalidOperationException();

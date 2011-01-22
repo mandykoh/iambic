@@ -19,8 +19,10 @@ namespace Naucera.Iambic
 	/// <para>Copyright (C) 2010 by Amanda Koh.</para>
 	/// </remarks>
 
-	public sealed class Parser
+	public sealed class Parser<T>
 	{
+		public delegate object TokenConversionWithNoArgs(Token token, ParseContext context);
+
 		readonly ParseRule[] mRules;
 		readonly Dictionary<string, GrammarConstruct> mConstructNameMap;
 		int mMaxErrors = 1;
@@ -155,10 +157,50 @@ namespace Naucera.Iambic
 
 		/// <summary>
 		/// <para>
-		/// Parses the specified text, returning the parsed result as a Token,
-		/// or if a TokenProcessorDelegate has been registered with the starting
-		/// rule using Replacing(), then the result of invoking the processor is
-		/// returned instead.</para>
+		/// Parses the specified text, returning the parsed result as a value by
+		/// applying a conversion to the token produced by the root grammar
+		/// rule. The conversion should have been registered for the root rule
+		/// using Replacing().</para>
+		/// 
+		/// <para>
+		/// Each rule generates a token, with the components of the rule as the
+		/// token's children, and each token is converted to a value if a
+		/// corresponding conversion has been registered.</para>
+		/// </summary>
+		///
+		/// <param name="text">
+		/// Text to parse.</param>
+		/// 
+		/// <param name="args">
+		/// Optional arguments for token conversion.</param>
+		/// 
+		/// <returns>
+		/// Parsed and converted result.</returns>
+		///
+		/// <exception cref="UndefinedTokenConversionException">
+		/// Thrown if no token conversion is defined for the root grammar rule.
+		/// </exception>
+		/// 
+		/// <exception cref="SyntaxException">
+		/// Thrown if parsing fails on syntax errors which were unrecoverable
+		/// (or MaxErrors was reached).</exception>
+		
+		public T Parse(string text, params object[] args)
+		{
+			if (!mRules[0].HasConversion)
+				throw new UndefinedTokenConversionException(mRules[0]);
+
+			var context = ParseContext.Create(this, text);
+			var resultToken = ParseRawWith(context, text);
+
+			return (T)ReplaceTokens(context, resultToken, args);
+		}
+
+
+		/// <summary>
+		/// <para>
+		/// Parses the specified text, returning the parsed result as a Token.
+		/// No token conversion is performed.</para>
 		/// 
 		/// <para>
 		/// Each rule generates a token, with the components of the rule as the
@@ -168,19 +210,22 @@ namespace Naucera.Iambic
 		/// <param name="text">
 		/// Text to parse.</param>
 		/// 
-		/// <param name="args">
-		/// Optional parsing arguments.</param>
-		/// 
 		/// <returns>
-		/// Processed result, or parsed Token if no processor has been
-		/// registered for the starting rule.</returns>
+		/// Parsed result.</returns>
 		///
 		/// <exception cref="SyntaxException">
-		/// Thrown if parsing fails on syntax errors.</exception>
+		/// Thrown if parsing fails on syntax errors which were unrecoverable
+		/// (or MaxErrors was reached).</exception>
 		
-		public object Parse(string text, params object[] args)
+		public Token ParseRaw(string text)
 		{
-			var context = new ParseContext(this, text);
+			var context = ParseContext.Create(this, text);
+			return ParseRawWith(context, text);
+		}
+
+
+		Token ParseRawWith(ParseContext context, string text)
+		{
 			Token token = null;
 
 			// Parse with the starting rule and recover until we hit our error limit
@@ -190,9 +235,8 @@ namespace Naucera.Iambic
 					if (context.HasErrors)
 						throw new SyntaxException(context, token);
 
-					var result = ReplaceTokens(context, token, args);
-
-					return mRules[0].HasProcessor ? result : token;
+					// Successful parsing - return the token
+					return token;
 				}
 
 				var error = context.MarkedError;
@@ -224,23 +268,38 @@ namespace Naucera.Iambic
 
 			// Invoke the processor for the current token if it has one
 			var origin = token.Origin;
-			if (origin != null && origin.HasProcessor)
-				return origin.ProcessToken(token, context, args);
+			if (origin != null && origin.HasConversion)
+				return origin.ReplaceToken(token, context, args);
 
 			return token;
 		}
 
 
 		/// <summary>
-		/// Sets the token replacement delegate for a named grammar construct,
-		/// which replaces each occurrence of that construct with the return
-		/// value of the processor.
+		/// Sets the token conversion for a named grammar construct, which
+		/// replaces each occurrence of that construct with a value when Parse()
+		/// is invoked.
+		/// </summary>
+		/// 
+		/// <returns>
+		/// This parser.</returns>
+
+		public Parser<T> Replacing(string constructName, TokenConversionWithNoArgs with)
+		{
+			return Replacing(constructName, (token, ctx, args) => with(token, ctx));
+		}
+
+
+		/// <summary>
+		/// Sets the token conversion for a named grammar construct, which
+		/// replaces each occurrence of that construct with a value using
+		/// arguments supplied to Parse().
 		/// </summary>
 		/// 
 		/// <returns>
 		/// This parser.</returns>
 		
-		public Parser Replacing(string constructName, TokenProcessorDelegate with)
+		public Parser<T> Replacing(string constructName, TokenConversion with)
 		{
 			mConstructNameMap[constructName].ReplacingMatchesWith(with);
 			return this;

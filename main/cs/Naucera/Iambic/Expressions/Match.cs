@@ -47,7 +47,7 @@ namespace Naucera.Iambic.Expressions
 		/// Compiles the child expression, replacing it with the result.
 		/// </summary>
 		
-		internal override ParseExpression Compile(Parser parser)
+		internal override ParseExpression Compile<T>(Parser<T> parser)
 		{
 			expression = expression.Compile(parser);
 			return this;

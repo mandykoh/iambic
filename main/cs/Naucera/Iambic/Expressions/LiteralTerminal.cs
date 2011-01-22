@@ -35,7 +35,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal sealed override ParseExpression Compile(Parser parser)
+		internal sealed override ParseExpression Compile<T>(Parser<T> parser)
 		{
 			return this;
 		}

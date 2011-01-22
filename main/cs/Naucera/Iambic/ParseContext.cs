@@ -34,18 +34,13 @@ namespace Naucera.Iambic
 		bool mCompensating;
 
 
-		/// <summary>
-		/// Creates a ParseContext for the specified parser and text.
-		/// </summary>
-
-		public ParseContext(Parser parser,
-							string text)
+		ParseContext(bool errorRecoveryEnabled, int ruleCount, string text)
 		{
 			mBaseText = text;
-			mErrorRecoveryEnabled = parser.MaxErrors > 1;
+			mErrorRecoveryEnabled = errorRecoveryEnabled;
 
 			// Set up the rule caches
-			mRuleCaches = new Dictionary<int, CacheEntry>[parser.RuleCount];
+			mRuleCaches = new Dictionary<int, CacheEntry>[ruleCount];
 			for (var i = 0; i < mRuleCaches.Length; ++i)
 				mRuleCaches[i] = EmptyRuleCache;
 		}
@@ -277,6 +272,19 @@ namespace Naucera.Iambic
 			mErrorStateToken = null;
 			mErrorStackIndex = -1;
 			return this;
+		}
+
+
+		/// <summary>
+		/// Creates a ParseContext for the specified parser and text.
+		/// </summary>
+
+		internal static ParseContext Create<T>(Parser<T> parser, string text)
+		{
+			return new ParseContext(
+				parser.MaxErrors > 1,
+				parser.RuleCount,
+				text);
 		}
 
 

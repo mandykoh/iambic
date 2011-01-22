@@ -48,7 +48,7 @@ namespace Naucera.Iambic.Expressions
 		/// <exception cref="InvalidGrammarException">
 		/// Thrown on grammar error.</exception>
 
-		internal abstract ParseExpression Compile(Parser parser);
+		internal abstract ParseExpression Compile<T>(Parser<T> parser);
 
 
 		/// <summary>

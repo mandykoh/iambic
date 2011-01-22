@@ -18,7 +18,7 @@ namespace Naucera.Iambic.Expressions
 		public void ShouldNotAllowCircularReferences()
 		{
 			try {
-				new Parser(
+				new Parser<object>(
 					new ParseRule("A", new RuleRef("B")),
 					new ParseRule("B", new RuleRef("C")),
 					new ParseRule("C", new RuleRef("A")));
@@ -36,7 +36,7 @@ namespace Naucera.Iambic.Expressions
 		public void ShouldNotAllowReferencingUndefinedRules()
 		{
 			try {
-				new Parser(new ParseRule("A", new RuleRef("B")));
+				new Parser<object>(new ParseRule("A", new RuleRef("B")));
 				Assert.Fail("Undefined reference was accepted but should have been rejected");
 			}
 			catch (UndefinedConstructException e) {
@@ -50,11 +50,11 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "apple";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A", new RuleRef("B")),
 				new ParseRule("B", new LiteralTerminal(text)));
 
-			var t = (Token)p.Parse(text);
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual("A", t.Origin.Name);
@@ -68,11 +68,11 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "apple";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A", new RuleRef("B")),
 				new ParseRule("B", new LiteralTerminal(text)));
 
-			var t = (Token)p.Parse(text);
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual(1, t.ChildToken(0).ChildCount);

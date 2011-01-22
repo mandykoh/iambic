@@ -26,8 +26,8 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "applepie";
 
-			var p = new Parser(new ParseRule("A", new LiteralTerminal("apple")));
-			var t = (Token)p.Parse(text);
+			var p = new Parser<object>(new ParseRule("A", new LiteralTerminal("apple")));
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(0, t.Offset);
 			Assert.AreEqual(5, t.EndOffset);
@@ -41,8 +41,8 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "apple";
 
-			var p = new Parser(new ParseRule("A", new LiteralTerminal("apple")));
-			var t = (Token)p.Parse(text);
+			var p = new Parser<object>(new ParseRule("A", new LiteralTerminal("apple")));
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(0, t.Offset);
 			Assert.AreEqual(5, t.EndOffset);
@@ -56,10 +56,10 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "Apple";
 
-			var p = new Parser(new ParseRule("A", new LiteralTerminal("apple")));
+			var p = new Parser<object>(new ParseRule("A", new LiteralTerminal("apple")));
 
 			try {
-				p.Parse(text);
+				p.ParseRaw(text);
 				Assert.Fail("Expression matched but should not have");
 			}
 			catch (SyntaxException) {
@@ -73,7 +73,7 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "abcdefg";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A",
 					new Sequence(
 						new LiteralTerminal("bc"),
@@ -82,7 +82,7 @@ namespace Naucera.Iambic.Expressions
 				{ MaxErrors = 3 };
 
 			try {
-				p.Parse(text);
+				p.ParseRaw(text);
 
 				Assert.Fail("Expression matched but should not have");
 			}
@@ -95,9 +95,9 @@ namespace Naucera.Iambic.Expressions
 		[Test]
 		public void ShouldNotMatchDifferingText()
 		{
-			var p = new Parser(new ParseRule("A", new LiteralTerminal("apple")));
+			var p = new Parser<object>(new ParseRule("A", new LiteralTerminal("apple")));
 			try {
-				p.Parse("banana");
+				p.ParseRaw("banana");
 				Assert.Fail("Expression matched but should not have");
 			}
 			catch (SyntaxException) {
@@ -111,8 +111,8 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "abc";
 
-			var p = new Parser(new ParseRule("A", new LiteralTerminal(text)));
-			var t = (Token)p.Parse(text);
+			var p = new Parser<object>(new ParseRule("A", new LiteralTerminal(text)));
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual(text, t.ChildToken(0).MatchedText(text));

@@ -50,7 +50,7 @@ namespace Naucera.Iambic.Expressions
 		/// <exception cref="EmptyCompositeException">
 		/// Thrown if there are no child expressions.</exception>
 		
-		internal override ParseExpression Compile(Parser parser)
+		internal override ParseExpression Compile<T>(Parser<T> parser)
 		{
 			if (uncompiled == null)
 				throw new InvalidOperationException();

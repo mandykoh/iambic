@@ -19,11 +19,11 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "apple";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A", new CustomMatcherTerminal("appleMatcher")),
 				new TestCustomMatcher("appleMatcher", "apple"));
 
-			var t = (Token)p.Parse(text);
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(0, t.Offset);
 			Assert.AreEqual(5, t.EndOffset);
@@ -37,7 +37,7 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "abcdefg";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A",
 					new Sequence(
 						new CustomMatcherTerminal("bcMatcher"),
@@ -49,7 +49,7 @@ namespace Naucera.Iambic.Expressions
 				{ MaxErrors = 3 };
 
 			try {
-				p.Parse(text);
+				p.ParseRaw(text);
 
 				Assert.Fail("Expression matched but should not have");
 			}
@@ -62,12 +62,12 @@ namespace Naucera.Iambic.Expressions
 		[Test]
 		public void ShouldRejectWhenCustomMatcherDoesNotMatch()
 		{
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A", new CustomMatcherTerminal("appleMatcher")),
 				new TestCustomMatcher("appleMatcher", "apple"));
 
 			try {
-				p.Parse("banana");
+				p.ParseRaw("banana");
 				Assert.Fail("Expression matched but should not have");
 			}
 			catch (SyntaxException) {
@@ -81,11 +81,11 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "abc";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A", new CustomMatcherTerminal("matcher")),
 				new TestCustomMatcher("matcher", "abc"));
 
-			var t = (Token)p.Parse(text);
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual(text, t.ChildToken(0).MatchedText(text));

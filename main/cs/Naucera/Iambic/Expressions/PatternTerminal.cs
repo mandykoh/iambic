@@ -48,7 +48,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override ParseExpression Compile(Parser parser)
+		internal override ParseExpression Compile<T>(Parser<T> parser)
 		{
 			return this;
 		}

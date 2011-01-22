@@ -19,14 +19,14 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ab";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A",
 					new Sequence(
 						new Match(new LiteralTerminal("a")),
 						new LiteralTerminal("ab"))
 				));
 
-			p.Parse(text);
+			p.ParseRaw(text);
 		}
 
 
@@ -35,7 +35,7 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "b";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A",
 					new Sequence(
 						new Match(new LiteralTerminal("a")),
@@ -43,7 +43,7 @@ namespace Naucera.Iambic.Expressions
 				));
 
 			try {
-				p.Parse(text);
+				p.ParseRaw(text);
 				Assert.Fail("Expression matched when it should not have");
 			}
 			catch (SyntaxException) {
@@ -57,14 +57,14 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ab";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A",
 					new Sequence(
 						new Match(new LiteralTerminal("a")),
 						new LiteralTerminal("ab"))
 				));
 
-			var t = (Token)p.Parse(text);
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual("ab", t.ChildToken(0).MatchedText(text));

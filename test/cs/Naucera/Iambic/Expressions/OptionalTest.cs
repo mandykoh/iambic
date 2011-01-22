@@ -19,14 +19,14 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "b";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A",
 					new Sequence(
 						new Optional(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 					));
 
-			p.Parse(text);
+			p.ParseRaw(text);
 		}
 
 
@@ -35,14 +35,14 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ab";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A",
 					new Sequence(
 						new Optional(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 				));
 
-			p.Parse(text);
+			p.ParseRaw(text);
 		}
 
 
@@ -51,14 +51,14 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ab";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A",
 					new Sequence(
 						new Optional(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 				));
 
-			var t = (Token)p.Parse(text);
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(2, t.ChildCount);
 			Assert.AreEqual("a", t.ChildToken(0).MatchedText(text));

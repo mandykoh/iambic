@@ -12,8 +12,8 @@ namespace Naucera.Iambic
 		{
 			const string text = "<Apple & Pear>";
 
-			var p = new Parser(new ParseRule("A", new LiteralTerminal(text)));
-			var t = (Token)p.Parse(text);
+			var p = new Parser<object>(new ParseRule("A", new LiteralTerminal(text)));
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual("&lt;Apple &amp; Pear&gt;", t.ChildToken(0).ToXml(text));
 		}
@@ -24,8 +24,8 @@ namespace Naucera.Iambic
 		{
 			const string text = "<Apple & Pear>";
 
-			var p = new Parser(new ParseRule("A", new LiteralTerminal(text)));
-			var t = (Token)p.Parse(text);
+			var p = new Parser<object>(new ParseRule("A", new LiteralTerminal(text)));
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual("<Apple & Pear>", t.MatchedText(text));
 		}
@@ -51,8 +51,8 @@ namespace Naucera.Iambic
 				.AppendLine("  <Term><Value>2</Value>*<Value>3</Value></Term>")
 				.Append("</Expression>");
 
-			var p = ParserFactory.BuildParser(grammar);
-			var t = (Token)p.Parse(text);
+			var p = ParserFactory.BuildParser<object>(grammar);
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(expected.ToString(), t.ToXml(text));
 		}

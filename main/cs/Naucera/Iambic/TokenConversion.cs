@@ -2,14 +2,14 @@ namespace Naucera.Iambic
 {
 	/// <summary>
 	/// <para>
-	/// Processes the given token, with its associated parsing context. This is
-	/// invoked only when parsing has succeeded, and then only after the
-	/// processors for all child tokens have been invoked.</para>
+	/// Converts the given token to a value. This is invoked by Parser.Parse(),
+	/// and only when parsing has succeeded, and then only after the conversions
+	/// for all child tokens have been invoked.</para>
 	///
 	/// <para>
 	/// When this is invoked, each child of the token will have been replaced
-	/// with the return value from its own processor. If a child has no
-	/// processor, it is left unchanged.</para>
+	/// with a value from its own conversion. If a child has no conversion, it
+	/// is left unchanged as a Token.</para>
 	/// </summary>
 	/// 
 	/// <remarks>
@@ -28,5 +28,5 @@ namespace Naucera.Iambic
 	/// <returns>
 	/// Value to replace the token with in the parse tree.</returns>
 
-	public delegate object TokenProcessorDelegate(Token token, ParseContext context, params object[] parseArgs);
+	public delegate object TokenConversion(Token token, ParseContext context, params object[] parseArgs);
 }

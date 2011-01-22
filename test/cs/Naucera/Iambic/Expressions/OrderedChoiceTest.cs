@@ -13,7 +13,7 @@ namespace Naucera.Iambic.Expressions
 				new LiteralTerminal("b"));
 
 			// Create a parser to ensure the expression is compiled
-			new Parser(new ParseRule("A", expr));
+			new Parser<object>(new ParseRule("A", expr));
 
 			Assert.AreEqual("('a' || 'b')", expr.ToString());
 		}
@@ -22,18 +22,18 @@ namespace Naucera.Iambic.Expressions
 		[Test]
 		public void ShouldMatchOneSubExpression()
 		{
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A",
 					new OrderedChoice(
 					  new LiteralTerminal("a"),
 					  new LiteralTerminal("b"))));
 
-			var t = (Token)p.Parse("a");
+			var t = p.ParseRaw("a");
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual("a", t.ChildToken(0).MatchedText("a"));
 
-			t = (Token)p.Parse("b");
+			t = p.ParseRaw("b");
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual("b", t.ChildToken(0).MatchedText("b"));
@@ -44,7 +44,7 @@ namespace Naucera.Iambic.Expressions
 		public void ShouldNotAllowInvalidSubExpression()
 		{
 			try {
-				new Parser(
+				new Parser<object>(
 					new ParseRule("A",
 						new OrderedChoice(
 							new LiteralTerminal("a"),
@@ -64,7 +64,7 @@ namespace Naucera.Iambic.Expressions
 			var expr = new OrderedChoice();
 
 			try {
-				new Parser(new ParseRule("A", expr));
+				new Parser<object>(new ParseRule("A", expr));
 				Assert.Fail("Expression without subexpressions was allowed but should have been rejected");
 			}
 			catch (EmptyCompositeException e) {
@@ -78,14 +78,14 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "abc";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A",
 					new OrderedChoice(
 						new LiteralTerminal("a"),
 						new LiteralTerminal("b"),
 						new LiteralTerminal("c"))));
 
-			var t = (Token)p.Parse(text);
+			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual("a", t.ChildToken(0).MatchedText("a"));
@@ -97,7 +97,7 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "bd";
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A",
 					new OrderedChoice(
 						new OneOrMore(new LiteralTerminal("a")),
@@ -105,7 +105,7 @@ namespace Naucera.Iambic.Expressions
 				)) { MaxErrors = 3 };
 
 			try {
-				p.Parse(text);
+				p.ParseRaw(text);
 				Assert.Fail("Expression matched but should not have");
 			}
 			catch (SyntaxException e) {

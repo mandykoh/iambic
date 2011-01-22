@@ -13,7 +13,7 @@ namespace Naucera.Iambic
 
 			var processorInvoked = false;
 
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A", new LiteralTerminal(text))
 					.ReplacingMatchesWith((token, context, args) => {
 						Assert.AreEqual(1, token.ChildCount);
@@ -31,24 +31,13 @@ namespace Naucera.Iambic
 
 
 		[Test]
-		public void ShouldReturnOutputFromProcessorIfSpecified()
+		public void ShouldReturnOutputFromConversion()
 		{
-			var p = new Parser(
+			var p = new Parser<object>(
 				new ParseRule("A", new LiteralTerminal("a"))
 					.ReplacingMatchesWith((token, context, args) => "Output From Processor"));
 
 			Assert.AreEqual("Output From Processor", p.Parse("a"));
-		}
-
-
-		[Test]
-		public void ShouldReturnTokenWhenNullProcessorIsSpecified()
-		{
-			var p = new Parser(
-				new ParseRule("A", new LiteralTerminal("a"))
-					.ReplacingMatchesWith(null));
-
-			Assert.AreEqual(typeof(Token), p.Parse("a").GetType());
 		}
 	}
 }
