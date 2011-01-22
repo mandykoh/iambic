@@ -44,34 +44,34 @@ namespace Naucera.Iambic
 	/// following self-describing grammar specification syntax:</para>
 	///
 	/// <code>
-	///	      Grammar := (Ignorable? Definition+ EndOfInput)
-	///	   Definition := (Identifier ASSIGN Expression)
-	///	   Expression := (OrderedChoice || Sequence)
+	///	Grammar := (Ignorable? Definition+ EndOfInput)
+	///	Definition := (Identifier ASSIGN Expression)
+	///	Expression := (OrderedChoice || Sequence)
 	/// OrderedChoice := (Sequence (OR Sequence)+)
-	///	     Sequence := Prefix+
-	///	       Prefix := ((AND || NOT)? Suffix)
-	///	       Suffix := (Primary (QUESTION || STAR || PLUS)?)
-	///	      Primary := ((Identifier !ASSIGN) || (OPEN Expression CLOSE) || Literal)
-	///    Identifier := (/\w+/ Ignorable?)
-	///	      Literal := (BasicLiteral || RegexLiteral || CustomMatcher)
-	///  BasicLiteral := (/'(\\\\|\\'|[^'])*'/ Ignorable?)
-	///  RegexLiteral := (/\/(\\\\|\\\/|[^\/])*\// Ignorable?)
+	///	Sequence := Prefix+
+	///	Prefix := ((AND || NOT)? Suffix)
+	///	Suffix := (Primary (QUESTION || STAR || PLUS)?)
+	///	Primary := ((Identifier !ASSIGN) || (OPEN Expression CLOSE) || Literal)
+	/// Identifier := (/\w+/ Ignorable?)
+	///	Literal := (BasicLiteral || RegexLiteral || CustomMatcher)
+	/// BasicLiteral := (/'(\\\\|\\'|[^'])*'/ Ignorable?)
+	/// RegexLiteral := (/\/(\\\\|\\\/|[^\/])*\// Ignorable?)
 	/// CustomMatcher := (/\{\w+\}/ Ignorable?)
-	///	   EndOfInput := /$/
-	///	       ASSIGN := (':=' Ignorable?)
-	///	           OR := ('||' Ignorable?)
-	///           AND := ('&amp;' Ignorable?)
-	///           NOT := ('!' Ignorable?)
-	///      QUESTION := ('?' Ignorable?)
-	///          STAR := ('*' Ignorable?)
-	///          PLUS := ('+' Ignorable?)
-	///          OPEN := ('(' Ignorable?)
-	///         CLOSE := (')' Ignorable?)
-	///     Ignorable := (Spacing || LineComment || BlockComment)+
-	///       Spacing := /\s+/
-	///   LineComment := ('//' (!EndOfLine /./)* EndOfLine)
-	///  BlockComment := ('/*' (!'*/' /./)* '*/')
-	///	    EndOfLine := (/\r?\n/ || EndOfInput)
+	///	EndOfInput := /$/
+	///	ASSIGN := (':=' Ignorable?)
+	///	OR := ('||' Ignorable?)
+	/// AND := ('&amp;' Ignorable?)
+	/// NOT := ('!' Ignorable?)
+	/// QUESTION := ('?' Ignorable?)
+	/// STAR := ('*' Ignorable?)
+	/// PLUS := ('+' Ignorable?)
+	/// OPEN := ('(' Ignorable?)
+	/// CLOSE := (')' Ignorable?)
+	/// Ignorable := (Spacing || LineComment || BlockComment)+
+	/// Spacing := /\s+/
+	/// LineComment := ('//' (!EndOfLine /./)* EndOfLine)
+	/// BlockComment := ('/*' (!'*/' /./)* '*/')
+	///	EndOfLine := (/\r?\n/ || EndOfInput)
 	/// </code>
 	///
 	/// <para>
