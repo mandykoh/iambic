@@ -36,13 +36,13 @@ using System.Text;
 namespace Naucera.Iambic
 {
 	/// <summary>
-	/// <para>
-	/// A parsed token representing a subtree of a parse tree.</para>
-	/// 
-	/// <para>
-	/// Tokens may contain nested children which are either also tokens, or
-	/// values which have replaced their tokens due to conversion.</para>
+	/// A parsed token representing a node/subtree of a parse tree.
 	/// </summary>
+	/// 
+	/// <remarks>
+	/// Tokens may contain nested children which are either also tokens, or
+	/// values which have replaced their tokens due to conversion.
+	/// </remarks>
 
 	public sealed class Token
 	{
@@ -68,12 +68,19 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// <para>
-		/// Provides access to the child at the specified index.</para>
-		/// 
-		/// <para>
-		/// The child may be a Token or a value from a conversion.</para>
+		/// Provides access to the child at the specified index.
 		/// </summary>
+		/// 
+		/// <remarks>
+		/// The child may be a Token or a value from a conversion.
+		/// </remarks>
+		/// 
+		/// <param name="index">
+		/// Zero-based index of the child.</param>
+		/// 
+		/// <value>
+		/// A token if the child has not been replaced by conversion, or the
+		/// converted value if it has.</value>
 		/// 
 		/// <exception cref="NullReferenceException">
 		/// Thrown if there are no children.</exception>
@@ -81,15 +88,22 @@ namespace Naucera.Iambic
 		public object this[int index]
 		{
 			get { return mChildren[index]; }
-			set { mChildren[index] = value; }
+			internal set { mChildren[index] = value; }
 		}
 
 
 		/// <summary>
-		/// Flag indicating whether this token is anonymous. Anonymous tokens
-		/// do not represent a match of an entire grammar construct, and are
-		/// produced as a result of evaluating portions of a grammar rule.
+		/// Flag indicating whether this token is anonymous.
 		/// </summary>
+		/// 
+		/// <remarks>
+		/// Anonymous tokens do not represent a match of an entire grammar
+		/// construct, and are produced as a result of evaluating portions of a
+		/// grammar rule.
+		/// </remarks>
+		/// 
+		/// <value>
+		/// True if anonymous, false otherwise.</value>
 		
 		public bool Anonymous
 		{
@@ -101,6 +115,9 @@ namespace Naucera.Iambic
 		/// Flag indicating whether this token is blank, ie. matches an empty
 		/// string.
 		/// </summary>
+		/// 
+		/// <value>
+		/// True if blank, false otherwise.</value>
 		
 		public bool Blank
 		{
@@ -121,6 +138,9 @@ namespace Naucera.Iambic
 		/// <summary>
 		/// The end offset in the parsed text matched by this token.
 		/// </summary>
+		/// 
+		/// <value>
+		/// Zero-based offset in characters from start of text.</value>
 		
 		public int EndOffset
 		{
@@ -132,6 +152,9 @@ namespace Naucera.Iambic
 		/// <summary>
 		/// Flag indicating whether this token has any children.
 		/// </summary>
+		/// 
+		/// <value>
+		/// True if there is at least one child, false otherwise.</value>
 		
 		public bool HasChildren
 		{
@@ -142,6 +165,9 @@ namespace Naucera.Iambic
 		/// <summary>
 		/// The starting offset in the parsed text matched by this token.
 		/// </summary>
+		/// 
+		/// <value>
+		/// Zero-based offset in characters from start of text.</value>
 		
 		public int Offset
 		{
@@ -230,6 +256,11 @@ namespace Naucera.Iambic
 		/// Returns the child at the specified index as a token.
 		/// </summary>
 		/// 
+		/// <remarks>
+		/// This operation is invalid if the child token has been replaced by a
+		/// value from a token conversion.
+		/// </remarks>
+		/// 
 		/// <param name="index">
 		/// Index of the child.</param>
 		/// 
@@ -249,6 +280,13 @@ namespace Naucera.Iambic
 		/// Returns true if this token was created by matching the specified
 		/// grammar construct name.
 		/// </summary>
+		/// 
+		/// <param name="grammarConstructName">
+		/// Name of a parse rule or custom matcher.</param>
+		/// 
+		/// <returns>
+		/// True if the named construct produced this token, false otherwise.
+		/// </returns>
 		
 		public bool Matched(string grammarConstructName)
 		{
@@ -260,14 +298,20 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// <para>
 		/// Returns the portion of the text which was parsed, as represented by
-		/// this token.</para>
+		/// this token.</summary>
 		/// 
-		/// <para>
+		/// <remarks>
 		/// This is only valid if this token is the result of a successful
-		/// parsing. The results are undefined if parsing failed.</para>
-		/// </summary>
+		/// parsing. The results are undefined if parsing failed.
+		/// </remarks>
+		/// 
+		/// <param name="originalText">
+		/// Original parsed text (eg. ParseContext.BaseText).</param>
+		/// 
+		/// <returns>
+		/// Portion of original text matched by this token and its children.
+		/// </returns>
 
 		public string MatchedText(string originalText)
 		{
@@ -279,6 +323,12 @@ namespace Naucera.Iambic
 		/// Returns the parse tree beginning at this token as an XML string
 		/// representation.
 		/// </summary>
+		/// 
+		/// <param name="context">
+		/// Parsing context which produced this token.</param>
+		/// 
+		/// <returns>
+		/// XML representing the parse subtree of this token.</returns>
 
 		public string ToXml(ParseContext context)
 		{
@@ -290,6 +340,12 @@ namespace Naucera.Iambic
 		/// Returns the parse tree beginning at this token as an XML string
 		/// representation.
 		/// </summary>
+		/// 
+		/// <param name="parsedText">
+		/// Original parsed text (eg. ParseContext.BaseText).</param>
+		/// 
+		/// <returns>
+		/// XML representing the parse subtree of this token.</returns>
 
 		public string ToXml(string parsedText)
 		{
