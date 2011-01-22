@@ -35,14 +35,14 @@ using Naucera.Iambic.Expressions;
 namespace Naucera.Iambic
 {
 	/// <summary>
-	/// <para>
 	/// Context for holding a parsing state and generating tokens for matches
-	/// based on that state.</para>
-	///
-	/// <para>
-	/// Instances of this class are not thread-safe, and are created for each
-	/// invocation of a Parser on a body of text.</para>
+	/// based on that state.
 	/// </summary>
+	///
+	/// <remarks>
+	/// Instances of this class are not thread-safe, and are created for each
+	/// invocation of a Parser on a body of text.
+	/// </remarks>
 
 	public sealed class ParseContext
 	{
@@ -137,6 +137,9 @@ namespace Naucera.Iambic
 		/// <summary>
 		/// The current parsing offset in the source text.
 		/// </summary>
+		/// 
+		/// <value>
+		/// Zero-based offset in characters.</value>
 		
 		public int Offset
 		{
@@ -367,6 +370,9 @@ namespace Naucera.Iambic
 		/// <summary>
 		/// Returns the error with the specified index.
 		/// </summary>
+		/// 
+		/// <param name="i">
+		/// Index of the error.</param>
 		
 		public Token GetError(int i)
 		{
@@ -376,9 +382,19 @@ namespace Naucera.Iambic
 
 		/// <summary>
 		/// Returns the portion of the base text being parsed, as represented by
-		/// the given token. This is only valid for tokens which have successfully
-		/// been parsed.
+		/// the given token.
 		/// </summary>
+		/// 
+		/// <remarks>
+		/// This is only valid for tokens which have successfully
+		/// been parsed.
+		/// </remarks>
+		/// 
+		/// <param name="token">
+		/// Token for which to find the matched text.</param>
+		/// 
+		/// <returns>
+		/// Text matched by the token (including its children).</returns>
 		
 		public string MatchedText(Token token)
 		{
