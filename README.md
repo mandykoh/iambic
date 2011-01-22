@@ -3,7 +3,7 @@ Iambic
 
 # Welcome!
 
-Iambic is a parser library for the CLR that is small, fast, and easy to embed while still having sophisticated features like automatic error recovery. This makes it suitable for implementing things like syntax highlighting editors (even with runtime-configurable grammars) and composable grammars as well as traditional things such as compilers and data format parsers.
+Iambic is a parser library for the CLR that is small, fast, and easy to embed while still having sophisticated features like automatic error recovery. Use Iambic for adding expression support to your apps, building compilers for your own programming languages, code editors with syntax highlighting and error markup, or simply for parsing structured data formats.
 
 Iambic is released under a Simplified BSD License.
 
