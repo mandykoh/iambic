@@ -38,14 +38,10 @@ namespace Naucera.Iambic.Expressions
 	/// Expression which accepts a string if its subexpression matches the
 	/// string one or more times in succession.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class OneOrMore : ParseExpression
 	{
-		private ParseExpression expression;
+		private ParseExpression mExpression;
 
 
 		/// <summary>
@@ -54,7 +50,7 @@ namespace Naucera.Iambic.Expressions
 		
 		public OneOrMore(ParseExpression expression)
 		{
-			this.expression = expression;
+			mExpression = expression;
 		}
 
 
@@ -63,20 +59,20 @@ namespace Naucera.Iambic.Expressions
 		/// </summary>
 		
 		public ParseExpression Expression {
-			get { return expression; }
+			get { return mExpression; }
 		}
 
 
 		internal override bool CheckWellFormed(string baseRuleName,
 											   HashSet<string> ruleNames)
 		{
-			return expression.CheckWellFormed(baseRuleName, ruleNames);
+			return mExpression.CheckWellFormed(baseRuleName, ruleNames);
 		}
 
 
 		public override void ToString(StringBuilder text)
 		{
-			expression.ToString(text);
+			mExpression.ToString(text);
 			text.Append('+');
 		}
 
@@ -87,7 +83,7 @@ namespace Naucera.Iambic.Expressions
 		
 		internal override ParseExpression Compile<T>(Parser<T> parser)
 		{
-			expression = expression.Compile(parser);
+			mExpression = mExpression.Compile(parser);
 			return this;
 		}
 
@@ -108,7 +104,7 @@ namespace Naucera.Iambic.Expressions
 
 			// Parse the expression as many times as possible
 			while (true) {
-				state.accepted = expression.Parse(context, rule, out state.token);
+				state.accepted = mExpression.Parse(context, rule, out state.token);
 				if (!state.accepted) {
 					if (recovering && state.token.Offset != state.offset && state.result.HasChildren) {
 						context.EndExpression();

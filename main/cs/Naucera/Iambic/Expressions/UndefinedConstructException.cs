@@ -35,14 +35,10 @@ namespace Naucera.Iambic.Expressions
 	/// Exception indicating that a referenced non-terminal was undefined in a
 	/// parse grammar.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class UndefinedConstructException : InvalidGrammarException
 	{
-		private readonly string constructName;
+		private readonly string mConstructName;
 
 
 		/// <summary>
@@ -55,12 +51,12 @@ namespace Naucera.Iambic.Expressions
 		
 		public UndefinedConstructException(string constructName) : base(constructName)
 		{
-			this.constructName = constructName;
+			mConstructName = constructName;
 		}
 
 
 		public string ConstructName {
-			get { return constructName; }
+			get { return mConstructName; }
 		}
 	}
 }

@@ -167,10 +167,6 @@ namespace Naucera.Iambic
 	/// </item>
 	/// </list>
 	/// </summary>
-	///
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public static class ParserFactory
 	{

@@ -36,15 +36,11 @@ namespace Naucera.Iambic.Expressions
 	/// <summary>
 	/// Generic composite expression which contains nested subexpressions.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public abstract class CompositeExpression : ParseExpression
 	{
-		private ParseExpression[] uncompiled;
-		private ParseExpression[] expressions;
+		private ParseExpression[] mUncompiled;
+		private ParseExpression[] mExpressions;
 
 
 		/// <summary>
@@ -57,8 +53,8 @@ namespace Naucera.Iambic.Expressions
 		
 		protected CompositeExpression(params ParseExpression[] expressions)
 		{
-			uncompiled = new ParseExpression[expressions.Length];
-			Array.Copy(expressions, uncompiled, expressions.Length);
+			mUncompiled = new ParseExpression[expressions.Length];
+			Array.Copy(expressions, mUncompiled, expressions.Length);
 		}
 
 
@@ -67,7 +63,7 @@ namespace Naucera.Iambic.Expressions
 		/// </summary>
 		
 		protected int ExpressionCount {
-			get { return expressions.Length; }
+			get { return mExpressions.Length; }
 		}
 
 
@@ -83,17 +79,17 @@ namespace Naucera.Iambic.Expressions
 		
 		internal override ParseExpression Compile<T>(Parser<T> parser)
 		{
-			if (uncompiled == null)
+			if (mUncompiled == null)
 				throw new InvalidOperationException();
-			if (uncompiled.Length == 0)
+			if (mUncompiled.Length == 0)
 				throw new EmptyCompositeException(this);
 
-			expressions = new ParseExpression[uncompiled.Length];
+			mExpressions = new ParseExpression[mUncompiled.Length];
 
-			for (var i = 0; i < expressions.Length; ++i)
-				expressions[i] = uncompiled[i].Compile(parser);
+			for (var i = 0; i < mExpressions.Length; ++i)
+				mExpressions[i] = mUncompiled[i].Compile(parser);
 
-			uncompiled = null;
+			mUncompiled = null;
 
 			return this;
 		}
@@ -105,7 +101,7 @@ namespace Naucera.Iambic.Expressions
 		
 		protected ParseExpression Expression(int i)
 		{
-			return expressions[i];
+			return mExpressions[i];
 		}
 	}
 }

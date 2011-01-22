@@ -36,10 +36,6 @@ namespace Naucera.Iambic
 	/// <summary>
 	/// Abstract custom matcher for providing user-defined matching behaviour.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public abstract class CustomMatcher : GrammarConstruct
 	{

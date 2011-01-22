@@ -38,10 +38,6 @@ namespace Naucera.Iambic
 	/// <summary>
 	/// A parsed token, which may contain nested tokens.
 	/// </summary>
-	///
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public sealed class Token
 	{

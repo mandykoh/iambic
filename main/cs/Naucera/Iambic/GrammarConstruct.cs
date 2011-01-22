@@ -34,10 +34,6 @@ namespace Naucera.Iambic
 	/// <summary>
 	/// Abstract implementation of a parser grammar construct.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public abstract class GrammarConstruct
 	{

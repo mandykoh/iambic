@@ -44,17 +44,13 @@ namespace Naucera.Iambic
 	/// Each ParseRule can belong to one and only one Parser. It is an error
 	/// to add a given ParseRule to more than one Parser.</para>
 	/// </summary>
-	///
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public sealed class ParseRule : GrammarConstruct
 	{
-		private const int UncompiledRuleIndex = -1;
+		const int UncompiledRuleIndex = -1;
 
-		private ParseExpression expression;
-		private int index = UncompiledRuleIndex;
+		ParseExpression mExpression;
+		int mIndex = UncompiledRuleIndex;
 
 
 		/// <summary>
@@ -64,17 +60,17 @@ namespace Naucera.Iambic
 		public ParseRule(string name,
 						 ParseExpression expr) : base(name)
 		{
-			this.expression = expr;
+			mExpression = expr;
 		}
 
 
 		public ParseExpression Expression {
-			get { return expression; }
+			get { return mExpression; }
 		}
 
 
 		internal int Index {
-			get { return index; }
+			get { return mIndex; }
 		}
 
 
@@ -89,7 +85,7 @@ namespace Naucera.Iambic
 		internal void CheckWellFormed()
 		{
 			var ruleNames = new HashSet<string> { Name };
-			expression.CheckWellFormed(Name, ruleNames);
+			mExpression.CheckWellFormed(Name, ruleNames);
 		}
 
 
@@ -105,11 +101,11 @@ namespace Naucera.Iambic
 
 		internal void Compile<T>(Parser<T> parser)
 		{
-			if (index != UncompiledRuleIndex)
+			if (mIndex != UncompiledRuleIndex)
 				throw new InvalidOperationException();
 
-			index = parser.IndexForRule(this);
-			expression = expression.Compile(parser);
+			mIndex = parser.IndexForRule(this);
+			mExpression = mExpression.Compile(parser);
 		}
 
 
@@ -129,7 +125,7 @@ namespace Naucera.Iambic
 
 			var startOffset = context.Offset;
 			Token token;
-			var accepted = expression.Parse(context, this, out token);
+			var accepted = mExpression.Parse(context, this, out token);
 
 			// Decorate the result if parsing succeeded
 			if (!context.HasErrors && accepted) {
@@ -167,7 +163,7 @@ namespace Naucera.Iambic
 		{
 			text.Append(Name);
 			text.Append(" := ");
-			expression.ToString(text);
+			mExpression.ToString(text);
 		}
 	}
 }

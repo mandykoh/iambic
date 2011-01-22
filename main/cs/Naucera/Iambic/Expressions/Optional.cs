@@ -38,14 +38,10 @@ namespace Naucera.Iambic.Expressions
 	/// Expression which always accepts the input string, optionally matching
 	/// its subexpression against the string if possible.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class Optional : ParseExpression
 	{
-		private ParseExpression expression;
+		private ParseExpression mExpression;
 
 
 		/// <summary>
@@ -54,7 +50,7 @@ namespace Naucera.Iambic.Expressions
 		
 		public Optional(ParseExpression expression)
 		{
-			this.expression = expression;
+			mExpression = expression;
 		}
 
 
@@ -63,14 +59,14 @@ namespace Naucera.Iambic.Expressions
 		/// </summary>
 		
 		public ParseExpression Expression {
-			get { return expression; }
+			get { return mExpression; }
 		}
 
 
 		internal override bool CheckWellFormed(string baseRuleName,
 											   HashSet<string> ruleNames)
 		{
-			expression.CheckWellFormed(baseRuleName, new HashSet<string>(ruleNames));
+			mExpression.CheckWellFormed(baseRuleName, new HashSet<string>(ruleNames));
 			return true;
 		}
 
@@ -81,7 +77,7 @@ namespace Naucera.Iambic.Expressions
 		
 		internal override ParseExpression Compile<T>(Parser<T> parser)
 		{
-			expression = expression.Compile(parser);
+			mExpression = mExpression.Compile(parser);
 			return this;
 		}
 
@@ -94,7 +90,7 @@ namespace Naucera.Iambic.Expressions
 
 			Token token;
 
-			if (expression.Parse(context, rule, out token)) {
+			if (mExpression.Parse(context, rule, out token)) {
 				result = token;
 				return true;
 			}
@@ -108,7 +104,7 @@ namespace Naucera.Iambic.Expressions
 
 		public override void ToString(StringBuilder text)
 		{
-			expression.ToString(text);
+			mExpression.ToString(text);
 			text.Append('?');
 		}
 	}

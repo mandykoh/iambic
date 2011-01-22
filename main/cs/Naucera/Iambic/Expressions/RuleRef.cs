@@ -37,15 +37,11 @@ namespace Naucera.Iambic.Expressions
 	/// <summary>
 	/// Expression which evaluates a named rule as a nested expression.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class RuleRef : ParseExpression
 	{
-		private readonly string targetRuleName;
-		private ParseRule targetRule;
+		private readonly string mTargetRuleName;
+		private ParseRule mTargetRule;
 
 
 		/// <summary>
@@ -54,7 +50,7 @@ namespace Naucera.Iambic.Expressions
 		
 		public RuleRef(string ruleName)
 		{
-			this.targetRuleName = ruleName;
+			this.mTargetRuleName = ruleName;
 		}
 
 
@@ -63,25 +59,25 @@ namespace Naucera.Iambic.Expressions
 		/// </summary>
 		
 		public string TargetRuleName {
-			get { return targetRuleName; }
+			get { return mTargetRuleName; }
 		}
 
 
 		internal override bool CheckWellFormed(string baseRuleName,
 											   HashSet<string> ruleNames)
 		{
-			if (!ruleNames.Add(targetRuleName))
-				throw new CircularDefinitionException(baseRuleName, targetRuleName);
+			if (!ruleNames.Add(mTargetRuleName))
+				throw new CircularDefinitionException(baseRuleName, mTargetRuleName);
 
-			return targetRule.Expression.CheckWellFormed(targetRuleName, ruleNames);
+			return mTargetRule.Expression.CheckWellFormed(mTargetRuleName, ruleNames);
 		}
 
 
 		internal override ParseExpression Compile<T>(Parser<T> parser)
 		{
-			targetRule = parser.GetRule(targetRuleName);
-			if (targetRule == null)
-				throw new UndefinedConstructException(targetRuleName);
+			mTargetRule = parser.GetRule(mTargetRuleName);
+			if (mTargetRule == null)
+				throw new UndefinedConstructException(mTargetRuleName);
 
 			return this;
 		}
@@ -91,13 +87,13 @@ namespace Naucera.Iambic.Expressions
 									 ParseRule rule,
 									 out Token result)
 		{
-			return this.targetRule.Parse(context, out result);
+			return this.mTargetRule.Parse(context, out result);
 		}
 
 
 		public override void ToString(StringBuilder text)
 		{
-			text.Append(targetRuleName);
+			text.Append(mTargetRuleName);
 		}
 	}
 }

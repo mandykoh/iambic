@@ -34,10 +34,6 @@ namespace Naucera.Iambic
 	/// <summary>
 	/// Exception indicating that no rules were specified for a grammar.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class EmptyGrammarException : InvalidGrammarException
 	{

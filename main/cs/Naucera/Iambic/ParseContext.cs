@@ -43,10 +43,6 @@ namespace Naucera.Iambic
 	/// Instances of this class are not thread-safe, and are created for each
 	/// invocation of a Parser on a body of text.</para>
 	/// </summary>
-	///
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public sealed class ParseContext
 	{

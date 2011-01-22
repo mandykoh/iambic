@@ -45,10 +45,6 @@ namespace Naucera.Iambic
 	/// multiple threads, as long as the parser and its rules are not modified
 	/// during parsing.</para>
 	/// </summary>
-	///
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public sealed class Parser<T>
 	{

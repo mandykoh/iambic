@@ -38,14 +38,10 @@ namespace Naucera.Iambic.Expressions
 	/// Expression which always accepts a string, matching its subexpression
 	/// with the string as many times as possible in sequence.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class ZeroOrMore : ParseExpression
 	{
-		private ParseExpression expression;
+		private ParseExpression mExpression;
 
 
 		/// <summary>
@@ -54,21 +50,21 @@ namespace Naucera.Iambic.Expressions
 		
 		public ZeroOrMore(ParseExpression expression)
 		{
-			this.expression = expression;
+			mExpression = expression;
 		}
 
 
 		internal override bool CheckWellFormed(string baseRuleName,
 											   HashSet<string> ruleNames)
 		{
-			expression.CheckWellFormed(baseRuleName, new HashSet<string>(ruleNames));
+			mExpression.CheckWellFormed(baseRuleName, new HashSet<string>(ruleNames));
 			return true;
 		}
 
 
 		internal override ParseExpression Compile<T>(Parser<T> parser)
 		{
-			expression = expression.Compile(parser);
+			mExpression = mExpression.Compile(parser);
 			return this;
 		}
 
@@ -82,7 +78,7 @@ namespace Naucera.Iambic.Expressions
 			// Parse the expression as many times as possible
 			while (true) {
 				Token t;
-				if (!expression.Parse(context, rule, out t))
+				if (!mExpression.Parse(context, rule, out t))
 					break;
 
 				// Don't keep looping if the token is blank
@@ -106,7 +102,7 @@ namespace Naucera.Iambic.Expressions
 
 		public override void ToString(StringBuilder text)
 		{
-			expression.ToString(text);
+			mExpression.ToString(text);
 			text.Append('*');
 		}
    }

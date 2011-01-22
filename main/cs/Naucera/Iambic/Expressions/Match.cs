@@ -38,14 +38,10 @@ namespace Naucera.Iambic.Expressions
 	/// Expression which accepts a string, consuming no input, if its
 	/// subexpression also accepts the string at the current position.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class Match : ParseExpression
 	{
-		private ParseExpression expression;
+		private ParseExpression mExpression;
 
 
 		/// <summary>
@@ -54,7 +50,7 @@ namespace Naucera.Iambic.Expressions
 		
 		public Match(ParseExpression expression)
 		{
-			this.expression = expression;
+			mExpression = expression;
 		}
 
 
@@ -63,14 +59,14 @@ namespace Naucera.Iambic.Expressions
 		/// </summary>
 		
 		public ParseExpression Expression {
-			get { return expression; }
+			get { return mExpression; }
 		}
 
 
 		internal override bool CheckWellFormed(string baseRuleName,
 											   HashSet<string> ruleNames)
 		{
-			return expression.CheckWellFormed(baseRuleName, ruleNames);
+			return mExpression.CheckWellFormed(baseRuleName, ruleNames);
 		}
 
 
@@ -80,7 +76,7 @@ namespace Naucera.Iambic.Expressions
 		
 		internal override ParseExpression Compile<T>(Parser<T> parser)
 		{
-			expression = expression.Compile(parser);
+			mExpression = mExpression.Compile(parser);
 			return this;
 		}
 
@@ -92,7 +88,7 @@ namespace Naucera.Iambic.Expressions
 			var offset = context.Offset;
 			Token token;
 
-			if (expression.Parse(context, rule, out token)) {
+			if (mExpression.Parse(context, rule, out token)) {
 				context.Offset = offset;
 				return context.Accept(out result);
 			}
@@ -104,7 +100,7 @@ namespace Naucera.Iambic.Expressions
 		public override void ToString(StringBuilder text)
 		{
 			text.Append('&');
-			expression.ToString(text);
+			mExpression.ToString(text);
 		}
 	}
 }

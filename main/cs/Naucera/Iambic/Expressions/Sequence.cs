@@ -39,10 +39,6 @@ namespace Naucera.Iambic.Expressions
 	/// accepting a string if it matches each expression in turn, and rejecting
 	/// it otherwise.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class Sequence : CompositeExpression
 	{

@@ -39,8 +39,8 @@ namespace Naucera.Iambic.Expressions
 	
 	public class CircularDefinitionException : InvalidGrammarException
 	{
-		private readonly string baseRuleName;
-		private readonly string referenceName;
+		private readonly string mBaseRuleName;
+		private readonly string mReferenceName;
 
 
 		/// <summary>
@@ -59,18 +59,18 @@ namespace Naucera.Iambic.Expressions
 										   string referenceName)
 			: base(CreateMessage(baseRuleName, referenceName))
 		{
-			this.baseRuleName = baseRuleName;
-			this.referenceName = referenceName;
+			mBaseRuleName = baseRuleName;
+			mReferenceName = referenceName;
 		}
 
 
 		public string BaseRuleName {
-			get { return baseRuleName; }
+			get { return mBaseRuleName; }
 		}
 
 
 		public string ReferenceName {
-			get { return referenceName; }
+			get { return mReferenceName; }
 		}
 
 

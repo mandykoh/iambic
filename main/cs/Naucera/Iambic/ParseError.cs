@@ -36,10 +36,6 @@ namespace Naucera.Iambic
     /// <summary>
     /// A parsing error.
     /// </summary>
-    /// 
-    /// <remarks>
-    /// <para>Copyright (C) 2011 by Amanda Koh.</para>
-    /// </remarks>
         
     public struct ParseError
     {

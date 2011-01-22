@@ -42,10 +42,6 @@ namespace Naucera.Iambic
 	/// with a value from its own conversion. If a child has no conversion, it
 	/// is left unchanged as a Token.</para>
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	///
 	/// <param name="context">
 	/// Parse context from which the token was generated.</param>

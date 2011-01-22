@@ -38,14 +38,10 @@ namespace Naucera.Iambic.Expressions
 	/// Expression which accepts a string, consuming no input, only if its
 	/// subexpression does not accept the string at the current position.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class NotMatch : ParseExpression
 	{
-		private ParseExpression expression;
+		private ParseExpression mExpression;
 
 
 		/// <summary>
@@ -54,7 +50,7 @@ namespace Naucera.Iambic.Expressions
 		
 		public NotMatch(ParseExpression expression)
 		{
-			this.expression = expression;
+			mExpression = expression;
 		}
 
 
@@ -63,21 +59,21 @@ namespace Naucera.Iambic.Expressions
 		/// </summary>
 		
 		public ParseExpression Expression {
-			get { return expression; }
+			get { return mExpression; }
 		}
 
 
 		public override void ToString(StringBuilder text)
 		{
 			text.Append('!');
-			expression.ToString(text);
+			mExpression.ToString(text);
 		}
 
 
 		internal override bool CheckWellFormed(string baseRuleName,
 											   HashSet<string> ruleNames)
 		{
-			return expression.CheckWellFormed(baseRuleName, ruleNames);
+			return mExpression.CheckWellFormed(baseRuleName, ruleNames);
 		}
 
 
@@ -87,7 +83,7 @@ namespace Naucera.Iambic.Expressions
 
 		internal override ParseExpression Compile<T>(Parser<T> parser)
 		{
-			expression = expression.Compile(parser);
+			mExpression = mExpression.Compile(parser);
 			return this;
 		}
 
@@ -103,7 +99,7 @@ namespace Naucera.Iambic.Expressions
 
 			var offset = context.Offset;
 			Token token;
-			var accepted = expression.Parse(context, rule, out token);
+			var accepted = mExpression.Parse(context, rule, out token);
 
 			context.ClearRecovery();
 

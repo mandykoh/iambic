@@ -40,15 +40,11 @@ namespace Naucera.Iambic.Expressions
 	/// Expression which accepts a string if it matches a regular expression
 	/// pattern.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public class PatternTerminal : ParseExpression
 	{
-		private readonly string pattern;
-		private readonly Regex regex;
+		private readonly string mPattern;
+		private readonly Regex mRegex;
 
 
 		/// <summary>
@@ -62,8 +58,8 @@ namespace Naucera.Iambic.Expressions
 
 		public PatternTerminal(string pattern)
 		{
-			this.pattern = pattern;
-			this.regex = new Regex(@"\G" + pattern, RegexOptions.Singleline);
+			mPattern = pattern;
+			mRegex = new Regex(@"\G" + pattern, RegexOptions.Singleline);
 		}
 
 
@@ -75,7 +71,7 @@ namespace Naucera.Iambic.Expressions
 
 
 		private Regex CompensationRegex {
-			get { return new Regex(pattern); }
+			get { return new Regex(mPattern); }
 		}
 
 
@@ -133,7 +129,7 @@ namespace Naucera.Iambic.Expressions
 
 			// Otherwise, look for a precise match at the current position
 			else {
-				var match = regex.Match(context.BaseText, context.Offset);
+				var match = mRegex.Match(context.BaseText, context.Offset);
 				if (match.Success)
 					return context.Accept(match.Length, out result);
 			}
@@ -144,7 +140,7 @@ namespace Naucera.Iambic.Expressions
 
 		public override void ToString(StringBuilder text)
 		{
-			text.Append(Escape(pattern));
+			text.Append(Escape(mPattern));
 		}
 
 

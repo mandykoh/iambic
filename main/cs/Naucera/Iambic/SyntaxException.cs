@@ -37,17 +37,13 @@ namespace Naucera.Iambic
 	/// <summary>
 	/// Exception indicating a syntax error encountered during parsing.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class SyntaxException : Exception
 	{
 		private const int MismatchLength = 32;
 
-		private readonly ParseContext context;
-		private readonly Token result;
+		private readonly ParseContext mContext;
+		private readonly Token mResult;
 
 
 		/// <summary>
@@ -58,8 +54,8 @@ namespace Naucera.Iambic
 		public SyntaxException(ParseContext context, Token result)
 			: base(BuildErrorMessages(context))
 		{
-			this.context = context;
-			this.result = result;
+			mContext = context;
+			mResult = result;
 		}
 
 
@@ -68,7 +64,7 @@ namespace Naucera.Iambic
 		/// </summary>
 		
 		public ParseContext Context {
-			get { return context; }
+			get { return mContext; }
 		}
 
 
@@ -77,7 +73,7 @@ namespace Naucera.Iambic
 		/// </summary>
 		
 		public Token Result {
-			get { return result; }
+			get { return mResult; }
 		}
 
 

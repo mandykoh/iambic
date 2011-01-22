@@ -36,10 +36,6 @@ namespace Naucera.Iambic
 	/// <summary>
 	/// General exception for invalid parsing grammar definitions.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public abstract class InvalidGrammarException : Exception
 	{

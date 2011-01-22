@@ -37,10 +37,6 @@ namespace Naucera.Iambic.Expressions
 	/// <summary>
 	/// Abstract interface for a parsing expression.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public abstract class ParseExpression
 	{

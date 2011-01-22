@@ -40,7 +40,7 @@ namespace Naucera.Iambic.Expressions
 	
 	public class LiteralTerminal : ParseExpression
 	{
-		private readonly string pattern;
+		private readonly string mPattern;
 
 
 		/// <summary>
@@ -50,7 +50,7 @@ namespace Naucera.Iambic.Expressions
 
 		public LiteralTerminal(string pattern)
 		{
-			this.pattern = pattern;
+			mPattern = pattern;
 		}
 
 
@@ -105,19 +105,19 @@ namespace Naucera.Iambic.Expressions
 			// Leniently find the next matching string if we are compensating
 			// for an earlier error.
 			if (context.Compensating) {
-				var index = context.BaseText.IndexOf(pattern, context.Offset);
+				var index = context.BaseText.IndexOf(mPattern, context.Offset);
 
 				if (index != -1) {
 					context.Offset = index;
-					return context.EndCompensation().Accept(pattern.Length, out result);
+					return context.EndCompensation().Accept(mPattern.Length, out result);
 				}
 
 				return context.Accept(out result);
 			}
 
 			// Otherwise, look for a precise match at the current position
-			if (pattern.Length <= context.BaseText.Length - context.Offset && context.BaseText.IndexOf(pattern, context.Offset, pattern.Length) != -1)
-				return context.Accept(pattern.Length, out result);
+			if (mPattern.Length <= context.BaseText.Length - context.Offset && context.BaseText.IndexOf(mPattern, context.Offset, mPattern.Length) != -1)
+				return context.Accept(mPattern.Length, out result);
 
 			return context.RejectAndMark(rule, this, out result);
 		}
@@ -125,7 +125,7 @@ namespace Naucera.Iambic.Expressions
 
 		public override void ToString(StringBuilder text)
 		{
-			text.Append(Escape(pattern));
+			text.Append(Escape(mPattern));
 		}
 
 

@@ -35,14 +35,10 @@ namespace Naucera.Iambic
 	/// Exception indicating that a non-terminal grammar construct has been
 	/// defined more than once.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class DuplicateConstructException : InvalidGrammarException
 	{
-		private readonly string constructName;
+		private readonly string mConstructName;
 
 
 		/// <summary>
@@ -51,12 +47,12 @@ namespace Naucera.Iambic
 		
 		public DuplicateConstructException(string constructName) : base(constructName)
 		{
-			this.constructName = constructName;
+			mConstructName = constructName;
 		}
 
 
 		public string ConstructName {
-			get { return constructName; }
+			get { return mConstructName; }
 		}
 	}
 }

@@ -35,14 +35,10 @@ namespace Naucera.Iambic.Expressions
 	/// Exception indicating that an invalid composite expression was
 	/// constructed for use.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 	
 	public class EmptyCompositeException : InvalidGrammarException
 	{
-		private readonly CompositeExpression expression;
+		private readonly CompositeExpression mExpression;
 
 
 		/// <summary>
@@ -52,7 +48,7 @@ namespace Naucera.Iambic.Expressions
 		public EmptyCompositeException(CompositeExpression expression)
 			: base(expression.GetType().Name)
 		{
-			this.expression = expression;
+			mExpression = expression;
 		}
 
 
@@ -61,7 +57,7 @@ namespace Naucera.Iambic.Expressions
 		/// </summary>
 		
 		public CompositeExpression Expression {
-			get { return expression; }
+			get { return mExpression; }
 		}
 	}
 }

@@ -37,15 +37,11 @@ namespace Naucera.Iambic.Expressions
 	/// <summary>
 	/// Expression which accepts a string by invoking a custom matcher.
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public class CustomMatcherTerminal : ParseExpression
 	{
-		private readonly string matcherName;
-		private CustomMatcher customMatcher;
+		private readonly string mMatcherName;
+		private CustomMatcher mCustomMatcher;
 
 
 		/// <summary>
@@ -55,7 +51,7 @@ namespace Naucera.Iambic.Expressions
 		
 		public CustomMatcherTerminal(string matcherName)
 		{
-			this.matcherName = matcherName;
+			this.mMatcherName = matcherName;
 		}
 
 
@@ -68,9 +64,9 @@ namespace Naucera.Iambic.Expressions
 
 		internal override ParseExpression Compile<T>(Parser<T> parser)
 		{
-			customMatcher = parser.CustomMatcher(matcherName);
-			if (customMatcher == null)
-				throw new UndefinedConstructException(matcherName);
+			mCustomMatcher = parser.CustomMatcher(mMatcherName);
+			if (mCustomMatcher == null)
+				throw new UndefinedConstructException(mMatcherName);
 
 			return this;
 		}
@@ -81,28 +77,28 @@ namespace Naucera.Iambic.Expressions
 									 out Token result)
 		{
 			if (context.Recovering)
-				return context.EndRecovery().Accept(customMatcher, out result);
+				return context.EndRecovery().Accept(mCustomMatcher, out result);
 
 			// Leniently find the next matching string if we are compensating
 			// for an earlier error.
 			if (context.Compensating) {
 				int offset;
-				var length = customMatcher.MatchLeniently(context.BaseText, context.Offset, out offset);
+				var length = mCustomMatcher.MatchLeniently(context.BaseText, context.Offset, out offset);
 
 				if (length >= 0) {
 					context.Offset = offset;
-					return context.EndCompensation().Accept(length, customMatcher, out result);
+					return context.EndCompensation().Accept(length, mCustomMatcher, out result);
 				}
 
-				return context.Accept(customMatcher, out result);
+				return context.Accept(mCustomMatcher, out result);
 			}
 
 			// Otherwise, look for a precise match at the current position
 			else {
-				var length = customMatcher.Match(context.BaseText, context.Offset);
+				var length = mCustomMatcher.Match(context.BaseText, context.Offset);
 
 				if (length >= 0)
-					return context.Accept(length, customMatcher, out result);
+					return context.Accept(length, mCustomMatcher, out result);
 			}
 
 			return context.RejectAndMark(rule, this, out result);
@@ -111,7 +107,7 @@ namespace Naucera.Iambic.Expressions
 
 		public override void ToString(StringBuilder text)
 		{
-			text.Append("{").Append(matcherName).Append("}");
+			text.Append("{").Append(mMatcherName).Append("}");
 		}
 	}
 }

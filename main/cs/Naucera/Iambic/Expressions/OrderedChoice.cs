@@ -44,10 +44,6 @@ namespace Naucera.Iambic.Expressions
 	/// Subexpressions are matched against the input string in the order they
 	/// are added.</para>
 	/// </summary>
-	/// 
-	/// <remarks>
-	/// <para>Copyright (C) 2011 by Amanda Koh.</para>
-	/// </remarks>
 
 	public class OrderedChoice : CompositeExpression
 	{
