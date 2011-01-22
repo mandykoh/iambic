@@ -37,13 +37,18 @@ using Naucera.Iambic.Expressions;
 namespace Naucera.Iambic
 {
 	/// <summary>
-	/// <para>
-	/// Single named parsing grammar rule.</para>
+	/// Single named parsing grammar rule.
+	/// </summary>
 	/// 
+	/// <remarks>
 	/// <para>
 	/// Each ParseRule can belong to one and only one Parser. It is an error
 	/// to add a given ParseRule to more than one Parser.</para>
-	/// </summary>
+	/// 
+	/// <para>
+	/// ParseRules will most often be generated from a grammar specification
+	/// using the ParserCompiler rather than being created manually.</para>
+	/// </remarks>
 
 	public sealed class ParseRule : GrammarConstruct
 	{
@@ -63,6 +68,10 @@ namespace Naucera.Iambic
 		}
 
 
+		/// <summary>
+		/// Grammar expression which is matched by this rule.
+		/// </summary>
+		
 		public ParseExpression Expression
 		{
 			get { return mExpression; }

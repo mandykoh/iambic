@@ -57,6 +57,13 @@ namespace Naucera.Iambic
 		}
 
 
+		/// <summary>
+		/// Name of this grammar construct.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// Grammar construct names are unique per parser.</remarks>
+		
 		public string Name
 		{
 			get { return mName; }
