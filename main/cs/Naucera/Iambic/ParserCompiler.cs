@@ -41,7 +41,7 @@ namespace Naucera.Iambic
 	/// <remarks>
 	/// <para>
 	/// Parsers can be described by Parsing Expression Grammars (PEG) using the
-	/// following self-describing grammar syntax:</para>
+	/// following self-describing grammar specification syntax:</para>
 	///
 	/// <code>
 	///	   Grammar := (Ignorable? Definition+ EndOfInput)
