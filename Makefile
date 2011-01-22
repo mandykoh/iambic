@@ -19,7 +19,7 @@ init-bindir:
 
 
 $(bindir)/Naucera.Iambic.dll: $(sources)
-	$(csc) -debug -recurse:main/cs/*.cs -lib:$(bindir) -target:library -out:$(bindir)/Naucera.Iambic.dll
+	$(csc) -doc:$(bindir)/Naucera.Iambic.doc.xml -nowarn:1591 -debug -recurse:main/cs/*.cs -lib:$(bindir) -target:library -out:$(bindir)/Naucera.Iambic.dll
 
 $(bindir)/Naucera.Iambic.Test.dll: $(tests) $(bindir)/Naucera.Iambic.dll
 	$(csc) -debug -recurse:test/cs/*.cs -lib:$(bindir) -r:nunit.framework.dll -r:Naucera.Iambic.dll -target:library -out:$(bindir)/Naucera.Iambic.Test.dll
@@ -27,3 +27,6 @@ $(bindir)/Naucera.Iambic.Test.dll: $(tests) $(bindir)/Naucera.Iambic.dll
 test: init-bindir $(bindir)/Naucera.Iambic.Test.dll
 	$(nunit) $(bindir)/Naucera.Iambic.Test.dll -xml=$(bindir)/Naucera.Iambic.TestResult.xml
 
+doc: assembly
+	monodocer -pretty -importslashdoc:$(bindir)/Naucera.Iambic.doc.xml -assembly:$(bindir)/Naucera.Iambic.dll -path:$(bindir)/doc/monodoc
+	mdoc export-html -o $(bindir)/doc/html $(bindir)/doc/monodoc
