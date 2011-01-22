@@ -9,7 +9,11 @@ Iambic is released under a Simplified BSD License.
 
 For more information, please see the [wiki](http://wiki.github.com/naucera/iambic/).
 
-# Building
+# Binaries
+
+For the latest precompiled binaries, see [Downloads](http://github.com/naucera/iambic/archives/master).
+
+# Building From Sources
 
 
 ## Windows
