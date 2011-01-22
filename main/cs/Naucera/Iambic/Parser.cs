@@ -36,10 +36,11 @@ using System.Text;
 namespace Naucera.Iambic
 {
 	/// <summary>
-	/// <para>
 	/// Parser instance which produces tokens based on expression grammar
-	/// rules.</para>
+	/// rules.
+	/// </summary>
 	/// 
+	/// <remarks>
 	/// <para>
 	/// The first grammar rule specified is always the root grammar rule (also
 	/// known as the root or starting production), which represents the overall
@@ -49,7 +50,7 @@ namespace Naucera.Iambic
 	/// Instances of this class may be safely used for concurrent parsing by
 	/// multiple threads, as long as the parser and its rules are not modified
 	/// during parsing.</para>
-	/// </summary>
+	/// </remarks>
 	/// 
 	/// <typeparam name="T">
 	/// Type of the return value. This is the type which the root grammar rule
@@ -57,21 +58,20 @@ namespace Naucera.Iambic
 
 	public sealed class Parser<T>
 	{
-		public delegate object TokenConversionWithNoArgs(Token token, ParseContext context);
-
 		readonly ParseRule[] mRules;
 		readonly Dictionary<string, GrammarConstruct> mConstructNameMap;
 		int mMaxErrors = 1;
 
 
 		/// <summary>
-		/// <para>
 		/// Creates a Parser that uses the specified grammar constructs, which
-		/// may be ParseRules or CustomMatchers.</para>
-		///
-		/// <para>
-		/// At least one ParseRule must be provided.</para>
+		/// may be ParseRules or CustomMatchers.
 		/// </summary>
+		///
+		/// <remarks>
+		/// At least one ParseRule must be provided, and the first ParseRule is
+		/// taken to be the root grammar production.
+		/// </remarks>
 		///
 		/// <param name="grammarConstructs">
 		/// Parsing grammar constructs.</param>
@@ -117,12 +117,24 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
+		/// The maximum number of errors to report while parsing.
+		/// </summary>
+		/// 
+		/// <remarks>
 		/// <para>
-		/// The maximum number of errors to report while parsing.</para>
+		/// The default is 1 (parsing fails on the first error).</para>
 		/// 
 		/// <para>
-		/// The default is 1; parsing fails on the first error.</para>
-		/// </summary>
+		/// Setting MaxErrors to a higher number will not prevent a
+		/// SyntaxException from being thrown; rather, it will cause the parser
+		/// to make an attempt to bypass syntax errors while recording them. The
+		/// SyntaxException will then contain details of the errors encountered.
+		/// </para>
+		/// </remarks>
+		/// 
+		/// <value>
+		/// Number of errors to tolerate before a SyntaxException is thrown.
+		/// </value>
 		
 		public int MaxErrors
 		{
@@ -134,6 +146,9 @@ namespace Naucera.Iambic
 		/// <summary>
 		/// The number of grammar rules defined for this parser.
 		/// </summary>
+		/// 
+		/// <value>
+		/// Number of ParseRules this parser was created with.</value>
 		
 		public int RuleCount
 		{
@@ -157,6 +172,16 @@ namespace Naucera.Iambic
 		/// <summary>
 		/// Returns the grammar rule with the specified index.
 		/// </summary>
+		/// 
+		/// <param name="i">
+		/// Zero-based index of the rule, where rules are in the order submitted
+		/// during construction.</param>
+		/// 
+		/// <returns>
+		/// Rule with the given index.</returns>
+		/// 
+		/// <exception cref="IndexOutOfRangeException">
+		/// Thrown if no rule with the given index exists.</exception>
 		
 		public ParseRule GetRule(int i)
 		{
@@ -199,17 +224,20 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// <para>
-		/// Parses the specified text, returning the parsed result as a value by
-		/// applying a conversion to the token produced by the root grammar
-		/// rule. The conversion should have been registered for the root rule
-		/// using Replacing().</para>
+		/// Parses the specified text and converts tokens to user-defined values.
+		/// </summary>
 		/// 
+		/// <remarks>
 		/// <para>
 		/// Each rule generates a token, with the components of the rule as the
 		/// token's children, and each token is converted to a value if a
 		/// corresponding conversion has been registered.</para>
-		/// </summary>
+		/// 
+		/// <para>
+		/// The final parsed result is returned by applying a conversion to the
+		/// token produced by the root grammar rule. The conversion should have
+		/// been registered for the root rule using Replacing().</para>
+		/// </remarks>
 		///
 		/// <param name="text">
 		/// Text to parse.</param>
@@ -241,14 +269,18 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// <para>
 		/// Parses the specified text, returning the parsed result as a Token.
-		/// No token conversion is performed.</para>
+		/// </summary>
 		/// 
+		/// <remarks>
 		/// <para>
 		/// Each rule generates a token, with the components of the rule as the
 		/// token's children.</para>
-		/// </summary>
+		/// 
+		/// <para>
+		/// No token conversion is performed regardless of any conversions
+		/// having been registered using Replacing().</para>
+		/// </remarks>
 		///
 		/// <param name="text">
 		/// Text to parse.</param>
@@ -319,10 +351,21 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// Registers the token conversion for a named grammar construct, which
-		/// replaces each occurrence of that construct with a value when Parse()
-		/// is successfully invoked.
+		/// Registers the token conversion for a named grammar construct.
 		/// </summary>
+		/// 
+		/// <remarks>
+		/// Each conversion registered in this way results in tokens produced
+		/// by the named grammar rule or custom matcher being replaced by the
+		/// result of the conversion.
+		/// </remarks>
+		/// 
+		/// <param name="constructName">
+		/// Name of the grammar rule or custom matcher which produced the tokens
+		/// to be replaced.</param>
+		/// 
+		/// <param name="with">
+		/// A token conversion which ignores arguments given to Parse().</param>
 		/// 
 		/// <returns>
 		/// This parser.</returns>
@@ -334,10 +377,21 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// Registers the token conversion for a named grammar construct, which
-		/// replaces each occurrence of that construct with a value using
-		/// arguments supplied to Parse().
+		/// Registers the token conversion for a named grammar construct.
 		/// </summary>
+		/// 
+		/// <remarks>
+		/// Each conversion registered in this way results in tokens produced
+		/// by the named grammar rule or custom matcher being replaced by the
+		/// result of the conversion.
+		/// </remarks>
+		/// 
+		/// <param name="constructName">
+		/// Name of the grammar rule or custom matcher which produced the tokens
+		/// to be replaced.</param>
+		/// 
+		/// <param name="with">
+		/// A token conversion.</param>
 		/// 
 		/// <returns>
 		/// This parser.</returns>
@@ -353,6 +407,15 @@ namespace Naucera.Iambic
 		/// Returns a string containing the grammar describing this parser, as
 		/// specified by the ParserFactory documentation.
 		/// </summary>
+		/// 
+		/// <remarks>
+		/// The returned string is in a format suitable for passing to the
+		/// ParserCompiler in order to generate a parser matching the same
+		/// grammar as this parser.
+		/// </remarks>
+		/// 
+		/// <returns>
+		/// PEG grammar specification for the parser's grammar.</returns>
 
 		public override string ToString()
 		{
