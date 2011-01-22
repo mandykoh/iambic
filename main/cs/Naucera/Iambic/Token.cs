@@ -324,6 +324,12 @@ namespace Naucera.Iambic
 		/// representation.
 		/// </summary>
 		/// 
+		/// <remarks>
+		/// Parse rule names are expressed as XML element names, and the content
+		/// of each element is taken from this token's children and matched
+		/// text.
+		/// </remarks>
+		/// 
 		/// <param name="context">
 		/// Parsing context which produced this token.</param>
 		/// 
@@ -340,6 +346,12 @@ namespace Naucera.Iambic
 		/// Returns the parse tree beginning at this token as an XML string
 		/// representation.
 		/// </summary>
+		/// 
+		/// <remarks>
+		/// Parse rule names are expressed as XML element names, and the content
+		/// of each element is taken from this token's children and matched
+		/// text.
+		/// </remarks>
 		/// 
 		/// <param name="parsedText">
 		/// Original parsed text (eg. ParseContext.BaseText).</param>
