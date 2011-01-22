@@ -3,7 +3,9 @@ Iambic
 
 # Welcome!
 
-Iambic is a parser library for .NET that is small, fast, and easy to embed while still having sophisticated features like automatic error recovery.
+Iambic is a parser library for .NET that is small, fast, and easy to embed while still having sophisticated features like automatic error recovery. This makes it suitable for implementing things like syntax highlighting editors (even with runtime-configurable grammars) and composable grammars as well as traditional things such as compilers and data format parsers.
+
+Iambic is released under a Simplified BSD License.
 
 For more information, please see the [wiki](http://wiki.github.com/naucera/iambic/).
 
