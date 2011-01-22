@@ -32,16 +32,20 @@
 namespace Naucera.Iambic
 {
 	/// <summary>
+	/// Converts the given token to a value.
+	/// </summary>
+	/// 
+	/// <remarks>
 	/// <para>
-	/// Converts the given token to a value. This is invoked by Parser.Parse(),
-	/// and only when parsing has succeeded, and then only after the conversions
-	/// for all child tokens have been invoked.</para>
+	/// This is invoked by Parser.Parse(), and only when parsing has succeeded,
+	/// and then only after the conversions for all child tokens have been
+	/// invoked.</para>
 	///
 	/// <para>
 	/// When this is invoked, each child of the token is guaranteed to have been
 	/// replaced with a value from its own conversion, unless the child has no
 	/// conversion defined (using the Parser.Replacing() method).</para>
-	/// </summary>
+	/// </remarks>
 	///
 	/// <param name="token">
 	/// Token to be converted.</param>
@@ -59,16 +63,20 @@ namespace Naucera.Iambic
 
 
 	/// <summary>
+	/// Converts the given token to a value.
+	/// </summary>
+	/// 
+	/// <remarks>
 	/// <para>
-	/// Converts the given token to a value. This is invoked by Parser.Parse(),
-	/// and only when parsing has succeeded, and then only after the conversions
-	/// for all child tokens have been invoked.</para>
+	/// This is invoked by Parser.Parse(), and only when parsing has succeeded,
+	/// and then only after the conversions for all child tokens have been
+	/// invoked.</para>
 	///
 	/// <para>
 	/// When this is invoked, each child of the token is guaranteed to have been
 	/// replaced with a value from its own conversion, unless the child has no
 	/// conversion defined (using the Parser.Replacing() method).</para>
-	/// </summary>
+	/// </remarks>
 	/// 
 	/// <param name="token">
 	/// Token to be converted.</param>
