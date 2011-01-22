@@ -40,10 +40,10 @@ namespace Naucera.Iambic
 	
 	public class SyntaxException : Exception
 	{
-		private const int MismatchLength = 32;
+		const int MismatchLength = 32;
 
-		private readonly ParseContext mContext;
-		private readonly Token mResult;
+		readonly ParseContext mContext;
+		readonly Token mResult;
 
 
 		/// <summary>
@@ -63,7 +63,8 @@ namespace Naucera.Iambic
 		/// The parsing context.
 		/// </summary>
 		
-		public ParseContext Context {
+		public ParseContext Context
+		{
 			get { return mContext; }
 		}
 
@@ -72,12 +73,13 @@ namespace Naucera.Iambic
 		/// The result of the parsing.
 		/// </summary>
 		
-		public Token Result {
+		public Token Result
+		{
 			get { return mResult; }
 		}
 
 
-		private static string BuildErrorMessages(ParseContext context)
+		static string BuildErrorMessages(ParseContext context)
 		{
 			var newLine = Environment.NewLine;
 			var text = new StringBuilder();
@@ -107,15 +109,15 @@ namespace Naucera.Iambic
 
 				if (found.Length > 0) {
 					text.Append("Expected " + context.Expected + " but found "
-						+ Truncate(found) + " when matching " + GetConstructName(token.Origin));
+						+ Truncate(found) + " when matching " + GetConstructName(token.GrammarConstruct));
 				}
 				else if (token.Offset + found.Length >= textLength) {
 					text.Append("Expected " + context.Expected
-						+ " but reached end of input when matching " + GetConstructName(token.Origin));
+						+ " but reached end of input when matching " + GetConstructName(token.GrammarConstruct));
 				}
 				else {
 					text.Append("Expected " + context.Expected
-						+ " but was missing when matching " + GetConstructName(token.Origin));
+						+ " but was missing when matching " + GetConstructName(token.GrammarConstruct));
 				}
 			}
 
@@ -123,13 +125,13 @@ namespace Naucera.Iambic
 		}
 
 
-		private static string GetConstructName(GrammarConstruct construct)
+		static string GetConstructName(GrammarConstruct construct)
 		{
 			return construct == null ? "null" : construct.Name;
 		}
 
 
-		private static string Truncate(string text)
+		static string Truncate(string text)
 		{
 			if (text == null)
 				return null;

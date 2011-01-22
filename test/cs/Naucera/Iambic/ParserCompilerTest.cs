@@ -35,13 +35,13 @@ using NUnit.Framework;
 namespace Naucera.Iambic
 {
 	[TestFixture]
-	public class ParserFactoryTest
+	public class ParserCompilerTest
 	{
 		[Test]
 		public void ShouldBeAbleToParseOwnPegGrammar()
 		{
-			var pegGrammar = ParserFactory.BuildPegGrammarParser<object>().ToString();
-			var p = ParserFactory.BuildParser<object>(pegGrammar);
+			var pegGrammar = ParserCompiler.BuildPegGrammarParser<object>().ToString();
+			var p = ParserCompiler.Compile<object>(pegGrammar);
 
 			Assert.AreEqual(pegGrammar, p.ToString());
 		}
@@ -82,14 +82,14 @@ namespace Naucera.Iambic
 				@"BlockComment := ('/*' (!'*/' /./)* '*/')" + newLine +
 				@"EndOfLine := (/$/ || /\r?\n/)" + newLine;
 
-			Assert.AreEqual(grammar, ParserFactory.BuildPegGrammarParser<object>().ToString());
+			Assert.AreEqual(grammar, ParserCompiler.BuildPegGrammarParser<object>().ToString());
 		}
 
 
 		[Test]
 		public void ShouldIgnoreBlockCommentsInGrammar()
 		{
-			var p = ParserFactory.BuildParser<object>(
+			var p = ParserCompiler.Compile<object>(
 				"A := B						/* This is a block comment *\n" +
 				"NotARule := NotADefinition  * which spans a few lines *\n" +
 				"							 * and includes junk.	   */\n" +
@@ -104,7 +104,7 @@ namespace Naucera.Iambic
 		[Test]
 		public void ShouldIgnoreLineCommentsInGrammar()
 		{
-			var p = ParserFactory.BuildParser<object>(
+			var p = ParserCompiler.Compile<object>(
 				"A := B // This is a grammar rule\n" +
 				"B := 'abc' // This is another grammar rule");
 
@@ -118,7 +118,7 @@ namespace Naucera.Iambic
 		public void ShouldRejectSpuriousInputAfterGrammar()
 		{
 			try {
-				ParserFactory.BuildParser<object>("A := 'abc' :");
+				ParserCompiler.Compile<object>("A := 'abc' :");
 				Assert.Fail("Invalid grammar was accepted but should have been rejected");
 			}
 			catch (SyntaxException) {
@@ -132,7 +132,7 @@ namespace Naucera.Iambic
 		{
 			const string text = "They're \\";
 
-			var p = ParserFactory.BuildParser<object>("A := 'They\\'re \\\\'");
+			var p = ParserCompiler.Compile<object>("A := 'They\\'re \\\\'");
 			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
@@ -145,7 +145,7 @@ namespace Naucera.Iambic
 		{
 			const string text = "abc/def\\ghi\\";
 
-			var p = ParserFactory.BuildParser<object>("A := /abc\\/def\\\\ghi\\\\/");
+			var p = ParserCompiler.Compile<object>("A := /abc\\/def\\\\ghi\\\\/");
 			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);

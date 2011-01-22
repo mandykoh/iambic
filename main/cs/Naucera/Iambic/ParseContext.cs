@@ -77,7 +77,8 @@ namespace Naucera.Iambic
 		/// The original source text being parsed.
 		/// </summary>
 		
-		public string BaseText {
+		public string BaseText
+		{
 			get { return mBaseText; }
 		}
 
@@ -86,7 +87,8 @@ namespace Naucera.Iambic
 		/// Flag indicating if error compensation is in progress.
 		/// </summary>
 
-		internal bool Compensating {
+		internal bool Compensating
+		{
 			get { return mCompensating; }
 		}
 
@@ -95,7 +97,8 @@ namespace Naucera.Iambic
 		/// The number of parse errors.
 		/// </summary>
 		
-		public int ErrorCount {
+		public int ErrorCount
+		{
 			get { return mErrors.Count; }
 		}
 
@@ -104,7 +107,8 @@ namespace Naucera.Iambic
 		/// The expected expression, if a parsing error was encountered.
 		/// </summary>
 
-		public ParseExpression Expected {
+		public ParseExpression Expected
+		{
 			get { return mExpected; }
 		}
 
@@ -113,33 +117,40 @@ namespace Naucera.Iambic
 		/// Flag indicating if any parse errors have been encountered.
 		/// </summary>
 		
-		public bool HasErrors {
+		public bool HasErrors
+		{
 			get { return mErrors.Count > 0; }
 		}
+
 
 		/// <summary>
 		/// The furthest error token encountered so far, or null if none have
 		/// been encountered.
 		/// </summary>
 
-		internal Token MarkedError {
+		internal Token MarkedError
+		{
 			get { return mErrorStateToken; }
 		}
+
 
 		/// <summary>
 		/// The current parsing offset in the source text.
 		/// </summary>
 		
-		public int Offset {
+		public int Offset
+		{
 			get { return mOffset; }
 			internal set { mOffset = value; }
 		}
+
 
 		/// <summary>
 		/// Flag indicating if error recovery is in progress.
 		/// </summary>
 
-		internal bool Recovering {
+		internal bool Recovering
+		{
 			get { return mErrorStackIndex != -1; }
 		}
 
@@ -273,10 +284,7 @@ namespace Naucera.Iambic
 		/// 
 		/// <returns>This context.</returns>
 
-		internal ParseContext CacheResult(ParseRule rule,
-										  int ruleOffset,
-										  bool accepted,
-										  Token result)
+		internal ParseContext CacheResult(ParseRule rule, int ruleOffset, bool accepted, Token result)
 		{
 			// Create a cache for this rule and stop using the empty one
 			if (ReferenceEquals(mRuleCaches[rule.Index], EmptyRuleCache))
@@ -415,9 +423,7 @@ namespace Naucera.Iambic
 		/// <returns>
 		/// Always false.</returns>
 
-		internal bool RejectAndMark(ParseRule rule,
-									ParseExpression expression,
-									out Token result)
+		internal bool RejectAndMark(ParseRule rule, ParseExpression expression, out Token result)
 		{
 			Reject(rule, expression, out result);
 
@@ -484,9 +490,7 @@ namespace Naucera.Iambic
 			internal readonly Token Result;
 
 
-			public CacheEntry(int offset,
-							  bool accepted,
-							  Token result)
+			public CacheEntry(int offset, bool accepted, Token result)
 			{
 				Offset = offset;
 				Accepted = accepted;

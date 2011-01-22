@@ -52,9 +52,6 @@ namespace Naucera.Iambic
 		/// Matches the given text at the specified offset, returning the number
 		/// of characters matched from the offset. If no match is found, -1 is
 		/// returned instead.</para>
-		/// 
-		/// <para>
-		/// The default implemention throws NotImplementedException.</para>
 		/// </summary>
 		/// 
 		/// <param name="text">
@@ -66,10 +63,7 @@ namespace Naucera.Iambic
 		/// <returns>
 		/// Number of characters matched, or -1.</returns>
 
-		public virtual int Match(string text, int offset)
-		{
-			throw new NotImplementedException();
-		}
+		public abstract int Match(string text, int offset);
 
 
 		/// <summary>

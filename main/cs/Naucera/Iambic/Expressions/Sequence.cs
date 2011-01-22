@@ -46,14 +46,10 @@ namespace Naucera.Iambic.Expressions
 		/// Creates a Sequence from the specified sub-expressions.
 		/// </summary>
 
-		public Sequence(params ParseExpression[] expressions)
-			: base(expressions)
-		{
-		}
+		public Sequence(params ParseExpression[] expressions) : base(expressions) {}
 
 
-		internal override bool CheckWellFormed(string baseRuleName,
-											   HashSet<string> ruleNames)
+		internal override bool CheckWellFormed(string baseRuleName, HashSet<string> ruleNames)
 		{
 			for (var i = 0; i < ExpressionCount; ++i) {
 				var tmp = new HashSet<string>(ruleNames);
@@ -68,9 +64,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override bool Parse(ParseContext context,
-									 ParseRule rule,
-									 out Token result)
+		internal override bool Parse(ParseContext context, ParseRule rule, out Token result)
 		{
 			SequenceMemento state;
 			if (context.Recovering)
@@ -126,7 +120,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		private sealed class SequenceMemento : Memento
+		sealed class SequenceMemento : Memento
 		{
 			internal readonly Token result;
 			internal int index;
@@ -140,7 +134,7 @@ namespace Naucera.Iambic.Expressions
 			}
 
 
-			private SequenceMemento(SequenceMemento m)
+			SequenceMemento(SequenceMemento m)
 			{
 				this.result = m.result;
 				this.index = m.index;

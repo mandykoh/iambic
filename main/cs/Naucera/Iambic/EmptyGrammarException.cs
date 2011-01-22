@@ -48,7 +48,7 @@ namespace Naucera.Iambic
 		/// Returns the default exception message.
 		/// </summary>
 
-		private static string CreateMessage()
+		static string CreateMessage()
 		{
 			return "Grammar requires at least one rule to be specified";
 		}

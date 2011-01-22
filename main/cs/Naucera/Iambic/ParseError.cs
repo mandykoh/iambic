@@ -54,7 +54,8 @@ namespace Naucera.Iambic
         /// The expected expression which was not matched.
         /// </summary>
             
-        public ParseExpression Expected {
+        public ParseExpression Expected
+		{
             get { return mExpected; }
         }
 
@@ -63,7 +64,8 @@ namespace Naucera.Iambic
         /// The parsed token.
         /// </summary>
             
-        public Token Token {
+        public Token Token
+		{
             get { return mToken; }
         }
     }

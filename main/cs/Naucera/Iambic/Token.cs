@@ -36,14 +36,19 @@ using System.Text;
 namespace Naucera.Iambic
 {
 	/// <summary>
-	/// A parsed token, which may contain nested tokens.
+	/// <para>
+	/// A parsed token representing a subtree of a parse tree.</para>
+	/// 
+	/// <para>
+	/// Tokens may contain nested children which are either also tokens, or
+	/// values which have replaced their tokens due to conversion.</para>
 	/// </summary>
 
 	public sealed class Token
 	{
 		readonly int mOffset;
 		int mEndOffset;
-		GrammarConstruct mOrigin;
+		GrammarConstruct mGrammarConstruct;
 		List<object> mChildren;
 
 
@@ -54,66 +59,105 @@ namespace Naucera.Iambic
 		}
 
 
-		internal Token(int offset, int endOffset, GrammarConstruct origin)
+		internal Token(int offset, int endOffset, GrammarConstruct grammarConstruct)
 		{
 			mOffset = offset;
 			mEndOffset = endOffset;
-			mOrigin = origin;
+			mGrammarConstruct = grammarConstruct;
 		}
 
 
 		/// <summary>
-		/// Provides access to the child at the specified index.
+		/// <para>
+		/// Provides access to the child at the specified index.</para>
+		/// 
+		/// <para>
+		/// The child may be a Token or a value from a conversion.</para>
 		/// </summary>
 		/// 
 		/// <exception cref="NullReferenceException">
 		/// Thrown if there are no children.</exception>
 
-		public object this[int index] {
-			get {
-				return mChildren[index];
-			}
-
-			set {
-				mChildren[index] = value;
-			}
+		public object this[int index]
+		{
+			get { return mChildren[index]; }
+			set { mChildren[index] = value; }
 		}
 
 
-		public bool Anonymous {
-			get { return mOrigin == null; }
+		/// <summary>
+		/// Flag indicating whether this token is anonymous. Anonymous tokens
+		/// do not represent a match of an entire grammar construct, and are
+		/// produced as a result of evaluating portions of a grammar rule.
+		/// </summary>
+		
+		public bool Anonymous
+		{
+			get { return mGrammarConstruct == null; }
 		}
 
 
-		public bool Blank {
+		/// <summary>
+		/// Flag indicating whether this token is blank, ie. matches an empty
+		/// string.
+		/// </summary>
+		
+		public bool Blank
+		{
 			get { return mEndOffset < 0; }
 		}
 
 
-		public int ChildCount {
+		/// <summary>
+		/// The number of children this token has.
+		/// </summary>
+		
+		public int ChildCount
+		{
 			get { return mChildren == null ? 0 : mChildren.Count; }
 		}
 
 
-		public int EndOffset {
+		/// <summary>
+		/// The end offset in the parsed text matched by this token.
+		/// </summary>
+		
+		public int EndOffset
+		{
 			get { return mEndOffset; }
 			internal set { mEndOffset = value; }
 		}
 
 
-		public bool HasChildren {
+		/// <summary>
+		/// Flag indicating whether this token has any children.
+		/// </summary>
+		
+		public bool HasChildren
+		{
 			get { return mChildren != null; }
 		}
 
 
-		public int Offset {
+		/// <summary>
+		/// The starting offset in the parsed text matched by this token.
+		/// </summary>
+		
+		public int Offset
+		{
 			get { return mOffset; }
 		}
 
 
-		public GrammarConstruct Origin {
-			get { return mOrigin; }
-			internal set { mOrigin = value; }
+		/// <summary>
+		/// The grammar construct which is fully matched by this token, or null
+		/// if this token is anonymous.
+		/// </summary>
+		
+		public GrammarConstruct GrammarConstruct
+		{
+			get { return mGrammarConstruct; }
+			internal set { mGrammarConstruct = value; }
 		}
 
 
@@ -191,6 +235,9 @@ namespace Naucera.Iambic
 		/// 
 		/// <returns>
 		/// Child as a Token.</returns>
+		/// 
+		/// <exception cref="InvalidCastException">
+		/// Thrown if child is not a Token.</exception>
 
 		public Token ChildToken(int index)
 		{
@@ -205,17 +252,21 @@ namespace Naucera.Iambic
 		
 		public bool Matched(string grammarConstructName)
 		{
-			if (mOrigin == null)
+			if (mGrammarConstruct == null)
 				return grammarConstructName == null;
 
-			return mOrigin.Name == grammarConstructName;
+			return mGrammarConstruct.Name == grammarConstructName;
 		}
 
 
 		/// <summary>
+		/// <para>
 		/// Returns the portion of the text which was parsed, as represented by
-		/// this token. This is only valid if this token has successfully been
-		/// parsed.
+		/// this token.</para>
+		/// 
+		/// <para>
+		/// This is only valid if this token is the result of a successful
+		/// parsing. The results are undefined if parsing failed.</para>
 		/// </summary>
 
 		public string MatchedText(string originalText)
@@ -261,9 +312,9 @@ namespace Naucera.Iambic
 			if (indent)
 				AppendIndent(text, indentLevel);
 
-			if (mOrigin != null) {
+			if (mGrammarConstruct != null) {
 				text.Append('<');
-				AppendEscape(text, mOrigin.Name);
+				AppendEscape(text, mGrammarConstruct.Name);
 				if (!hasContent)
 					text.Append('/');
 				text.Append('>');
@@ -288,11 +339,11 @@ namespace Naucera.Iambic
 			else if (mEndOffset > mOffset)
 				AppendEscape(text, parsedText.Substring(mOffset, mEndOffset - mOffset));
 
-			if (hasContent && mOrigin != null) {
+			if (hasContent && mGrammarConstruct != null) {
 				if (indent)
 					AppendIndent(text, indentLevel);
 				text.Append("</");
-				AppendEscape(text, mOrigin.Name);
+				AppendEscape(text, mGrammarConstruct.Name);
 				text.Append('>');
 			}
 		}

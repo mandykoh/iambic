@@ -39,8 +39,8 @@ namespace Naucera.Iambic.Expressions
 	
 	public abstract class CompositeExpression : ParseExpression
 	{
-		private ParseExpression[] mUncompiled;
-		private ParseExpression[] mExpressions;
+		ParseExpression[] mUncompiled;
+		ParseExpression[] mExpressions;
 
 
 		/// <summary>
@@ -62,14 +62,15 @@ namespace Naucera.Iambic.Expressions
 		/// The number of child expressions.
 		/// </summary>
 		
-		protected int ExpressionCount {
+		protected int ExpressionCount
+		{
 			get { return mExpressions.Length; }
 		}
 
 
 		/// <summary>
 		/// Compiles each child expression and replaces it with the result.
-		/// </sumary>
+		/// </summary>
 		///
 		/// <exception cref="InvalidOperationException">
 		/// Thrown if the expression has already been compiled.</exception>

@@ -38,19 +38,19 @@ namespace Naucera.Iambic
 	/// for all child tokens have been invoked.</para>
 	///
 	/// <para>
-	/// When this is invoked, each child of the token will have been replaced
-	/// with a value from its own conversion. If a child has no conversion, it
-	/// is left unchanged as a Token.</para>
+	/// When this is invoked, each child of the token is guaranteed to have been
+	/// replaced with a value from its own conversion, unless the child has no
+	/// conversion defined (using the Parser.Replacing() method).</para>
 	/// </summary>
 	///
 	/// <param name="context">
 	/// Parse context from which the token was generated.</param>
 	/// 
 	/// <param name="token">
-	/// Token to be processed.</param>
+	/// Token to be converted.</param>
 	/// 
 	/// <param name="parseArgs">
-	/// Arguments given via the Parse method of the parser.</param>
+	/// Arguments given via the Parse() method of the parser.</param>
 	/// 
 	/// <returns>
 	/// Value to replace the token with in the parse tree.</returns>

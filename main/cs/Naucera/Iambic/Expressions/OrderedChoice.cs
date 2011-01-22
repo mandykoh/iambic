@@ -51,14 +51,10 @@ namespace Naucera.Iambic.Expressions
 		/// Creates an OrderedChoice from the specified sub-expressions.
 		/// </summary>
 
-		public OrderedChoice(params ParseExpression[] expressions)
-			: base(expressions)
-		{
-		}
+		public OrderedChoice(params ParseExpression[] expressions) : base(expressions) {}
 		
 		
-		internal override bool CheckWellFormed(string baseRuleName,
-											   HashSet<string> ruleNames)
+		internal override bool CheckWellFormed(string baseRuleName, HashSet<string> ruleNames)
 		{
 			var optional = true;
 			var baseRuleNames = new HashSet<string>(ruleNames);
@@ -80,9 +76,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override bool Parse(ParseContext context,
-									 ParseRule rule,
-									 out Token result)
+		internal override bool Parse(ParseContext context, ParseRule rule, out Token result)
 		{
 			OrderedChoiceMemento state;
 			if (context.Recovering)
@@ -128,7 +122,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		private sealed class OrderedChoiceMemento : Memento
+		sealed class OrderedChoiceMemento : Memento
 		{
 			internal readonly int offset;
 			internal int index;

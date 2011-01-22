@@ -41,7 +41,7 @@ namespace Naucera.Iambic.Expressions
 	
 	public class OneOrMore : ParseExpression
 	{
-		private ParseExpression mExpression;
+		ParseExpression mExpression;
 
 
 		/// <summary>
@@ -54,17 +54,17 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		/// <sumary>
+		/// <summary>
 		/// The subexpression.
 		/// </summary>
 		
-		public ParseExpression Expression {
+		public ParseExpression Expression
+		{
 			get { return mExpression; }
 		}
 
 
-		internal override bool CheckWellFormed(string baseRuleName,
-											   HashSet<string> ruleNames)
+		internal override bool CheckWellFormed(string baseRuleName, HashSet<string> ruleNames)
 		{
 			return mExpression.CheckWellFormed(baseRuleName, ruleNames);
 		}
@@ -88,9 +88,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override bool Parse(ParseContext context,
-									 ParseRule rule,
-									 out Token result)
+		internal override bool Parse(ParseContext context, ParseRule rule, out Token result)
 		{
 			var recovering = context.Recovering;
 
@@ -143,7 +141,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		private sealed class OneOrMoreMemento : Memento
+		sealed class OneOrMoreMemento : Memento
 		{
 			internal readonly Token result;
 			internal bool accepted;
@@ -158,7 +156,7 @@ namespace Naucera.Iambic.Expressions
 			}
 
 
-			private OneOrMoreMemento(OneOrMoreMemento m)
+			OneOrMoreMemento(OneOrMoreMemento m)
 			{
 				this.result = m.result;
 				this.accepted = m.accepted;

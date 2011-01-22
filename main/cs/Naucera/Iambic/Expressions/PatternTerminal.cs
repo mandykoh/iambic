@@ -43,8 +43,8 @@ namespace Naucera.Iambic.Expressions
 
 	public class PatternTerminal : ParseExpression
 	{
-		private readonly string mPattern;
-		private readonly Regex mRegex;
+		readonly string mPattern;
+		readonly Regex mRegex;
 
 
 		/// <summary>
@@ -63,14 +63,14 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override bool CheckWellFormed(string baseRuleName,
-											   HashSet<string> ruleNames)
+		internal override bool CheckWellFormed(string baseRuleName, HashSet<string> ruleNames)
 		{
 			return false;
 		}
 
 
-		private Regex CompensationRegex {
+		Regex CompensationRegex
+		{
 			get { return new Regex(mPattern); }
 		}
 
@@ -107,9 +107,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override bool Parse(ParseContext context,
-									 ParseRule rule,
-									 out Token result)
+		internal override bool Parse(ParseContext context, ParseRule rule, out Token result)
 		{
 			if (context.Recovering)
 				return context.EndRecovery().Accept(out result);

@@ -38,7 +38,7 @@ namespace Naucera.Iambic
 	
 	public class DuplicateConstructException : InvalidGrammarException
 	{
-		private readonly string mConstructName;
+		readonly string mConstructName;
 
 
 		/// <summary>
@@ -51,7 +51,8 @@ namespace Naucera.Iambic
 		}
 
 
-		public string ConstructName {
+		public string ConstructName
+		{
 			get { return mConstructName; }
 		}
 	}

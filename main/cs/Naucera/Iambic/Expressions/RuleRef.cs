@@ -40,8 +40,8 @@ namespace Naucera.Iambic.Expressions
 	
 	public class RuleRef : ParseExpression
 	{
-		private readonly string mTargetRuleName;
-		private ParseRule mTargetRule;
+		readonly string mTargetRuleName;
+		ParseRule mTargetRule;
 
 
 		/// <summary>
@@ -50,7 +50,7 @@ namespace Naucera.Iambic.Expressions
 		
 		public RuleRef(string ruleName)
 		{
-			this.mTargetRuleName = ruleName;
+			mTargetRuleName = ruleName;
 		}
 
 
@@ -58,13 +58,13 @@ namespace Naucera.Iambic.Expressions
 		/// Name of the referenced rule.
 		/// </summary>
 		
-		public string TargetRuleName {
+		public string TargetRuleName
+		{
 			get { return mTargetRuleName; }
 		}
 
 
-		internal override bool CheckWellFormed(string baseRuleName,
-											   HashSet<string> ruleNames)
+		internal override bool CheckWellFormed(string baseRuleName, HashSet<string> ruleNames)
 		{
 			if (!ruleNames.Add(mTargetRuleName))
 				throw new CircularDefinitionException(baseRuleName, mTargetRuleName);
@@ -83,11 +83,9 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override bool Parse(ParseContext context,
-									 ParseRule rule,
-									 out Token result)
+		internal override bool Parse(ParseContext context, ParseRule rule, out Token result)
 		{
-			return this.mTargetRule.Parse(context, out result);
+			return mTargetRule.Parse(context, out result);
 		}
 
 

@@ -39,12 +39,21 @@ namespace Naucera.Iambic
 	/// <para>
 	/// Parser instance which produces tokens based on expression grammar
 	/// rules.</para>
+	/// 
+	/// <para>
+	/// The first grammar rule specified is always the root grammar rule (also
+	/// known as the root or starting production), which represents the overall
+	/// entity being parsed.</para>
 	///
 	/// <para>
 	/// Instances of this class may be safely used for concurrent parsing by
 	/// multiple threads, as long as the parser and its rules are not modified
 	/// during parsing.</para>
 	/// </summary>
+	/// 
+	/// <typeparam name="T">
+	/// Type of the return value. This is the type which the root grammar rule
+	/// conversion should return, which is returned by Parse().</typeparam>
 
 	public sealed class Parser<T>
 	{
@@ -57,10 +66,11 @@ namespace Naucera.Iambic
 
 		/// <summary>
 		/// <para>
-		/// Creates a Parser that uses the specified grammar constructs.</para>
+		/// Creates a Parser that uses the specified grammar constructs, which
+		/// may be ParseRules or CustomMatchers.</para>
 		///
 		/// <para>
-		/// At least one grammar rule must be specified.</para>
+		/// At least one ParseRule must be provided.</para>
 		/// </summary>
 		///
 		/// <param name="grammarConstructs">
@@ -107,20 +117,26 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// The maximum number of errors to report while parsing.
+		/// <para>
+		/// The maximum number of errors to report while parsing.</para>
+		/// 
+		/// <para>
+		/// The default is 1; parsing fails on the first error.</para>
 		/// </summary>
 		
-		public int MaxErrors {
+		public int MaxErrors
+		{
 			get { return mMaxErrors; }
 			set { mMaxErrors = value; }
 		}
 
 
 		/// <summary>
-		/// Returns the number of grammar rules defined for this parser.
+		/// The number of grammar rules defined for this parser.
 		/// </summary>
 		
-		public int RuleCount {
+		public int RuleCount
+		{
 			get { return mRules.Length; }
 		}
 
@@ -294,7 +310,7 @@ namespace Naucera.Iambic
 				token[i] = ReplaceTokens(context, token.ChildToken(i), args);
 
 			// Invoke the processor for the current token if it has one
-			var origin = token.Origin;
+			var origin = token.GrammarConstruct;
 			if (origin != null && origin.HasConversion)
 				return origin.ReplaceToken(token, context, args);
 
@@ -303,9 +319,9 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// Sets the token conversion for a named grammar construct, which
+		/// Registers the token conversion for a named grammar construct, which
 		/// replaces each occurrence of that construct with a value when Parse()
-		/// is invoked.
+		/// is successfully invoked.
 		/// </summary>
 		/// 
 		/// <returns>
@@ -318,7 +334,7 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// Sets the token conversion for a named grammar construct, which
+		/// Registers the token conversion for a named grammar construct, which
 		/// replaces each occurrence of that construct with a value using
 		/// arguments supplied to Parse().
 		/// </summary>

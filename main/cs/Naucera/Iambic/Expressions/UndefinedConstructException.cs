@@ -38,7 +38,7 @@ namespace Naucera.Iambic.Expressions
 	
 	public class UndefinedConstructException : InvalidGrammarException
 	{
-		private readonly string mConstructName;
+		readonly string mConstructName;
 
 
 		/// <summary>
@@ -55,7 +55,8 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		public string ConstructName {
+		public string ConstructName
+		{
 			get { return mConstructName; }
 		}
 	}

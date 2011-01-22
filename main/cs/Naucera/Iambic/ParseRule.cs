@@ -57,19 +57,20 @@ namespace Naucera.Iambic
 		/// Creates a ParseRule with the specified name and expression.
 		/// </summary>
 
-		public ParseRule(string name,
-						 ParseExpression expr) : base(name)
+		public ParseRule(string name, ParseExpression expr) : base(name)
 		{
 			mExpression = expr;
 		}
 
 
-		public ParseExpression Expression {
+		public ParseExpression Expression
+		{
 			get { return mExpression; }
 		}
 
 
-		internal int Index {
+		internal int Index
+		{
 			get { return mIndex; }
 		}
 

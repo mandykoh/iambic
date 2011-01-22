@@ -41,7 +41,7 @@ namespace Naucera.Iambic.Expressions
 	
 	public class ZeroOrMore : ParseExpression
 	{
-		private ParseExpression mExpression;
+		ParseExpression mExpression;
 
 
 		/// <summary>
@@ -54,8 +54,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override bool CheckWellFormed(string baseRuleName,
-											   HashSet<string> ruleNames)
+		internal override bool CheckWellFormed(string baseRuleName, HashSet<string> ruleNames)
 		{
 			mExpression.CheckWellFormed(baseRuleName, new HashSet<string>(ruleNames));
 			return true;
@@ -69,9 +68,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override bool Parse(ParseContext context,
-									 ParseRule rule,
-									 out Token result)
+		internal override bool Parse(ParseContext context, ParseRule rule, out Token result)
 		{
 			context.Accept(out result);
 

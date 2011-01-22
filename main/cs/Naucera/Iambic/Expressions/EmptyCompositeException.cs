@@ -38,7 +38,7 @@ namespace Naucera.Iambic.Expressions
 	
 	public class EmptyCompositeException : InvalidGrammarException
 	{
-		private readonly CompositeExpression mExpression;
+		readonly CompositeExpression mExpression;
 
 
 		/// <summary>
@@ -56,7 +56,8 @@ namespace Naucera.Iambic.Expressions
 		/// The composite expression which is empty.
 		/// </summary>
 		
-		public CompositeExpression Expression {
+		public CompositeExpression Expression
+		{
 			get { return mExpression; }
 		}
 	}

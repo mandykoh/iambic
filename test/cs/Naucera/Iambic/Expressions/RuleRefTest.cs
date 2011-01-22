@@ -88,8 +88,8 @@ namespace Naucera.Iambic.Expressions
 			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("A", t.Origin.Name);
-			Assert.AreEqual("B", t.ChildToken(0).Origin.Name);
+			Assert.AreEqual("A", t.GrammarConstruct.Name);
+			Assert.AreEqual("B", t.ChildToken(0).GrammarConstruct.Name);
 			Assert.AreEqual(text, t.ChildToken(0).ChildToken(0).MatchedText(text));
 		}
 
@@ -107,7 +107,7 @@ namespace Naucera.Iambic.Expressions
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual(1, t.ChildToken(0).ChildCount);
-			Assert.AreEqual("B", t.ChildToken(0).Origin.Name);
+			Assert.AreEqual("B", t.ChildToken(0).GrammarConstruct.Name);
 			Assert.IsFalse(t.ChildToken(0).ChildToken(0).HasChildren);
 		}
 	}

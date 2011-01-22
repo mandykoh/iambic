@@ -41,7 +41,7 @@ namespace Naucera.Iambic.Expressions
 	
 	public class NotMatch : ParseExpression
 	{
-		private ParseExpression mExpression;
+		ParseExpression mExpression;
 
 
 		/// <summary>
@@ -58,7 +58,8 @@ namespace Naucera.Iambic.Expressions
 		/// The subexpression.
 		/// </summary>
 		
-		public ParseExpression Expression {
+		public ParseExpression Expression
+		{
 			get { return mExpression; }
 		}
 
@@ -70,8 +71,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override bool CheckWellFormed(string baseRuleName,
-											   HashSet<string> ruleNames)
+		internal override bool CheckWellFormed(string baseRuleName, HashSet<string> ruleNames)
 		{
 			return mExpression.CheckWellFormed(baseRuleName, ruleNames);
 		}
@@ -88,9 +88,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override bool Parse(ParseContext context,
-									 ParseRule rule,
-									 out Token result)
+		internal override bool Parse(ParseContext context, ParseRule rule, out Token result)
 		{
 			if (context.Recovering) {
 				context.EndRecovery();

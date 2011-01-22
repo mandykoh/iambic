@@ -36,7 +36,8 @@ namespace Naucera.Iambic
 {
 	/// <summary>
 	/// <para>
-	/// Factory for conveniently building parsers.</para>
+	/// Compiler for conveniently building parsers from a textual grammar
+	/// .</para>
 	///
 	/// <para>
 	/// Parsers can be described by Parsing Expression Grammars (PEG) using the
@@ -74,7 +75,8 @@ namespace Naucera.Iambic
 	/// </code>
 	///
 	/// <para>
-	/// The starting parse rule is always the first rule specified.</para>
+	/// The root or starting parse rule is always the first rule specified.
+	/// </para>
 	///
 	/// <para>
 	/// Literal text strings inside single quotes (') are treated as literals
@@ -168,12 +170,15 @@ namespace Naucera.Iambic
 	/// </list>
 	/// </summary>
 
-	public static class ParserFactory
+	public static class ParserCompiler
 	{
 		/// <summary>
 		/// Creates a parser which parses the specified grammar, as expressed
 		/// by the grammar specification language.
 		/// </summary>
+		/// 
+		/// <typeparam name="T">
+		/// Return type of the parser to construct.</typeparam>
 		///
 		/// <param name="grammar">
 		/// Textual PEG specification.</param>
@@ -190,7 +195,7 @@ namespace Naucera.Iambic
 		/// <exception cref="InvalidGrammarException">
 		/// Thrown if the grammar is invalid.</exception>
 
-		public static Parser<T> BuildParser<T>(string grammar, params CustomMatcher[] customMatchers)
+		public static Parser<T> Compile<T>(string grammar, params CustomMatcher[] customMatchers)
 		{
 			var grammarParser = BuildPegGrammarParser<T>();
 			return grammarParser.Parse(grammar, customMatchers);

@@ -29,6 +29,7 @@
 
 #endregion
 
+using System;
 using Naucera.Iambic.Expressions;
 using NUnit.Framework;
 
@@ -187,9 +188,14 @@ namespace Naucera.Iambic
 		}
 
 
-		private class TestCustomMatcher : CustomMatcher
+		class TestCustomMatcher : CustomMatcher
 		{
 			public TestCustomMatcher(string name) : base(name) {}
+
+			public override int Match(string text, int offset)
+			{
+				throw new NotImplementedException();
+			}
 		}
 	}
 }

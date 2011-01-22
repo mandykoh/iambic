@@ -57,14 +57,13 @@ namespace Naucera.Iambic.Expressions
 		/// <param name="ruleNames">
 		/// Set of rule names that have already been seen.</param>
 		/// 
-		/// <returns>True if this expression is an optional match.</returns>
+		/// <returns>
+		/// True if this expression is an optional match.</returns>
 		/// 
 		/// <exception cref="InvalidGrammarException">
 		/// Thrown if the expression is not well-formed.</exception>
 
-		internal abstract bool CheckWellFormed(
-			string baseRuleName,
-			HashSet<string> ruleNames);
+		internal abstract bool CheckWellFormed(string baseRuleName, HashSet<string> ruleNames);
 
 
 		/// <summary>

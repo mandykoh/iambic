@@ -123,21 +123,21 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		private class TestCustomMatcher : CustomMatcher
+		class TestCustomMatcher : CustomMatcher
 		{
-			private readonly string toMatch;
+			readonly string mToMatch;
 
 
 			public TestCustomMatcher(string name, string toMatch) : base(name)
 			{
-				this.toMatch = toMatch;
+				mToMatch = toMatch;
 			}
 
 
 			public override int Match(string text, int offset)
 			{
-				if (toMatch.Length <= text.Length - offset && text.IndexOf(toMatch, offset, toMatch.Length) != -1)
-					return toMatch.Length;
+				if (mToMatch.Length <= text.Length - offset && text.IndexOf(mToMatch, offset, mToMatch.Length) != -1)
+					return mToMatch.Length;
 
 				return -1;
 			}
@@ -145,10 +145,10 @@ namespace Naucera.Iambic.Expressions
 
 			public override int MatchLeniently(string text, int offset, out int matchOffset)
 			{
-				matchOffset = text.IndexOf(toMatch, offset);
+				matchOffset = text.IndexOf(mToMatch, offset);
 
 				if (matchOffset != -1)
-					return toMatch.Length;
+					return mToMatch.Length;
 
 				return -1;
 			}

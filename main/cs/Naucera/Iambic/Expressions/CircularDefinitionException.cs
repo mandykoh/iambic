@@ -39,8 +39,8 @@ namespace Naucera.Iambic.Expressions
 	
 	public class CircularDefinitionException : InvalidGrammarException
 	{
-		private readonly string mBaseRuleName;
-		private readonly string mReferenceName;
+		readonly string mBaseRuleName;
+		readonly string mReferenceName;
 
 
 		/// <summary>
@@ -55,8 +55,7 @@ namespace Naucera.Iambic.Expressions
 		/// <param name="referenceName">
 		/// Name of the rule which is circularly referenced.</param>
 		
-		public CircularDefinitionException(string baseRuleName,
-										   string referenceName)
+		public CircularDefinitionException(string baseRuleName, string referenceName)
 			: base(CreateMessage(baseRuleName, referenceName))
 		{
 			mBaseRuleName = baseRuleName;
@@ -64,12 +63,14 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		public string BaseRuleName {
+		public string BaseRuleName
+		{
 			get { return mBaseRuleName; }
 		}
 
 
-		public string ReferenceName {
+		public string ReferenceName
+		{
 			get { return mReferenceName; }
 		}
 
@@ -78,8 +79,7 @@ namespace Naucera.Iambic.Expressions
 		/// Returns the exception message for the given arguments.
 		/// </summary>
 
-		private static string CreateMessage(string baseRuleName,
-											string referenceName)
+		static string CreateMessage(string baseRuleName, string referenceName)
 		{
 			return "Rule " + baseRuleName + " circularly references " + referenceName;
 		}

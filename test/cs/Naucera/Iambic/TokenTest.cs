@@ -82,7 +82,7 @@ namespace Naucera.Iambic
 				.AppendLine("  <Term><Value>2</Value>*<Value>3</Value></Term>")
 				.Append("</Expression>");
 
-			var p = ParserFactory.BuildParser<object>(grammar);
+			var p = ParserCompiler.Compile<object>(grammar);
 			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(expected.ToString(), t.ToXml(text));

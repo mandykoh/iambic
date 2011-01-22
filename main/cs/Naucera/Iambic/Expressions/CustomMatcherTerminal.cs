@@ -40,8 +40,8 @@ namespace Naucera.Iambic.Expressions
 
 	public class CustomMatcherTerminal : ParseExpression
 	{
-		private readonly string mMatcherName;
-		private CustomMatcher mCustomMatcher;
+		readonly string mMatcherName;
+		CustomMatcher mCustomMatcher;
 
 
 		/// <summary>
@@ -51,12 +51,11 @@ namespace Naucera.Iambic.Expressions
 		
 		public CustomMatcherTerminal(string matcherName)
 		{
-			this.mMatcherName = matcherName;
+			mMatcherName = matcherName;
 		}
 
 
-		internal override bool CheckWellFormed(string baseRuleName,
-											   HashSet<string> ruleNames)
+		internal override bool CheckWellFormed(string baseRuleName, HashSet<string> ruleNames)
 		{
 			return false;
 		}
@@ -72,9 +71,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal override bool Parse(ParseContext context,
-									 ParseRule rule,
-									 out Token result)
+		internal override bool Parse(ParseContext context, ParseRule rule, out Token result)
 		{
 			if (context.Recovering)
 				return context.EndRecovery().Accept(mCustomMatcher, out result);

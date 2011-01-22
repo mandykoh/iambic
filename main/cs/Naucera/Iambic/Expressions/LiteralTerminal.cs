@@ -40,7 +40,7 @@ namespace Naucera.Iambic.Expressions
 	
 	public class LiteralTerminal : ParseExpression
 	{
-		private readonly string mPattern;
+		readonly string mPattern;
 
 
 		/// <summary>
@@ -54,9 +54,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal sealed override bool CheckWellFormed(
-			string baseRuleName,
-			HashSet<string> ruleNames)
+		internal sealed override bool CheckWellFormed(string baseRuleName, HashSet<string> ruleNames)
 		{
 			return false;
 		}
@@ -95,9 +93,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		internal sealed override bool Parse(ParseContext context,
-											ParseRule rule,
-											out Token result)
+		internal sealed override bool Parse(ParseContext context, ParseRule rule, out Token result)
 		{
 			if (context.Recovering)
 				return context.EndRecovery().Accept(out result);
