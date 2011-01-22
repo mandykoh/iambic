@@ -61,6 +61,12 @@ namespace Naucera.Iambic
 		/// <summary>
 		/// Creates a ParseRule with the specified name and expression.
 		/// </summary>
+		/// 
+		/// <param name="name">
+		/// Grammar construct name for this rule.</param>
+		/// 
+		/// <param name="expr">
+		/// Grammar expression matched by this rule.</param>
 
 		public ParseRule(string name, ParseExpression expr) : base(name)
 		{
@@ -160,6 +166,13 @@ namespace Naucera.Iambic
 		}
 
 
+		/// <summary>
+		/// Returns the grammar specification representing this parse rule.
+		/// </summary>
+		/// 
+		/// <returns>
+		/// Grammar specification string.</returns>
+		
 		public override string ToString()
 		{
 			var text = new StringBuilder();
