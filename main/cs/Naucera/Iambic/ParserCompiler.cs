@@ -35,10 +35,10 @@ using Naucera.Iambic.Expressions;
 namespace Naucera.Iambic
 {
 	/// <summary>
-	/// <para>
-	/// Compiler for conveniently building parsers from a textual grammar
-	/// .</para>
+	/// Compiler for conveniently building parsers from a textual grammar.
+	/// </summary>
 	///
+	/// <remarks>
 	/// <para>
 	/// Parsers can be described by Parsing Expression Grammars (PEG) using the
 	/// following self-describing grammar syntax:</para>
@@ -168,7 +168,7 @@ namespace Naucera.Iambic
 	///	 consuming no input.</description>
 	/// </item>
 	/// </list>
-	/// </summary>
+	/// </remarks>
 
 	public static class ParserCompiler
 	{
@@ -176,6 +176,11 @@ namespace Naucera.Iambic
 		/// Creates a parser which parses the specified grammar, as expressed
 		/// by the grammar specification language.
 		/// </summary>
+		/// 
+		/// <remarks>
+		/// The generated parser will have no token conversions registered;
+		/// any conversions should be registered using Parser.Replacing().
+		/// </remarks>
 		/// 
 		/// <typeparam name="T">
 		/// Return type of the parser to construct.</typeparam>
@@ -193,7 +198,7 @@ namespace Naucera.Iambic
 		/// </exception>
 		///
 		/// <exception cref="InvalidGrammarException">
-		/// Thrown if the grammar is invalid.</exception>
+		/// Thrown if the grammar contains a problem.</exception>
 
 		public static Parser<T> Compile<T>(string grammar, params CustomMatcher[] customMatchers)
 		{
@@ -203,16 +208,26 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// <para>
 		/// Creates a parser which parses the PEG grammar specification
 		/// language and generates parsers based on grammar specifications.
-		/// </para>
+		/// </summary>
 		///
+		/// <remarks>
+		/// <para>
+		/// This is used internally by Compile() to produce parsers from
+		/// grammar specifications.</para>
+		/// 
 		/// <para>
 		/// The resulting parser returns instances of Parser as the result of
 		/// parsing a grammar string, in the form described in the
 		/// documentation for this class.</para>
-		/// </summary>
+		/// </remarks>
+		/// 
+		/// <typeparam name="T">
+		/// Type of the output of the generated parser.</typeparam>
+		/// 
+		/// <returns>
+		/// Generated parser.</returns>
 
 		public static Parser<Parser<T>> BuildPegGrammarParser<T>()
 		{
