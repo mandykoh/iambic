@@ -32,3 +32,9 @@ to build the assembly. If building is successful, the assembly will be found in 
 To build and run tests, use:
 
 	make test
+
+To generate the API documentation, use:
+
+    make doc
+
+which will result in HTML browseable documentation in `bin/doc/html`.
