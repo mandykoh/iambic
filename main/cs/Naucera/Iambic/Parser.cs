@@ -365,6 +365,33 @@ namespace Naucera.Iambic
 		/// to be replaced.</param>
 		/// 
 		/// <param name="with">
+		/// A token conversion which ignores the parsing context and arguments
+		/// given to Parse().</param>
+		/// 
+		/// <returns>
+		/// This parser.</returns>
+
+		public Parser<T> Replacing(string constructName, TokenConversionWithNoContext with)
+		{
+			return Replacing(constructName, (token, ctx, args) => with(token));
+		}
+
+
+		/// <summary>
+		/// Registers the token conversion for a named grammar construct.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// Each conversion registered in this way results in tokens produced
+		/// by the named grammar rule or custom matcher being replaced by the
+		/// result of the conversion.
+		/// </remarks>
+		/// 
+		/// <param name="constructName">
+		/// Name of the grammar rule or custom matcher which produced the tokens
+		/// to be replaced.</param>
+		/// 
+		/// <param name="with">
 		/// A token conversion which ignores arguments given to Parse().</param>
 		/// 
 		/// <returns>

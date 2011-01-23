@@ -41,6 +41,16 @@ namespace Naucera.Iambic
 		[Test]
 		public void ParsingWithConversionShouldReturnConvertedResult()
 		{
+			var parser = new Parser<int>(new ParseRule("A", new PatternTerminal("[a-zA-Z]+")))
+				.Replacing("A", token => 123);
+
+			Assert.AreEqual(123, parser.Parse("sometext"));
+		}
+
+
+		[Test]
+		public void ParsingWithConversionShouldPassContextToConverter()
+		{
 			var parser = new Parser<int>(new ParseRule("A", new PatternTerminal("\\d+")))
 				.Replacing("A", (token, ctx) => int.Parse(ctx.MatchedText(token)));
 

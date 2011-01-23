@@ -88,4 +88,31 @@ namespace Naucera.Iambic
 	/// Value to replace the token with in the parse tree.</returns>
 	
 	public delegate object TokenConversionWithNoArgs(Token token, ParseContext context);
+
+
+
+
+	/// <summary>
+	/// Converts the given token to a value.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// <para>
+	/// This is invoked by Parser.Parse(), and only when parsing has succeeded,
+	/// and then only after the conversions for all child tokens have been
+	/// invoked.</para>
+	///
+	/// <para>
+	/// When this is invoked, each child of the token is guaranteed to have been
+	/// replaced with a value from its own conversion, unless the child has no
+	/// conversion defined (using the Parser.Replacing() method).</para>
+	/// </remarks>
+	/// 
+	/// <param name="token">
+	/// Token to be converted.</param>
+	/// 
+	/// <returns>
+	/// Value to replace the token with in the parse tree.</returns>
+
+	public delegate object TokenConversionWithNoContext(Token token);
 }
