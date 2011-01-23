@@ -9,7 +9,7 @@ Iambic is a parser library for .NET that is small, fast, and easy to embed while
 
 Iambic is released under a Simplified BSD License. See [license.txt](http://github.com/naucera/iambic/blob/master/LICENSE.txt) for the licensing terms.
 
-For more information, please see the [wiki](http://wiki.github.com/naucera/iambic/).
+For more information, please see the [documentation](http://wiki.github.com/naucera/iambic/).
 
 # Binaries
 
