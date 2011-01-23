@@ -5,9 +5,9 @@ Iambic
 
 # Welcome!
 
-Iambic is a parser library for the CLR that is small, fast, and easy to embed while still having sophisticated features like automatic error recovery. Use Iambic for adding expression support to your apps, building compilers for your own programming languages, code editors with syntax highlighting and error markup, or simply for parsing structured data formats.
+Iambic is a parser library for .NET that is small, fast, and easy to embed while still having sophisticated features like automatic error recovery. Use Iambic for adding expression support to your apps, building compilers for your own programming languages, code editors with syntax highlighting and error markup, or simply for parsing structured data formats.
 
-Iambic is released under a Simplified BSD License.
+Iambic is released under a Simplified BSD License. See [license.txt](http://github.com/naucera/iambic/blob/master/LICENSE.txt) for the licensing terms.
 
 For more information, please see the [wiki](http://wiki.github.com/naucera/iambic/).
 
