@@ -1,6 +1,6 @@
 Iambic
 ===
-*"Easy to parse up. :)"*
+*"Easy to parse up." :)*
 
 
 # Welcome!
