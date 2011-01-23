@@ -39,6 +39,25 @@ namespace Naucera.Iambic
 	public class TokenTest
 	{
 		[Test]
+		public void IteratingChildObjectsShouldReturnAllChildren()
+		{
+			const string text = "abc";
+
+			var p = new Parser<object>(new ParseRule("A", new ZeroOrMore(new PatternTerminal("[a-z]"))));
+			var t = p.ParseRaw(text);
+
+			var count = 0;
+
+			foreach (var child in t.Children) {
+				Assert.AreEqual(text[count].ToString(), ((Token)child).MatchedText(text));
+				++count;
+			}
+
+			Assert.AreEqual(text.Length, count);
+		}
+
+
+		[Test]
 		public void IteratingChildTokensShouldReturnAllChildren()
 		{
 			const string text = "aaa";

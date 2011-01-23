@@ -136,7 +136,7 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// A sequence of child tokens for this token.
+		/// A sequence of children for this token.
 		/// </summary>
 		/// 
 		/// <remarks>
@@ -145,6 +145,26 @@ namespace Naucera.Iambic
 		/// 
 		/// <value>
 		/// Sequence of Tokens and nulls.</value>
+
+		public IEnumerable<object> Children
+		{
+			get {
+				foreach (var child in mChildren)
+					yield return child;
+			}
+		}
+
+
+		/// <summary>
+		/// A sequence of child tokens for this token.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// Children may either be Tokens or other values if they have been
+		/// replaced by a conversion.</remarks>
+		/// 
+		/// <value>
+		/// Sequence of children.</value>
 		
 		public IEnumerable<Token> ChildTokens
 		{
