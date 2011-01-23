@@ -136,6 +136,26 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
+		/// A sequence of child tokens for this token.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// If a child token has been replaced by a converted value, null is
+		/// returned for its position in the sequence instead.</remarks>
+		/// 
+		/// <value>
+		/// Sequence of Tokens and nulls.</value>
+		
+		public IEnumerable<Token> ChildTokens
+		{
+			get {
+				foreach (var child in mChildren)
+					yield return child as Token;
+			}
+		}
+
+
+		/// <summary>
 		/// The end offset in the parsed text matched by this token.
 		/// </summary>
 		/// 

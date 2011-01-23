@@ -39,6 +39,49 @@ namespace Naucera.Iambic
 	public class TokenTest
 	{
 		[Test]
+		public void IteratingChildTokensShouldReturnAllChildren()
+		{
+			const string text = "aaa";
+
+			var p = new Parser<object>(new ParseRule("A", new ZeroOrMore(new LiteralTerminal("a"))));
+			var t = p.ParseRaw(text);
+
+			var count = 0;
+
+			foreach (var child in t.ChildTokens) {
+				Assert.AreEqual("a", child.MatchedText(text));
+				++count;
+			}
+
+			Assert.AreEqual(text.Length, count);
+		}
+
+
+		[Test]
+		public void IteratingChildTokensShouldReturnNullIfChildIsNotAToken()
+		{
+			const string text = "bbb";
+
+			var p = new Parser<object>(
+				new ParseRule("A", new ZeroOrMore(new RuleRef("B"))),
+				new ParseRule("B", new LiteralTerminal("b")))
+				.Replacing("A", (token, ctx) => token)
+				.Replacing("B", (token, ctx) => 'b');
+
+			var result = (Token)p.Parse(text);
+
+			var count = 0;
+
+			foreach (var child in result.ChildTokens) {
+				Assert.IsNull(child);
+				++count;
+			}
+
+			Assert.AreEqual(text.Length, count);
+		}
+
+
+		[Test]
 		public void ShouldEscapeTextForXml()
 		{
 			const string text = "<Apple & Pear>";
