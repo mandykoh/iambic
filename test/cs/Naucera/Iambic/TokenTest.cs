@@ -29,6 +29,7 @@
 
 #endregion
 
+using System.Collections.Generic;
 using System.Text;
 using Naucera.Iambic.Expressions;
 using NUnit.Framework;
@@ -39,7 +40,7 @@ namespace Naucera.Iambic
 	public class TokenTest
 	{
 		[Test]
-		public void IteratingChildObjectsShouldReturnAllChildren()
+		public void IteratingChildrenShouldReturnAllChildren()
 		{
 			const string text = "abc";
 
@@ -58,17 +59,22 @@ namespace Naucera.Iambic
 
 
 		[Test]
-		public void IteratingChildTokensShouldReturnAllChildren()
+		public void IteratingChildValuesShouldReturnAllValues()
 		{
 			const string text = "aaa";
 
-			var p = new Parser<object>(new ParseRule("A", new ZeroOrMore(new LiteralTerminal("a"))));
-			var t = p.ParseRaw(text);
+			var p = new Parser<IEnumerable<object>>(
+				new ParseRule("A", new ZeroOrMore(new RuleRef("B"))),
+				new ParseRule("B", new LiteralTerminal("a")))
+				.Annotating("A", with: token => token.ChildValues)
+				.Annotating("B", with: (token, ctx) => ctx.MatchedText(token));
+
+			var values = p.Parse(text);
 
 			var count = 0;
 
-			foreach (var child in t.Children) {
-				Assert.AreEqual("a", child.MatchedText(text));
+			foreach (var v in values) {
+				Assert.AreEqual("a", v);
 				++count;
 			}
 

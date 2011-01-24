@@ -31,6 +31,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Naucera.Iambic
@@ -155,6 +156,26 @@ namespace Naucera.Iambic
 		public IEnumerable<Token> Children
 		{
 			get { return mChildren; }
+		}
+
+
+		/// <summary>
+		/// A sequence of values that the children of this token have been
+		/// annotated with.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// If no annotation has been defined for a child, or annotation has not
+		/// been performed (eg. by using Parser.ParseRaw() instead of
+		/// Parser.Parse()) then its value will be null in the sequence.
+		/// </remarks>
+		/// 
+		/// <value>
+		/// Sequence of annotated values for this token's children.</value>
+		
+		public IEnumerable<object> ChildValues
+		{
+			get { return mChildren.Select(c => c.Value); }
 		}
 
 
