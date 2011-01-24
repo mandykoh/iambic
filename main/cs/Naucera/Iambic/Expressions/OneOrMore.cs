@@ -102,9 +102,9 @@ namespace Naucera.Iambic.Expressions
 
 			// Parse the expression as many times as possible
 			while (true) {
-				state.accepted = mExpression.Parse(context, rule, out state.token);
-				if (!state.accepted) {
-					if (recovering && state.token.Offset != state.offset && state.result.HasChildren) {
+				state.Accepted = mExpression.Parse(context, rule, out state.Token);
+				if (!state.Accepted) {
+					if (recovering && state.Token.Offset != state.Offset && state.Result.HasChildren) {
 						context.EndExpression();
 						return context.Reject(rule, this, out result);
 					}
@@ -112,56 +112,56 @@ namespace Naucera.Iambic.Expressions
 				}
 
 				// Don't keep looping if the token is blank
-				if (state.token.Blank)
+				if (state.Token.Blank)
 					break;
 
 				// Add the parsed token to our result
-				state.result.Add(state.token);
-				state.offset = context.Offset;
+				state.Result.Add(state.Token);
+				state.Offset = context.Offset;
 
 				// If no text was parsed, don't keep looping
-				if (state.token.EndOffset == state.token.Offset)
+				if (state.Token.EndOffset == state.Token.Offset)
 					break;
 			}
 
 			context.EndExpression();
 
 			// Check that the expression was parsed at least once
-			if (!state.result.HasChildren) {
-				if (recovering && state.accepted) {
-					result = state.result;
+			if (!state.Result.HasChildren) {
+				if (recovering && state.Accepted) {
+					result = state.Result;
 					return true;
 				}
 				return context.Reject(rule, this, out result);
 			}
 
-			state.result.EndOffset = context.Offset;
-			result = state.result;
+			state.Result.EndOffset = context.Offset;
+			result = state.Result;
 			return true;
 		}
 
 
 		sealed class OneOrMoreMemento : Memento
 		{
-			internal readonly Token result;
-			internal bool accepted;
-			internal Token token;
-			internal int offset;
+			internal Token Result;
+			internal bool Accepted;
+			internal Token Token;
+			internal int Offset;
 
 
 			internal OneOrMoreMemento(ParseContext context)
 			{
-				context.Accept(out result);
-				offset = context.Offset;
+				context.Accept(out Result);
+				Offset = context.Offset;
 			}
 
 
 			OneOrMoreMemento(OneOrMoreMemento m)
 			{
-				this.result = m.result;
-				this.accepted = m.accepted;
-				this.token = m.token;
-				this.offset = m.offset;
+				this.Result = m.Result;
+				this.Accepted = m.Accepted;
+				this.Token = m.Token;
+				this.Offset = m.Offset;
 			}
 
 

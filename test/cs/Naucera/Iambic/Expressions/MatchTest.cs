@@ -98,7 +98,7 @@ namespace Naucera.Iambic.Expressions
 			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("ab", t.ChildToken(0).MatchedText(text));
+			Assert.AreEqual("ab", t[0].MatchedText(text));
 		}
 	}
 }

@@ -55,7 +55,7 @@ namespace Naucera.Iambic
 		int mOffset;
 		readonly List<ParseExpression.Memento> mExpressionStateStack = new List<ParseExpression.Memento>();
 		List<ParseExpression.Memento> mErrorStateStack;
-		Token mErrorStateToken;
+		Token? mErrorStateToken;
 		ParseExpression mExpected;
 		int mErrorStackIndex = -1;
 		bool mCompensating;
@@ -128,7 +128,7 @@ namespace Naucera.Iambic
 		/// been encountered.
 		/// </summary>
 
-		internal Token MarkedError
+		internal Token? MarkedError
 		{
 			get { return mErrorStateToken; }
 		}
@@ -249,10 +249,10 @@ namespace Naucera.Iambic
 
 		internal ParseContext BeginRecovery()
 		{
-			mErrors.Add(mErrorStateToken);
+			mErrors.Add(mErrorStateToken.Value);
 
 			mCompensating = true;
-			mOffset = mErrorStateToken.Offset;
+			mOffset = mErrorStateToken.Value.Offset;
 
 			mErrorStateToken = null;
 			mErrorStackIndex = 0;
@@ -445,7 +445,7 @@ namespace Naucera.Iambic
 
 			// If the rejection was further in the text than the last error,
 			// mark it as the "best error" found so far.
-			if (mErrorStateToken == null || mErrorStateToken.Offset < mOffset) {
+			if (mErrorStateToken == null || mErrorStateToken.Value.Offset < mOffset) {
 				mErrorStateToken = result;
 
 				// Copy the expression state stack to use as the errored state

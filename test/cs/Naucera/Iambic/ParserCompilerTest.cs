@@ -136,7 +136,7 @@ namespace Naucera.Iambic
 			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("They're \\", t.ChildToken(0).MatchedText(text));
+			Assert.AreEqual("They're \\", t[0].MatchedText(text));
 		}
 
 
@@ -149,7 +149,7 @@ namespace Naucera.Iambic
 			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("abc/def\\ghi\\", t.ChildToken(0).MatchedText(text));
+			Assert.AreEqual("abc/def\\ghi\\", t[0].MatchedText(text));
 		}
 	}
 }

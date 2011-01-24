@@ -42,7 +42,7 @@ namespace Naucera.Iambic
 		public void ParsingWithConversionShouldReturnConvertedResult()
 		{
 			var parser = new Parser<int>(new ParseRule("A", new PatternTerminal("[a-zA-Z]+")))
-				.Replacing("A", token => 123);
+				.Annotating("A", token => 123);
 
 			Assert.AreEqual(123, parser.Parse("sometext"));
 		}
@@ -52,7 +52,7 @@ namespace Naucera.Iambic
 		public void ParsingWithConversionShouldPassContextToConverter()
 		{
 			var parser = new Parser<int>(new ParseRule("A", new PatternTerminal("\\d+")))
-				.Replacing("A", (token, ctx) => int.Parse(ctx.MatchedText(token)));
+				.Annotating("A", (token, ctx) => int.Parse(ctx.MatchedText(token)));
 
 			Assert.AreEqual(123, parser.Parse("123"));
 		}
@@ -62,7 +62,7 @@ namespace Naucera.Iambic
 		public void ParsingWithConversionShouldPassArgumentsToConverter()
 		{
 			var parser = new Parser<int>(new ParseRule("A", new PatternTerminal("\\d+")))
-				.Replacing("A", (token, ctx, args) => int.Parse(ctx.MatchedText(token)) + (int)args[0]);
+				.Annotating("A", (token, ctx, args) => int.Parse(ctx.MatchedText(token)) + (int)args[0]);
 
 			Assert.AreEqual(128, parser.Parse("123", 5));
 		}
@@ -181,19 +181,6 @@ namespace Naucera.Iambic
 			}
 			catch (UndefinedConstructException e) {
 				Assert.AreEqual("SomeMatcher", e.ConstructName);
-			}
-		}
-
-
-		[Test]
-		public void ShouldRequireAtLeastOneRule()
-		{
-			try {
-				new Parser<object>();
-				Assert.Fail("Expected exception was not thrown");
-			}
-			catch (EmptyGrammarException) {
-				// Expected exception
 			}
 		}
 

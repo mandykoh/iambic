@@ -32,23 +32,24 @@
 namespace Naucera.Iambic
 {
 	/// <summary>
-	/// Converts the given token to a value.
+	/// Returns a value to annotate the given token with.
 	/// </summary>
 	/// 
 	/// <remarks>
 	/// <para>
 	/// This is invoked by Parser.Parse(), and only when parsing has succeeded,
-	/// and then only after the conversions for all child tokens have been
-	/// invoked.</para>
+	/// and then only after the annotation for all child tokens has been done.
+	/// </para>
 	///
 	/// <para>
 	/// When this is invoked, each child of the token is guaranteed to have been
-	/// replaced with a value from its own conversion, unless the child has no
-	/// conversion defined (using the Parser.Replacing() method).</para>
+	/// annotated with a value from its own annotation (such that the child's
+	/// Value property will return the value), unless the child has no
+	/// annotation defined (using the Parser.Annotating() method).</para>
 	/// </remarks>
 	///
 	/// <param name="token">
-	/// Token to be converted.</param>
+	/// Token to be annotated.</param>
 	/// 
 	/// <param name="context">
 	/// Parse context from which the token was generated.</param>
@@ -57,62 +58,62 @@ namespace Naucera.Iambic
 	/// Arguments given via the Parse() method of the parser.</param>
 	/// 
 	/// <returns>
-	/// Value to replace the token with in the parse tree.</returns>
+	/// Value to annotate the token with in the parse tree.</returns>
 
-	public delegate object TokenConversion(Token token, ParseContext context, params object[] parseArgs);
+	public delegate object TokenAnnotation(Token token, ParseContext context, params object[] parseArgs);
 
 
 	/// <summary>
-	/// Converts the given token to a value.
+	/// Returns a value to annotate the given token with.
 	/// </summary>
 	/// 
 	/// <remarks>
 	/// <para>
 	/// This is invoked by Parser.Parse(), and only when parsing has succeeded,
-	/// and then only after the conversions for all child tokens have been
-	/// invoked.</para>
+	/// and then only after the annotation for all child tokens has been done.
+	/// </para>
 	///
 	/// <para>
 	/// When this is invoked, each child of the token is guaranteed to have been
-	/// replaced with a value from its own conversion, unless the child has no
-	/// conversion defined (using the Parser.Replacing() method).</para>
+	/// annotated with a value from its own annotation (such that the child's
+	/// Value property will return the value), unless the child has no
+	/// annotation defined (using the Parser.Annotating() method).</para>
 	/// </remarks>
-	/// 
+	///
 	/// <param name="token">
-	/// Token to be converted.</param>
+	/// Token to be annotated.</param>
 	/// 
 	/// <param name="context">
 	/// Parse context from which the token was generated.</param>
 	/// 
 	/// <returns>
-	/// Value to replace the token with in the parse tree.</returns>
+	/// Value to annotate the token with in the parse tree.</returns>
 	
-	public delegate object TokenConversionWithNoArgs(Token token, ParseContext context);
-
-
+	public delegate object TokenAnnotationWithNoArgs(Token token, ParseContext context);
 
 
 	/// <summary>
-	/// Converts the given token to a value.
+	/// Returns a value to annotate the given token with.
 	/// </summary>
 	/// 
 	/// <remarks>
 	/// <para>
 	/// This is invoked by Parser.Parse(), and only when parsing has succeeded,
-	/// and then only after the conversions for all child tokens have been
-	/// invoked.</para>
+	/// and then only after the annotation for all child tokens has been done.
+	/// </para>
 	///
 	/// <para>
 	/// When this is invoked, each child of the token is guaranteed to have been
-	/// replaced with a value from its own conversion, unless the child has no
-	/// conversion defined (using the Parser.Replacing() method).</para>
+	/// annotated with a value from its own annotation (such that the child's
+	/// Value property will return the value), unless the child has no
+	/// annotation defined (using the Parser.Annotating() method).</para>
 	/// </remarks>
-	/// 
+	///
 	/// <param name="token">
-	/// Token to be converted.</param>
+	/// Token to be annotated.</param>
 	/// 
 	/// <returns>
-	/// Value to replace the token with in the parse tree.</returns>
+	/// Value to annotate the token with in the parse tree.</returns>
 
-	public delegate object TokenConversionWithNoContext(Token token);
+	public delegate object TokenAnnotationWithNoContext(Token token);
 }

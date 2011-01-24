@@ -62,12 +62,12 @@ namespace Naucera.Iambic.Expressions
 			var t = p.ParseRaw("a");
 
 			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("a", t.ChildToken(0).MatchedText("a"));
+			Assert.AreEqual("a", t[0].MatchedText("a"));
 
 			t = p.ParseRaw("b");
 
 			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("b", t.ChildToken(0).MatchedText("b"));
+			Assert.AreEqual("b", t[0].MatchedText("b"));
 		}
 
 
@@ -119,7 +119,7 @@ namespace Naucera.Iambic.Expressions
 			var t = p.ParseRaw(text);
 
 			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("a", t.ChildToken(0).MatchedText("a"));
+			Assert.AreEqual("a", t[0].MatchedText("a"));
 		}
 
 
@@ -142,7 +142,7 @@ namespace Naucera.Iambic.Expressions
 			catch (SyntaxException e) {
 				Assert.AreEqual(1, e.Context.ErrorCount);
 				Assert.AreEqual(1, e.Result.ChildCount);
-				Assert.AreEqual("b", e.Result.ChildToken(0).MatchedText(text));
+				Assert.AreEqual("b", e.Result[0].MatchedText(text));
 			}
 		}
 	}

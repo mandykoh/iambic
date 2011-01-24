@@ -38,7 +38,7 @@ namespace Naucera.Iambic
 	public class ParseRuleTest
 	{
 		[Test]
-		public void ShouldInvokeProcessorWithParsedToken()
+		public void ShouldInvokeAnnotationDelegateWithParsedToken()
 		{
 			const string text = "abc";
 
@@ -46,9 +46,9 @@ namespace Naucera.Iambic
 
 			var p = new Parser<object>(
 				new ParseRule("A", new LiteralTerminal(text))
-					.ReplacingMatchesWith((token, context, args) => {
+					.AnnotatingMatchesWith((token, context, args) => {
 						Assert.AreEqual(1, token.ChildCount);
-						Assert.AreEqual(text, token.ChildToken(0).MatchedText(text));
+						Assert.AreEqual(text, token[0].MatchedText(text));
 
 						processorInvoked = true;
 						return null;
@@ -66,7 +66,7 @@ namespace Naucera.Iambic
 		{
 			var p = new Parser<object>(
 				new ParseRule("A", new LiteralTerminal("a"))
-					.ReplacingMatchesWith((token, context, args) => "Output From Processor"));
+					.AnnotatingMatchesWith((token, context, args) => "Output From Processor"));
 
 			Assert.AreEqual("Output From Processor", p.Parse("a"));
 		}

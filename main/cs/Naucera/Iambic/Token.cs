@@ -40,22 +40,26 @@ namespace Naucera.Iambic
 	/// </summary>
 	/// 
 	/// <remarks>
-	/// Tokens may contain nested children which are either also tokens, or
-	/// values which have replaced their tokens due to conversion.
+	/// Tokens may contain nested children. Tokens may also have a value from a
+	/// 
 	/// </remarks>
 
-	public sealed class Token
+	public struct Token
 	{
 		readonly int mOffset;
 		int mEndOffset;
 		GrammarConstruct mGrammarConstruct;
-		List<object> mChildren;
+		List<Token> mChildren;
+		object mValue;
 
 
 		internal Token(int offset, int endOffset)
 		{
 			mOffset = offset;
 			mEndOffset = endOffset;
+			mGrammarConstruct = null;
+			mChildren = null;
+			mValue = null;
 		}
 
 
@@ -64,6 +68,8 @@ namespace Naucera.Iambic
 			mOffset = offset;
 			mEndOffset = endOffset;
 			mGrammarConstruct = grammarConstruct;
+			mChildren = null;
+			mValue = null;
 		}
 
 
@@ -85,7 +91,7 @@ namespace Naucera.Iambic
 		/// <exception cref="NullReferenceException">
 		/// Thrown if there are no children.</exception>
 
-		public object this[int index]
+		public Token this[int index]
 		{
 			get { return mChildren[index]; }
 			internal set { mChildren[index] = value; }
@@ -136,26 +142,6 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// A sequence of children for this token.
-		/// </summary>
-		/// 
-		/// <remarks>
-		/// If a child token has been replaced by a converted value, null is
-		/// returned for its position in the sequence instead.</remarks>
-		/// 
-		/// <value>
-		/// Sequence of Tokens and nulls.</value>
-
-		public IEnumerable<object> Children
-		{
-			get {
-				foreach (var child in mChildren)
-					yield return child;
-			}
-		}
-
-
-		/// <summary>
 		/// A sequence of child tokens for this token.
 		/// </summary>
 		/// 
@@ -166,12 +152,9 @@ namespace Naucera.Iambic
 		/// <value>
 		/// Sequence of children.</value>
 		
-		public IEnumerable<Token> ChildTokens
+		public IEnumerable<Token> Children
 		{
-			get {
-				foreach (var child in mChildren)
-					yield return child as Token;
-			}
+			get { return mChildren; }
 		}
 
 
@@ -188,6 +171,17 @@ namespace Naucera.Iambic
 			internal set { mEndOffset = value; }
 		}
 
+
+		/// <summary>
+		/// The grammar construct which is fully matched by this token, or null
+		/// if this token is anonymous.
+		/// </summary>
+		
+		public GrammarConstruct GrammarConstruct
+		{
+			get { return mGrammarConstruct; }
+			internal set { mGrammarConstruct = value; }
+		}
 
 		/// <summary>
 		/// Flag indicating whether this token has any children.
@@ -215,15 +209,9 @@ namespace Naucera.Iambic
 		}
 
 
-		/// <summary>
-		/// The grammar construct which is fully matched by this token, or null
-		/// if this token is anonymous.
-		/// </summary>
-		
-		public GrammarConstruct GrammarConstruct
+		public object Value
 		{
-			get { return mGrammarConstruct; }
-			internal set { mGrammarConstruct = value; }
+			get { return mValue; }
 		}
 
 
@@ -240,7 +228,7 @@ namespace Naucera.Iambic
 			// Otherwise, add the token as a nested child
 			else {
 				if (mChildren == null)
-					mChildren = new List<object>(4);
+					mChildren = new List<Token>(4);
 				mChildren.Add(token);
 			}
 
@@ -282,37 +270,12 @@ namespace Naucera.Iambic
 			if (mChildren == null)
 				return true;
 
-			foreach (var child in mChildren) {
-				var token = child as Token;
-				if (token != null && !token.HasChildren)
+			for (var i = 0; i < mChildren.Count; ++i) {
+				if (!mChildren[i].HasChildren)
 					return false;
 			}
 
 			return true;
-		}
-
-
-		/// <summary>
-		/// Returns the child at the specified index as a token.
-		/// </summary>
-		/// 
-		/// <remarks>
-		/// This operation is invalid if the child token has been replaced by a
-		/// value from a token conversion.
-		/// </remarks>
-		/// 
-		/// <param name="index">
-		/// Index of the child.</param>
-		/// 
-		/// <returns>
-		/// Child as a Token.</returns>
-		/// 
-		/// <exception cref="InvalidCastException">
-		/// Thrown if child is not a Token.</exception>
-
-		public Token ChildToken(int index)
-		{
-			return (Token)mChildren[index];
 		}
 
 
@@ -356,6 +319,14 @@ namespace Naucera.Iambic
 		public string MatchedText(string originalText)
 		{
 			return originalText.Substring(mOffset, mEndOffset - mOffset);		   
+		}
+
+
+		internal Token WithValue(object value)
+		{
+			var t = this;
+			t.mValue = value;
+			return t;
 		}
 
 
@@ -434,12 +405,8 @@ namespace Naucera.Iambic
 				if (indent)
 					text.AppendLine();
 
-				foreach (var child in mChildren) {
-					var token = child as Token;
-					if (token == null)
-						AppendEscape(text, child.ToString());
-					else
-						token.ToXml(parsedText, text, indent, indentLevel + 1);
+				for (var i = 0; i < mChildren.Count; ++i) {
+					mChildren[i].ToXml(parsedText, text, indent, indentLevel + 1);
 					if (indent)
 						text.AppendLine();
 				}

@@ -75,13 +75,13 @@ namespace Naucera.Iambic.Expressions
 			context.BeginExpression(state);
 
 			// Parse each subexpression to find nested tokens
-			for (; state.index < ExpressionCount; ++state.index) {
-				var expr = Expression(state.index);
+			for (; state.Index < ExpressionCount; ++state.Index) {
+				var expr = Expression(state.Index);
 				Token t;
 
 				// Parsing failed on a subexpression - return an overall failure
 				if (!expr.Parse(context, rule, out t)) {
-					context.Offset = state.offset;
+					context.Offset = state.Offset;
 					context.EndExpression();
 					result = t;
 					return false;
@@ -92,15 +92,15 @@ namespace Naucera.Iambic.Expressions
 					continue;
 
 				// Add the parsed token to our result
-				state.result.Add(t);
+				state.Result.Add(t);
 			}
 
-			if (state.result.HasChildren)
-				state.result.EndOffset = context.Offset;
+			if (state.Result.HasChildren)
+				state.Result.EndOffset = context.Offset;
 
 			context.EndExpression();
 
-			result = state.result;
+			result = state.Result;
 			return true;
 		}
 
@@ -122,23 +122,23 @@ namespace Naucera.Iambic.Expressions
 
 		sealed class SequenceMemento : Memento
 		{
-			internal readonly Token result;
-			internal int index;
-			internal readonly int offset;
+			internal Token Result;
+			internal int Index;
+			internal readonly int Offset;
 
 
 			public SequenceMemento(ParseContext context)
 			{
-				context.Accept(out result);
-				offset = context.Offset;
+				context.Accept(out Result);
+				Offset = context.Offset;
 			}
 
 
 			SequenceMemento(SequenceMemento m)
 			{
-				this.result = m.result;
-				this.index = m.index;
-				this.offset = m.offset;
+				this.Result = m.Result;
+				this.Index = m.Index;
+				this.Offset = m.Offset;
 			}
 
 

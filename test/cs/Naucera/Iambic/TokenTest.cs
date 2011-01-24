@@ -49,7 +49,7 @@ namespace Naucera.Iambic
 			var count = 0;
 
 			foreach (var child in t.Children) {
-				Assert.AreEqual(text[count].ToString(), ((Token)child).MatchedText(text));
+				Assert.AreEqual(text[count].ToString(), child.MatchedText(text));
 				++count;
 			}
 
@@ -67,32 +67,8 @@ namespace Naucera.Iambic
 
 			var count = 0;
 
-			foreach (var child in t.ChildTokens) {
+			foreach (var child in t.Children) {
 				Assert.AreEqual("a", child.MatchedText(text));
-				++count;
-			}
-
-			Assert.AreEqual(text.Length, count);
-		}
-
-
-		[Test]
-		public void IteratingChildTokensShouldReturnNullIfChildIsNotAToken()
-		{
-			const string text = "bbb";
-
-			var p = new Parser<object>(
-				new ParseRule("A", new ZeroOrMore(new RuleRef("B"))),
-				new ParseRule("B", new LiteralTerminal("b")))
-				.Replacing("A", (token, ctx) => token)
-				.Replacing("B", (token, ctx) => 'b');
-
-			var result = (Token)p.Parse(text);
-
-			var count = 0;
-
-			foreach (var child in result.ChildTokens) {
-				Assert.IsNull(child);
 				++count;
 			}
 
@@ -108,7 +84,7 @@ namespace Naucera.Iambic
 			var p = new Parser<object>(new ParseRule("A", new LiteralTerminal(text)));
 			var t = p.ParseRaw(text);
 
-			Assert.AreEqual("&lt;Apple &amp; Pear&gt;", t.ChildToken(0).ToXml(text));
+			Assert.AreEqual("&lt;Apple &amp; Pear&gt;", t[0].ToXml(text));
 		}
 
 

@@ -90,6 +90,13 @@ namespace Naucera.Iambic
 		}
 
 
+		public new ParseRule AnnotatingMatchesWith(TokenAnnotation annotation)
+		{
+			base.AnnotatingMatchesWith(annotation);
+			return this;
+		}
+
+
 		/// <summary>
 		/// Checks for well-formedness by ensuring that no left-recursion loops
 		/// exist in the expression, throwing an exception if so.
