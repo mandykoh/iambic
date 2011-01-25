@@ -476,7 +476,7 @@ namespace Naucera.Iambic
 		/// Returns a LiteralTerminal by processing a literal token.
 		/// </summary>
 
-		static object ProcessBasicLiteral(Token token, ParseContext context, params object[] args)
+		static object ProcessBasicLiteral(Token token, ParseContext context, object[] args)
 		{
 			var pattern = context.MatchedText(token[0]);
 			pattern = LiteralTerminal.Unescape(pattern);
@@ -490,7 +490,7 @@ namespace Naucera.Iambic
 		/// literal token.
 		/// </summary>
 
-		static object ProcessCustomMatcher(Token token, ParseContext context, params object[] args)
+		static object ProcessCustomMatcher(Token token, ParseContext context, object[] args)
 		{
 			var matcherName = context.MatchedText(token[0]);
 			matcherName = matcherName.Substring(1, matcherName.Length - 2);
@@ -503,7 +503,7 @@ namespace Naucera.Iambic
 		/// Returns a ParseRule by processing a definition token.
 		/// </summary>
 
-		static object ProcessDefinition(Token token, ParseContext context, params object[] args)
+		static object ProcessDefinition(Token token, ParseContext context, object[] args)
 		{
 			var ruleName = token[0].Tag.ToString();
 			var expr = (ParseExpression)token[2].Tag;
@@ -515,7 +515,7 @@ namespace Naucera.Iambic
 		/// Returns a ParseExpression by processing an expression token.
 		/// </summary>
 
-		static object ProcessExpression(Token token, ParseContext context, params object[] args)
+		static object ProcessExpression(Token token, ParseContext context, object[] args)
 		{
 			return token[0].Tag;
 		}
@@ -525,7 +525,7 @@ namespace Naucera.Iambic
 		/// Returns a Parser by processing a grammar token.
 		/// </summary>
 
-		static object ProcessGrammar(Token token, ParseContext context, params object[] args)
+		static object ProcessGrammar(Token token, ParseContext context, object[] args)
 		{
 			var grammarConstructs = new List<GrammarConstruct>();
 
@@ -543,7 +543,7 @@ namespace Naucera.Iambic
 		/// Returns an identifier string by processing an identifier token.
 		/// </summary>
 
-		static object ProcessIdentifier(Token token, ParseContext context, params object[] args)
+		static object ProcessIdentifier(Token token, ParseContext context, object[] args)
 		{
 			return context.MatchedText(token[0]);
 		}
@@ -553,7 +553,7 @@ namespace Naucera.Iambic
 		/// Returns a terminal expression by processing a literal token.
 		/// </summary>
 
-		static object ProcessLiteral(Token token, ParseContext context, params object[] args)
+		static object ProcessLiteral(Token token, ParseContext context, object[] args)
 		{
 			return token[0].Tag;
 		}
@@ -563,7 +563,7 @@ namespace Naucera.Iambic
 		/// Returns a ParseExpression by processing an ordered choice token.
 		/// </summary>
 
-		static object ProcessOrderedChoice(Token token, ParseContext context, params object[] args)
+		static object ProcessOrderedChoice(Token token, ParseContext context, object[] args)
 		{
 			// Form an ordered choice if multiple sequences are present
 			if (token.ChildCount > 1) {
@@ -587,7 +587,7 @@ namespace Naucera.Iambic
 		/// Returns a ParseExpression by processing a prefix token.
 		/// </summary>
 
-		static object ProcessPrefix(Token token, ParseContext context, params object[] args)
+		static object ProcessPrefix(Token token, ParseContext context, object[] args)
 		{
 			// Wrap the expression with a predicate if a prefix is present
 			if (token.ChildCount > 1) {
@@ -608,7 +608,7 @@ namespace Naucera.Iambic
 		/// Returns a ParseExpression by processing a primary token.
 		/// </summary>
 
-		static object ProcessPrimary(Token token, ParseContext context, params object[] args)
+		static object ProcessPrimary(Token token, ParseContext context, object[] args)
 		{
 
 			if (token.ChildCount == 1) {
@@ -631,7 +631,7 @@ namespace Naucera.Iambic
 		/// Returns a PatternTerminal by processing a literal token.
 		/// </summary>
 
-		static object ProcessRegexLiteral(Token token, ParseContext context, params object[] args)
+		static object ProcessRegexLiteral(Token token, ParseContext context, object[] args)
 		{
 			var pattern = context.MatchedText(token[0]);
 			pattern = PatternTerminal.Unescape(pattern);
@@ -644,7 +644,7 @@ namespace Naucera.Iambic
 		/// Returns a ParseExpression by processing a sequence token.
 		/// </summary>
 
-		static object ProcessSequence(Token token, ParseContext context, params object[] args)
+		static object ProcessSequence(Token token, ParseContext context, object[] args)
 		{
 			// Unwrap sequences of only one nested expression and use as-is
 			if (token.ChildCount == 1)
@@ -663,7 +663,7 @@ namespace Naucera.Iambic
 		/// Returns a ParseExpression by processing a suffix token.
 		/// </summary>
 
-		static object ProcessSuffix(Token token, ParseContext context, params object[] args)
+		static object ProcessSuffix(Token token, ParseContext context, object[] args)
 		{
 			var expression = (ParseExpression)token[0].Tag;
 
