@@ -41,7 +41,7 @@ namespace Naucera.Iambic
 		[Test]
 		public void ParsingWithConversionShouldReturnConvertedResult()
 		{
-			var parser = new Parser<int>(new ParseRule("A", new PatternTerminal("[a-zA-Z]+")))
+			var parser = new Parser<int>((token, ctx, args) => (int)token.Value, new ParseRule("A", new PatternTerminal("[a-zA-Z]+")))
 				.Annotating("A", token => 123);
 
 			Assert.AreEqual(123, parser.Parse("sometext"));
@@ -51,7 +51,7 @@ namespace Naucera.Iambic
 		[Test]
 		public void ParsingWithConversionShouldPassContextToConverter()
 		{
-			var parser = new Parser<int>(new ParseRule("A", new PatternTerminal("\\d+")))
+			var parser = new Parser<int>((token, ctx, args) => (int)token.Value, new ParseRule("A", new PatternTerminal("\\d+")))
 				.Annotating("A", (token, ctx) => int.Parse(ctx.MatchedText(token)));
 
 			Assert.AreEqual(123, parser.Parse("123"));
@@ -61,21 +61,10 @@ namespace Naucera.Iambic
 		[Test]
 		public void ParsingWithConversionShouldPassArgumentsToConverter()
 		{
-			var parser = new Parser<int>(new ParseRule("A", new PatternTerminal("\\d+")))
+			var parser = new Parser<int>((token, ctx, args) => (int)token.Value, new ParseRule("A", new PatternTerminal("\\d+")))
 				.Annotating("A", (token, ctx, args) => int.Parse(ctx.MatchedText(token)) + (int)args[0]);
 
 			Assert.AreEqual(128, parser.Parse("123", 5));
-		}
-
-
-		[Test]
-		public void ParsingWithoutConversionShouldReturnToken()
-		{
-			var parser = new Parser<int>(new ParseRule("A", new PatternTerminal("\\d+")));
-
-			var t = parser.ParseRaw("123");
-
-			Assert.AreEqual("123", t.MatchedText("123"));
 		}
 
 	
@@ -85,7 +74,7 @@ namespace Naucera.Iambic
 			var ruleA = new ParseRule("RuleA", new LiteralTerminal("a"));
 			var ruleB = new ParseRule("RuleB", new LiteralTerminal("b"));
 
-			var parser = new Parser<object>(ruleA, ruleB);
+			var parser = new Parser<Token>((token, ctx, args) => token, ruleA, ruleB);
 
 			Assert.AreEqual(ruleA, parser.GetRule(0));
 			Assert.AreEqual(ruleB, parser.GetRule(1));
@@ -98,7 +87,7 @@ namespace Naucera.Iambic
 			var ruleA = new ParseRule("RuleA", new LiteralTerminal("a"));
 			var ruleB = new ParseRule("RuleB", new LiteralTerminal("b"));
 
-			var parser = new Parser<object>(ruleA, ruleB);
+			var parser = new Parser<Token>((token, ctx, args) => token, ruleA, ruleB);
 
 			Assert.AreEqual(ruleA, parser.GetRule(ruleA.Name));
 			Assert.AreEqual(ruleB, parser.GetRule(ruleB.Name));
@@ -109,7 +98,8 @@ namespace Naucera.Iambic
 		public void ShouldNotAllowCustomMatchersWithDuplicateNames()
 		{
 			try {
-				new Parser<object>(
+				new Parser<Token>(
+					(token, ctx, args) => token,
 					new ParseRule("RuleA", new CustomMatcherTerminal("CustomMatcher")),
 					new TestCustomMatcher("CustomMatcher"),
 					new TestCustomMatcher("CustomMatcher"));
@@ -126,7 +116,8 @@ namespace Naucera.Iambic
 		public void ShouldNotAllowGrammarConstructsMatchersWithDuplicateNames()
 		{
 			try {
-				new Parser<object>(
+				new Parser<Token>(
+					(token, ctx, args) => token,
 					new ParseRule("Bob", new LiteralTerminal("a")),
 					new ParseRule("Rule", new CustomMatcherTerminal("Bob")),
 					new TestCustomMatcher("Bob"));
@@ -140,25 +131,11 @@ namespace Naucera.Iambic
 
 
 		[Test]
-		public void ShouldNotAllowParsingWithConversionWhenNoConversionIsDefinedForRootGrammarRule()
-		{
-			try {
-				var p = new Parser<object>(new ParseRule("A", new LiteralTerminal("a")));
-				p.Parse("a");
-
-				Assert.Fail("Expected exception was not thrown");
-			}
-			catch (UndefinedTokenConversionException e) {
-				Assert.AreEqual("A", e.Message);
-			}
-		}
-
-
-		[Test]
 		public void ShouldNotAllowRulesWithDuplicateNames()
 		{
 			try {
-				new Parser<object>(
+				new Parser<Token>(
+					(token, ctx, args) => token,
 					new ParseRule("RuleA", new LiteralTerminal("a")),
 					new ParseRule("RuleA", new LiteralTerminal("b")));
 
@@ -174,7 +151,8 @@ namespace Naucera.Iambic
 		public void ShouldNotAllowUndefinedCustomMatchers()
 		{
 			try {
-				new Parser<object>(
+				new Parser<Token>(
+					(token, ctx, args) => token,
 					new ParseRule("Rule", new CustomMatcherTerminal("SomeMatcher")));
 
 				Assert.Fail("Expected exception was not thrown");

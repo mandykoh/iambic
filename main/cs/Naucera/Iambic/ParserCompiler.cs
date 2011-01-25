@@ -201,9 +201,9 @@ namespace Naucera.Iambic
 		/// <exception cref="InvalidGrammarException">
 		/// Thrown if the grammar contains a problem.</exception>
 
-		public static Parser<T> Compile<T>(string grammar, params CustomMatcher[] customMatchers)
+		public static Parser<Token> Compile(string grammar, params CustomMatcher[] customMatchers)
 		{
-			var grammarParser = BuildPegGrammarParser<T>();
+			var grammarParser = BuildPegGrammarParser();
 			return grammarParser.Parse(grammar, customMatchers);
 		}
 
@@ -230,9 +230,11 @@ namespace Naucera.Iambic
 		/// <returns>
 		/// Generated parser.</returns>
 
-		public static Parser<Parser<T>> BuildPegGrammarParser<T>()
+		public static Parser<Parser<Token>> BuildPegGrammarParser()
 		{
-			return new Parser<Parser<T>>(
+			return new Parser<Parser<Token>>(
+
+				(token, ctx, args) => (Parser<Token>)token.Value,
 
 				new ParseRule("Grammar",
 					new Sequence(
@@ -240,7 +242,7 @@ namespace Naucera.Iambic
 						new OneOrMore(new RuleRef("Definition")),
 						new RuleRef("EndOfInput")
 						)
-					).AnnotatingMatchesWith(ProcessGrammar<T>),
+					).AnnotatingMatchesWith(ProcessGrammar),
 
 				new ParseRule("Definition",
 					new Sequence(
@@ -515,7 +517,7 @@ namespace Naucera.Iambic
 		/// Returns a Parser by processing a grammar token.
 		/// </summary>
 
-		static object ProcessGrammar<T>(Token token, ParseContext context, params object[] args)
+		static object ProcessGrammar(Token token, ParseContext context, params object[] args)
 		{
 			var grammarConstructs = new List<GrammarConstruct>();
 
@@ -525,7 +527,7 @@ namespace Naucera.Iambic
 			foreach (var arg in args)
 				grammarConstructs.Add((CustomMatcher)arg);
 
-			return new Parser<T>((ParseRule)grammarConstructs.First(), grammarConstructs.Skip(1).ToArray());
+			return new Parser<Token>((t, ctx, parseArgs) => t, (ParseRule)grammarConstructs.First(), grammarConstructs.Skip(1).ToArray());
 		}
 
 

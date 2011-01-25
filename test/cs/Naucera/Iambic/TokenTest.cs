@@ -30,6 +30,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Naucera.Iambic.Expressions;
 using NUnit.Framework;
@@ -44,8 +45,8 @@ namespace Naucera.Iambic
 		{
 			const string text = "abc";
 
-			var p = new Parser<object>(new ParseRule("A", new ZeroOrMore(new PatternTerminal("[a-z]"))));
-			var t = p.ParseRaw(text);
+			var p = new Parser<Token>((token, ctx, args) => token, new ParseRule("A", new ZeroOrMore(new PatternTerminal("[a-z]"))));
+			var t = p.Parse(text);
 
 			var count = 0;
 
@@ -63,10 +64,11 @@ namespace Naucera.Iambic
 		{
 			const string text = "aaa";
 
-			var p = new Parser<IEnumerable<object>>(
+			var p = new Parser<IEnumerable<string>>(
+				(token, ctx, args) => (IEnumerable<string>)token.Value,
 				new ParseRule("A", new ZeroOrMore(new RuleRef("B"))),
 				new ParseRule("B", new LiteralTerminal("a")))
-				.Annotating("A", with: token => token.ChildValues)
+				.Annotating("A", with: token => token.ChildValues.OfType<string>())
 				.Annotating("B", with: (token, ctx) => ctx.MatchedText(token));
 
 			var values = p.Parse(text);
@@ -87,8 +89,8 @@ namespace Naucera.Iambic
 		{
 			const string text = "<Apple & Pear>";
 
-			var p = new Parser<object>(new ParseRule("A", new LiteralTerminal(text)));
-			var t = p.ParseRaw(text);
+			var p = new Parser<Token>((token, ctx, args) => token, new ParseRule("A", new LiteralTerminal(text)));
+			var t = p.Parse(text);
 
 			Assert.AreEqual("&lt;Apple &amp; Pear&gt;", t[0].ToXml(text));
 		}
@@ -99,8 +101,8 @@ namespace Naucera.Iambic
 		{
 			const string text = "<Apple & Pear>";
 
-			var p = new Parser<object>(new ParseRule("A", new LiteralTerminal(text)));
-			var t = p.ParseRaw(text);
+			var p = new Parser<Token>((token, ctx, args) => token, new ParseRule("A", new LiteralTerminal(text)));
+			var t = p.Parse(text);
 
 			Assert.AreEqual("<Apple & Pear>", t.MatchedText(text));
 		}
@@ -126,8 +128,8 @@ namespace Naucera.Iambic
 				.AppendLine("  <Term><Value>2</Value>*<Value>3</Value></Term>")
 				.Append("</Expression>");
 
-			var p = ParserCompiler.Compile<object>(grammar);
-			var t = p.ParseRaw(text);
+			var p = ParserCompiler.Compile(grammar);
+			var t = p.Parse(text);
 
 			Assert.AreEqual(expected.ToString(), t.ToXml(text));
 		}

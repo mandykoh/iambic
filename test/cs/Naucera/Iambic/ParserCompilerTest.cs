@@ -40,8 +40,8 @@ namespace Naucera.Iambic
 		[Test]
 		public void ShouldBeAbleToParseOwnPegGrammar()
 		{
-			var pegGrammar = ParserCompiler.BuildPegGrammarParser<object>().ToString();
-			var p = ParserCompiler.Compile<object>(pegGrammar);
+			var pegGrammar = ParserCompiler.BuildPegGrammarParser().ToString();
+			var p = ParserCompiler.Compile(pegGrammar);
 
 			Assert.AreEqual(pegGrammar, p.ToString());
 		}
@@ -82,20 +82,20 @@ namespace Naucera.Iambic
 				@"BlockComment := ('/*' (!'*/' /./)* '*/')" + newLine +
 				@"EndOfLine := (/$/ || /\r?\n/)" + newLine;
 
-			Assert.AreEqual(grammar, ParserCompiler.BuildPegGrammarParser<object>().ToString());
+			Assert.AreEqual(grammar, ParserCompiler.BuildPegGrammarParser().ToString());
 		}
 
 
 		[Test]
 		public void ShouldIgnoreBlockCommentsInGrammar()
 		{
-			var p = ParserCompiler.Compile<object>(
+			var p = ParserCompiler.Compile(
 				"A := B						/* This is a block comment *\n" +
 				"NotARule := NotADefinition  * which spans a few lines *\n" +
 				"							 * and includes junk.	   */\n" +
 				"B := 'abc'");
 
-			p.ParseRaw("abc");
+			p.Parse("abc");
 
 			Assert.AreEqual("A := B" + Environment.NewLine + "B := 'abc'" + Environment.NewLine, p.ToString());
 		}
@@ -104,11 +104,11 @@ namespace Naucera.Iambic
 		[Test]
 		public void ShouldIgnoreLineCommentsInGrammar()
 		{
-			var p = ParserCompiler.Compile<object>(
+			var p = ParserCompiler.Compile(
 				"A := B // This is a grammar rule\n" +
 				"B := 'abc' // This is another grammar rule");
 
-			p.ParseRaw("abc");
+			p.Parse("abc");
 
 			Assert.AreEqual("A := B" + Environment.NewLine + "B := 'abc'" + Environment.NewLine, p.ToString());
 		}
@@ -118,7 +118,7 @@ namespace Naucera.Iambic
 		public void ShouldRejectSpuriousInputAfterGrammar()
 		{
 			try {
-				ParserCompiler.Compile<object>("A := 'abc' :");
+				ParserCompiler.Compile("A := 'abc' :");
 				Assert.Fail("Invalid grammar was accepted but should have been rejected");
 			}
 			catch (SyntaxException) {
@@ -132,8 +132,8 @@ namespace Naucera.Iambic
 		{
 			const string text = "They're \\";
 
-			var p = ParserCompiler.Compile<object>("A := 'They\\'re \\\\'");
-			var t = p.ParseRaw(text);
+			var p = ParserCompiler.Compile("A := 'They\\'re \\\\'");
+			var t = p.Parse(text);
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual("They're \\", t[0].MatchedText(text));
@@ -145,8 +145,8 @@ namespace Naucera.Iambic
 		{
 			const string text = "abc/def\\ghi\\";
 
-			var p = ParserCompiler.Compile<object>("A := /abc\\/def\\\\ghi\\\\/");
-			var t = p.ParseRaw(text);
+			var p = ParserCompiler.Compile("A := /abc\\/def\\\\ghi\\\\/");
+			var t = p.Parse(text);
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual("abc/def\\ghi\\", t[0].MatchedText(text));

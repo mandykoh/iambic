@@ -50,14 +50,15 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "b";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new Optional(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 					));
 
-			p.ParseRaw(text);
+			p.Parse(text);
 		}
 
 
@@ -66,14 +67,15 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ab";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new Optional(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 				));
 
-			p.ParseRaw(text);
+			p.Parse(text);
 		}
 
 
@@ -82,14 +84,15 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ab";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new Optional(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 				));
 
-			var t = p.ParseRaw(text);
+			var t = p.Parse(text);
 
 			Assert.AreEqual(2, t.ChildCount);
 			Assert.AreEqual("a", t[0].MatchedText(text));

@@ -75,19 +75,11 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// Provides access to the child at the specified index.
+		/// Provides access to the child token at the specified index.
 		/// </summary>
-		/// 
-		/// <remarks>
-		/// The child may be a Token or a value from a conversion.
-		/// </remarks>
 		/// 
 		/// <param name="index">
 		/// Zero-based index of the child.</param>
-		/// 
-		/// <value>
-		/// A token if the child has not been replaced by conversion, or the
-		/// converted value if it has.</value>
 		/// 
 		/// <exception cref="NullReferenceException">
 		/// Thrown if there are no children.</exception>

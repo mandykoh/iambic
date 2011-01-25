@@ -44,7 +44,9 @@ namespace Naucera.Iambic
 
 			var processorInvoked = false;
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+
 				new ParseRule("A", new LiteralTerminal(text))
 					.AnnotatingMatchesWith((token, context, args) => {
 						Assert.AreEqual(1, token.ChildCount);
@@ -64,7 +66,8 @@ namespace Naucera.Iambic
 		[Test]
 		public void ShouldReturnOutputFromConversion()
 		{
-			var p = new Parser<object>(
+			var p = new Parser<string>(
+				(token, ctx, args) => token.Value.ToString(),
 				new ParseRule("A", new LiteralTerminal("a"))
 					.AnnotatingMatchesWith((token, context, args) => "Output From Processor"));
 

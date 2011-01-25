@@ -57,10 +57,11 @@ namespace Naucera.Iambic.Expressions
 		public void ShouldMatchInSingleLineMode()
 		{
 			const string text = "a\nb\nc\r\n";
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A", new PatternTerminal(".*")));
 
-			var t = p.ParseRaw(text);
+			var t = p.Parse(text);
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual(text, t[0].MatchedText(text));
@@ -72,11 +73,12 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "abcd";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A", new PatternTerminal("bcd")));
 
 			try {
-				p.ParseRaw(text);
+				p.Parse(text);
 
 				Assert.Fail("Expression matched but should not have");
 			}
@@ -91,7 +93,8 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "abcdefg";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new PatternTerminal("bc"),
@@ -100,7 +103,7 @@ namespace Naucera.Iambic.Expressions
 				{ MaxErrors = 3 };
 
 			try {
-				p.ParseRaw(text);
+				p.Parse(text);
 
 				Assert.Fail("Expression matched but should not have");
 			}
@@ -115,10 +118,11 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "abbccc";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A", new PatternTerminal("a*b*c*d*")));
 
-			var t = p.ParseRaw(text);
+			var t = p.Parse(text);
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual(text, t[0].MatchedText(text));

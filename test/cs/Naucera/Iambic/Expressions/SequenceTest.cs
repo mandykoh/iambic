@@ -44,7 +44,7 @@ namespace Naucera.Iambic.Expressions
 				new LiteralTerminal("b"));
 
 			// Create a parser to ensure the expression is compiled
-			new Parser<object>(new ParseRule("A", expr));
+			new Parser<Token>((token, ctx, args) => token, new ParseRule("A", expr));
 
 			Assert.AreEqual("('a' 'b')", expr.ToString());
 		}
@@ -55,13 +55,14 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ab";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 					  new LiteralTerminal("a"),
 					  new LiteralTerminal("b"))));
 
-			var t = p.ParseRaw(text);
+			var t = p.Parse(text);
 
 			Assert.AreEqual(2, t.ChildCount);
 			Assert.AreEqual("a", t[0].MatchedText(text));
@@ -73,7 +74,8 @@ namespace Naucera.Iambic.Expressions
 		public void ShouldNotAllowInvalidSubExpression()
 		{
 			try {
-				new Parser<object>(
+				new Parser<Token>(
+					(token, ctx, args) => token,
 					new ParseRule("A",
 						new Sequence(
 							new LiteralTerminal("a"),
@@ -93,7 +95,7 @@ namespace Naucera.Iambic.Expressions
 			var expr = new Sequence();
 
 			try {
-				new Parser<object>(new ParseRule("A", expr));
+				new Parser<Token>((token, ctx, args) => token, new ParseRule("A", expr));
 				Assert.Fail("Expression without subexpressions was allowed but should have been rejected");
 			}
 			catch (EmptyCompositeException e) {
@@ -107,14 +109,15 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ba";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 					  new LiteralTerminal("a"),
 					  new LiteralTerminal("b"))));
 
 			try {
-				p.ParseRaw(text);
+				p.Parse(text);
 				Assert.Fail("Expression matched but should not have");
 			}
 			catch (SyntaxException) {
@@ -128,14 +131,15 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "abc";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new LiteralTerminal("a"),
 						new LiteralTerminal("b"),
 						new LiteralTerminal("c"))));
 
-			var t = p.ParseRaw(text);
+			var t = p.Parse(text);
 
 			Assert.AreEqual(3, t.ChildCount);
 			Assert.AreEqual("a", t[0].MatchedText(text));
@@ -149,7 +153,8 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "xbc";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new LiteralTerminal("a"),
@@ -158,7 +163,7 @@ namespace Naucera.Iambic.Expressions
 				)) { MaxErrors = 3 };
 
 			try {
-				p.ParseRaw(text);
+				p.Parse(text);
 				Assert.Fail("Expression matched but should not have");
 			}
 			catch (SyntaxException e) {

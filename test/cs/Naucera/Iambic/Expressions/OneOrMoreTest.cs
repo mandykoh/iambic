@@ -50,14 +50,15 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ab";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new OneOrMore(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 				));
 
-			p.ParseRaw(text);
+			p.Parse(text);
 		}
 
 
@@ -66,14 +67,15 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "aaab";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new OneOrMore(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 					));
 
-			p.ParseRaw(text);
+			p.Parse(text);
 		}
 
 
@@ -82,14 +84,15 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "b";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new OneOrMore(new OneOrMore(new LiteralTerminal(""))),
 						new LiteralTerminal("b"))
 					));
 
-			p.ParseRaw(text);
+			p.Parse(text);
 		}
 
 
@@ -98,7 +101,8 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "b";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new OneOrMore(new LiteralTerminal("a")),
@@ -106,7 +110,7 @@ namespace Naucera.Iambic.Expressions
 				));
 
 			try {
-				p.ParseRaw(text);
+				p.Parse(text);
 				Assert.Fail("Expression matched but should not have");
 			}
 			catch (SyntaxException) {
@@ -120,14 +124,15 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "aaab";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new OneOrMore(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 				));
 
-			var t = p.ParseRaw(text);
+			var t = p.Parse(text);
 
 			Assert.AreEqual(4, t.ChildCount);
 			Assert.AreEqual("a", t[0].MatchedText(text));
@@ -142,7 +147,8 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "xbab";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new OneOrMore(
@@ -152,7 +158,7 @@ namespace Naucera.Iambic.Expressions
 				)) { MaxErrors = 2 };
 
 			try {
-				p.ParseRaw(text);
+				p.Parse(text);
 				Assert.Fail("Expression matched but should not have");
 			}
 			catch (SyntaxException e) {

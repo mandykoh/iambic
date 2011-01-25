@@ -62,6 +62,7 @@ namespace Naucera.Iambic
 		readonly ParseRule mRootRule;
 		readonly ParseRule[] mRules;
 		readonly Dictionary<string, GrammarConstruct> mConstructNameMap;
+		readonly TokenConversion<T> mResultConversion;
 		int mMaxErrors = 1;
 
 
@@ -74,6 +75,9 @@ namespace Naucera.Iambic
 		/// At least one ParseRule must be provided, and the first ParseRule is
 		/// taken to be the root grammar production.
 		/// </remarks>
+		/// 
+		/// <param name="resultConversion">
+		/// Conversion to apply to the result token.</param>
 		///
 		/// <param name="rootRule">
 		/// Root grammar production.</param>
@@ -84,8 +88,10 @@ namespace Naucera.Iambic
 		/// <exception cref="InvalidGrammarException">
 		/// Thrown on other grammar errors.</exception>
 		
-		public Parser(ParseRule rootRule, params GrammarConstruct[] grammarConstructs)
+		public Parser(TokenConversion<T> resultConversion, ParseRule rootRule, params GrammarConstruct[] grammarConstructs)
 		{
+			mResultConversion = resultConversion;
+
 			// Sort out parse rules
 			var parseRules = new List<ParseRule>();
 			parseRules.Add(rootRule);
@@ -111,6 +117,17 @@ namespace Naucera.Iambic
 			// Check the rules for well-formedness
 			foreach (var rule in mRules)
 				rule.CheckWellFormed();
+		}
+
+
+		Parser(ParseRule rootRule, ParseRule[] rules, Dictionary<string, GrammarConstruct> constructNameMap, TokenConversion<T> resultConversion, int maxErrors)
+		{
+			// TODO: Copy entire parser state
+			mRootRule = rootRule;
+			mRules = rules;
+			mConstructNameMap = new Dictionary<string, GrammarConstruct>(constructNameMap);
+			mResultConversion = resultConversion;
+			mMaxErrors = maxErrors;
 		}
 
 
@@ -262,6 +279,63 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
+		/// Returns a copy of this parser with a new result token conversion.
+		/// </summary>
+		/// 
+		/// <typeparam name="TConverted">
+		/// Resulting type of the token conversion.</typeparam>
+		/// 
+		/// <param name="conversion">
+		/// The conversion to perform on parsed results.</param>
+		/// 
+		/// <returns>
+		/// New parser.</returns>
+		
+		public Parser<TConverted> ConvertingResultUsing<TConverted>(TokenConversion<TConverted> conversion)
+		{
+			return new Parser<TConverted>(mRootRule, mRules, mConstructNameMap, conversion, mMaxErrors);
+		}
+
+
+		/// <summary>
+		/// Returns a copy of this parser with a new result token conversion.
+		/// </summary>
+		/// 
+		/// <typeparam name="TConverted">
+		/// Resulting type of the token conversion.</typeparam>
+		/// 
+		/// <param name="conversion">
+		/// The conversion to perform on parsed results.</param>
+		/// 
+		/// <returns>
+		/// New parser.</returns>
+		
+		public Parser<TConverted> ConvertingResultUsing<TConverted>(TokenConversionWithNoArgs<TConverted> conversion)
+		{
+			return new Parser<TConverted>(mRootRule, mRules, mConstructNameMap, (t, ctx, args) => conversion(t, ctx), mMaxErrors);
+		}
+
+
+		/// <summary>
+		/// Returns a copy of this parser with a new result token conversion.
+		/// </summary>
+		/// 
+		/// <typeparam name="TConverted">
+		/// Resulting type of the token conversion.</typeparam>
+		/// 
+		/// <param name="conversion">
+		/// The conversion to perform on parsed results.</param>
+		/// 
+		/// <returns>
+		/// New parser.</returns>
+		
+		public Parser<TConverted> ConvertingResultUsing<TConverted>(TokenConversionWithNoContext<TConverted> conversion)
+		{
+			return new Parser<TConverted>(mRootRule, mRules, mConstructNameMap, (t, ctx, args) => conversion(t), mMaxErrors);
+		}
+
+
+		/// <summary>
 		/// Returns the custom matcher with the specified name, or null if no
 		/// such custom matcher exists.
 		/// </summary>
@@ -353,54 +427,20 @@ namespace Naucera.Iambic
 		/// <returns>
 		/// Parsed and converted result.</returns>
 		///
-		/// <exception cref="UndefinedTokenConversionException">
-		/// Thrown if no token conversion is defined for the root grammar rule.
-		/// </exception>
-		/// 
 		/// <exception cref="SyntaxException">
 		/// Thrown if parsing fails on syntax errors which were unrecoverable
 		/// (or MaxErrors was reached).</exception>
 		
 		public T Parse(string text, params object[] args)
 		{
-			if (!mRules[0].HasTokenAnnotation)
-				throw new UndefinedTokenConversionException(mRules[0]);
-
 			var context = ParseContext.Create(this, text);
 			var resultToken = ParseRawWith(context, text);
 
-			return (T)AnnotateTokens(context, resultToken, args);
-		}
+			// Tag tokens
+			resultToken = resultToken.WithValue(AnnotateTokens(context, resultToken, args));
 
-
-		/// <summary>
-		/// Parses the specified text, returning the parsed result as a Token.
-		/// </summary>
-		/// 
-		/// <remarks>
-		/// <para>
-		/// Each rule generates a token, with the components of the rule as the
-		/// token's children.</para>
-		/// 
-		/// <para>
-		/// No token conversion is performed regardless of any conversions
-		/// having been registered using Replacing().</para>
-		/// </remarks>
-		///
-		/// <param name="text">
-		/// Text to parse.</param>
-		/// 
-		/// <returns>
-		/// Parsed result.</returns>
-		///
-		/// <exception cref="SyntaxException">
-		/// Thrown if parsing fails on syntax errors which were unrecoverable
-		/// (or MaxErrors was reached).</exception>
-		
-		public Token ParseRaw(string text)
-		{
-			var context = ParseContext.Create(this, text);
-			return ParseRawWith(context, text);
+			// Convert and return the result
+			return mResultConversion(resultToken, context, args);
 		}
 
 

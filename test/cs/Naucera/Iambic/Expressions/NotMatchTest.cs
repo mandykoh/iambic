@@ -50,14 +50,15 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ab";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new NotMatch(new LiteralTerminal("b")),
 						new LiteralTerminal("ab"))
 				));
 
-			p.ParseRaw(text);
+			p.Parse(text);
 		}
 
 
@@ -66,12 +67,13 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ab";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A", new NotMatch(new LiteralTerminal("a"))))
 				{ MaxErrors = 2 };
 
 			try {
-				p.ParseRaw(text);
+				p.Parse(text);
 				Assert.Fail("Expression matched but should not have");
 			}
 			catch (SyntaxException e) {
@@ -86,11 +88,12 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "b";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A", new NotMatch(new LiteralTerminal("b"))));
 
 			try {
-				p.ParseRaw(text);
+				p.Parse(text);
 				Assert.Fail("Expression matched when it should not have");
 			}
 			catch (SyntaxException) {
@@ -104,14 +107,15 @@ namespace Naucera.Iambic.Expressions
 		{
 			const string text = "ab";
 
-			var p = new Parser<object>(
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
 						new NotMatch(new LiteralTerminal("b")),
 						new LiteralTerminal("ab"))
 				));
 
-			var t = p.ParseRaw(text);
+			var t = p.Parse(text);
 
 			Assert.AreEqual(1, t.ChildCount);
 			Assert.AreEqual("ab", t[0].MatchedText(text));
