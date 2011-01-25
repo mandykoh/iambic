@@ -29,7 +29,7 @@
 
 #endregion
 
-namespace Naucera.Iambic.Expressions
+namespace Naucera.Iambic
 {
 	/// <summary>
 	/// Exception indicating that a referenced non-terminal was undefined in a
