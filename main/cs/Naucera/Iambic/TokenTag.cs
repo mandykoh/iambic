@@ -60,7 +60,7 @@ namespace Naucera.Iambic
 	/// <returns>
 	/// Value to tag the token with in the parse tree.</returns>
 
-	public delegate object TokenTag(Token token, ParseContext context, params object[] parseArgs);
+	public delegate object TokenTag(Token token, ParseContext context, object[] parseArgs);
 
 
 	/// <summary>

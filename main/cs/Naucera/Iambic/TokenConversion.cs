@@ -52,7 +52,7 @@ namespace Naucera.Iambic
 	/// <returns>
 	/// Value to convert the token into.</returns>
 
-	public delegate T TokenConversion<out T>(Token token, ParseContext context, params object[] parseArgs);
+	public delegate T TokenConversion<out T>(Token token, ParseContext context, object[] parseArgs);
 
 
 	/// <summary>
