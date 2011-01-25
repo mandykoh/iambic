@@ -60,7 +60,7 @@ namespace Naucera.Iambic
 
 
 		[Test]
-		public void IteratingChildValuesShouldReturnAllValues()
+		public void IteratingChildTagsShouldReturnAllTags()
 		{
 			const string text = "aaa";
 
@@ -68,7 +68,7 @@ namespace Naucera.Iambic
 				(token, ctx, args) => (IEnumerable<string>)token.Tag,
 				new ParseRule("A", new ZeroOrMore(new RuleRef("B"))),
 				new ParseRule("B", new LiteralTerminal("a")))
-				.Tagging("A", with: token => token.ChildValues.OfType<string>())
+				.Tagging("A", with: token => token.ChildTags.OfType<string>())
 				.Tagging("B", with: (token, ctx) => ctx.MatchedText(token));
 
 			var values = p.Parse(text);

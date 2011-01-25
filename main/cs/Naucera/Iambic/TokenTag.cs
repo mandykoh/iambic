@@ -32,24 +32,24 @@
 namespace Naucera.Iambic
 {
 	/// <summary>
-	/// Returns a value to annotate the given token with.
+	/// Returns a value to tag the given token with.
 	/// </summary>
 	/// 
 	/// <remarks>
 	/// <para>
 	/// This is invoked by Parser.Parse(), and only when parsing has succeeded,
-	/// and then only after the annotation for all child tokens has been done.
+	/// and then only after all child tokens have been tagged.
 	/// </para>
 	///
 	/// <para>
 	/// When this is invoked, each child of the token is guaranteed to have been
-	/// annotated with a value from its own annotation (such that the child's
-	/// Value property will return the value), unless the child has no
-	/// annotation defined (using the Parser.Annotating() method).</para>
+	/// tagged with its own value (such that the child's Tag property will
+	/// return the value), unless the child has no tag defined (using the
+	/// Parser.Tagging() method).</para>
 	/// </remarks>
 	///
 	/// <param name="token">
-	/// Token to be annotated.</param>
+	/// Token to be tagged.</param>
 	/// 
 	/// <param name="context">
 	/// Parse context from which the token was generated.</param>
@@ -58,64 +58,64 @@ namespace Naucera.Iambic
 	/// Arguments given via the Parse() method of the parser.</param>
 	/// 
 	/// <returns>
-	/// Value to annotate the token with in the parse tree.</returns>
+	/// Value to tag the token with in the parse tree.</returns>
 
-	public delegate object TokenAnnotation(Token token, ParseContext context, params object[] parseArgs);
+	public delegate object TokenTag(Token token, ParseContext context, params object[] parseArgs);
 
 
 	/// <summary>
-	/// Returns a value to annotate the given token with.
+	/// Returns a value to tag the given token with.
 	/// </summary>
 	/// 
 	/// <remarks>
 	/// <para>
 	/// This is invoked by Parser.Parse(), and only when parsing has succeeded,
-	/// and then only after the annotation for all child tokens has been done.
+	/// and then only after all child tokens have been tagged.
 	/// </para>
 	///
 	/// <para>
 	/// When this is invoked, each child of the token is guaranteed to have been
-	/// annotated with a value from its own annotation (such that the child's
-	/// Value property will return the value), unless the child has no
-	/// annotation defined (using the Parser.Annotating() method).</para>
+	/// tagged with its own value (such that the child's Tag property will
+	/// return the value), unless the child has no tag defined (using the
+	/// Parser.Tagging() method).</para>
 	/// </remarks>
 	///
 	/// <param name="token">
-	/// Token to be annotated.</param>
+	/// Token to be tagged.</param>
 	/// 
 	/// <param name="context">
 	/// Parse context from which the token was generated.</param>
 	/// 
 	/// <returns>
-	/// Value to annotate the token with in the parse tree.</returns>
+	/// Value to tag the token with in the parse tree.</returns>
 	
-	public delegate object TokenAnnotationWithNoArgs(Token token, ParseContext context);
+	public delegate object TokenTagWithNoArgs(Token token, ParseContext context);
 
 
 	/// <summary>
-	/// Returns a value to annotate the given token with.
+	/// Returns a value to tag the given token with.
 	/// </summary>
 	/// 
 	/// <remarks>
 	/// <para>
 	/// This is invoked by Parser.Parse(), and only when parsing has succeeded,
-	/// and then only after the annotation for all child tokens has been done.
+	/// and then only after all child tokens have been tagged.
 	/// </para>
 	///
 	/// <para>
 	/// When this is invoked, each child of the token is guaranteed to have been
-	/// annotated with a value from its own annotation (such that the child's
-	/// Value property will return the value), unless the child has no
-	/// annotation defined (using the Parser.Annotating() method).</para>
+	/// tagged with its own value (such that the child's Tag property will
+	/// return the value), unless the child has no tag defined (using the
+	/// Parser.Tagging() method).</para>
 	/// </remarks>
 	///
 	/// <param name="token">
-	/// Token to be annotated.</param>
+	/// Token to be tagged.</param>
 	/// 
 	/// <returns>
-	/// Value to annotate the token with in the parse tree.</returns>
+	/// Value to tag the token with in the parse tree.</returns>
 
-	public delegate object TokenAnnotationWithNoContext(Token token);
+	public delegate object TokenTagWithNoContext(Token token);
 
 
 	/// <summary>
@@ -136,5 +136,5 @@ namespace Naucera.Iambic
 	/// <returns>
 	/// Value to tag a token with in the parse tree.</returns>
 
-	public delegate object TokenAnnotationWithNoToken();
+	public delegate object TokenTagWithNoToken();
 }

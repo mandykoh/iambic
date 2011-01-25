@@ -41,8 +41,8 @@ namespace Naucera.Iambic
 	/// </summary>
 	/// 
 	/// <remarks>
-	/// Tokens may contain nested children. Tokens may also have a value from a
-	/// 
+	/// Tokens may contain nested children. Tokens may also be tagged with a
+	/// value (accessible via the Tag property).
 	/// </remarks>
 
 	public struct Token
@@ -138,10 +138,6 @@ namespace Naucera.Iambic
 		/// A sequence of child tokens for this token.
 		/// </summary>
 		/// 
-		/// <remarks>
-		/// Children may either be Tokens or other values if they have been
-		/// replaced by a conversion.</remarks>
-		/// 
 		/// <value>
 		/// Sequence of children.</value>
 		
@@ -153,19 +149,24 @@ namespace Naucera.Iambic
 
 		/// <summary>
 		/// A sequence of values that the children of this token have been
-		/// annotated with.
+		/// tagged with.
 		/// </summary>
 		/// 
 		/// <remarks>
-		/// If no annotation has been defined for a child, or annotation has not
-		/// been performed (eg. by using Parser.ParseRaw() instead of
-		/// Parser.Parse()) then its value will be null in the sequence.
+		/// <para>
+		/// Values are returned in the same sequence as the children they
+		/// are from.</para>
+		/// 
+		/// <para>
+		/// If no tag has been defined for a child, or tagging has not yet
+		/// been performed, then the tag value will be null in the sequence
+		/// for that child.</para>
 		/// </remarks>
 		/// 
 		/// <value>
-		/// Sequence of annotated values for this token's children.</value>
+		/// Sequence of tag values for this token's children.</value>
 		
-		public IEnumerable<object> ChildValues
+		public IEnumerable<object> ChildTags
 		{
 			get { return mChildren.Select(c => c.Tag); }
 		}
@@ -195,6 +196,7 @@ namespace Naucera.Iambic
 			get { return mGrammarConstruct; }
 			internal set { mGrammarConstruct = value; }
 		}
+
 
 		/// <summary>
 		/// Flag indicating whether this token has any children.
@@ -227,7 +229,7 @@ namespace Naucera.Iambic
 		/// </summary>
 		/// 
 		/// <remarks>
-		/// Tags are set by using Parser.Tagging().</remarks>
+		/// Tags are registered by using Parser.Tagging().</remarks>
 		/// 
 		/// <value>
 		/// Tagged value, or null.</value>
