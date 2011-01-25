@@ -29,7 +29,6 @@
 
 #endregion
 
-using System;
 using System.Collections.Generic;
 using System.Text;
 using Naucera.Iambic.Expressions;
@@ -42,8 +41,8 @@ namespace Naucera.Iambic
 	/// 
 	/// <remarks>
 	/// <para>
-	/// Each ParseRule can belong to one and only one Parser. It is an error
-	/// to add a given ParseRule to more than one Parser.</para>
+	/// Each ParseRule should only be added to one and only one Parser. It is an
+	/// error to add a given ParseRule to more than one Parser.</para>
 	/// 
 	/// <para>
 	/// ParseRules will most often be generated from a grammar specification
@@ -52,10 +51,7 @@ namespace Naucera.Iambic
 
 	public sealed class ParseRule : GrammarConstruct
 	{
-		const int UncompiledRuleIndex = -1;
-
 		ParseExpression mExpression;
-		int mIndex = UncompiledRuleIndex;
 
 
 		/// <summary>
@@ -84,19 +80,6 @@ namespace Naucera.Iambic
 		}
 
 
-		internal int Index
-		{
-			get { return mIndex; }
-		}
-
-
-		public new ParseRule AnnotatingMatchesWith(TokenAnnotation annotation)
-		{
-			base.AnnotatingMatchesWith(annotation);
-			return this;
-		}
-
-
 		/// <summary>
 		/// Checks for well-formedness by ensuring that no left-recursion loops
 		/// exist in the expression, throwing an exception if so.
@@ -118,16 +101,9 @@ namespace Naucera.Iambic
 		/// 
 		/// <param name="parser">
 		/// Parser to compile for.</param>
-		/// 
-		/// <exception cref="InvalidOperationException">
-		/// Thrown if the rule has already been compiled.</exception>
 
 		internal void Compile<T>(Parser<T> parser)
 		{
-			if (mIndex != UncompiledRuleIndex)
-				throw new InvalidOperationException();
-
-			mIndex = parser.IndexForRule(this);
 			mExpression = mExpression.Compile(parser);
 		}
 

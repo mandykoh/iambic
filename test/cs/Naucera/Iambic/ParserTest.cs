@@ -41,8 +41,8 @@ namespace Naucera.Iambic
 		[Test]
 		public void ParsingWithConversionShouldReturnConvertedResult()
 		{
-			var parser = new Parser<int>((token, ctx, args) => (int)token.Value, new ParseRule("A", new PatternTerminal("[a-zA-Z]+")))
-				.Annotating("A", token => 123);
+			var parser = new Parser<int>((token, ctx, args) => (int)token.Tag, new ParseRule("A", new PatternTerminal("[a-zA-Z]+")))
+				.Tagging("A", token => 123);
 
 			Assert.AreEqual(123, parser.Parse("sometext"));
 		}
@@ -51,8 +51,8 @@ namespace Naucera.Iambic
 		[Test]
 		public void ParsingWithConversionShouldPassContextToConverter()
 		{
-			var parser = new Parser<int>((token, ctx, args) => (int)token.Value, new ParseRule("A", new PatternTerminal("\\d+")))
-				.Annotating("A", (token, ctx) => int.Parse(ctx.MatchedText(token)));
+			var parser = new Parser<int>((token, ctx, args) => (int)token.Tag, new ParseRule("A", new PatternTerminal("\\d+")))
+				.Tagging("A", (token, ctx) => int.Parse(ctx.MatchedText(token)));
 
 			Assert.AreEqual(123, parser.Parse("123"));
 		}
@@ -61,8 +61,8 @@ namespace Naucera.Iambic
 		[Test]
 		public void ParsingWithConversionShouldPassArgumentsToConverter()
 		{
-			var parser = new Parser<int>((token, ctx, args) => (int)token.Value, new ParseRule("A", new PatternTerminal("\\d+")))
-				.Annotating("A", (token, ctx, args) => int.Parse(ctx.MatchedText(token)) + (int)args[0]);
+			var parser = new Parser<int>((token, ctx, args) => (int)token.Tag, new ParseRule("A", new PatternTerminal("\\d+")))
+				.Tagging("A", (token, ctx, args) => int.Parse(ctx.MatchedText(token)) + (int)args[0]);
 
 			Assert.AreEqual(128, parser.Parse("123", 5));
 		}

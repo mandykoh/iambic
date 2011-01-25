@@ -183,9 +183,6 @@ namespace Naucera.Iambic
 		/// any conversions should be registered using Parser.Replacing().
 		/// </remarks>
 		/// 
-		/// <typeparam name="T">
-		/// Return type of the parser to construct.</typeparam>
-		///
 		/// <param name="grammar">
 		/// Textual PEG specification.</param>
 		///
@@ -224,9 +221,6 @@ namespace Naucera.Iambic
 		/// documentation for this class.</para>
 		/// </remarks>
 		/// 
-		/// <typeparam name="T">
-		/// Type of the output of the generated parser.</typeparam>
-		/// 
 		/// <returns>
 		/// Generated parser.</returns>
 
@@ -234,7 +228,7 @@ namespace Naucera.Iambic
 		{
 			return new Parser<Parser<Token>>(
 
-				(token, ctx, args) => (Parser<Token>)token.Value,
+				(token, ctx, args) => (Parser<Token>)token.Tag,
 
 				new ParseRule("Grammar",
 					new Sequence(
@@ -242,7 +236,7 @@ namespace Naucera.Iambic
 						new OneOrMore(new RuleRef("Definition")),
 						new RuleRef("EndOfInput")
 						)
-					).AnnotatingMatchesWith(ProcessGrammar),
+					),
 
 				new ParseRule("Definition",
 					new Sequence(
@@ -250,14 +244,14 @@ namespace Naucera.Iambic
 						new RuleRef("ASSIGN"),
 						new RuleRef("Expression")
 						)
-					).AnnotatingMatchesWith(ProcessDefinition),
+					),
 
 				new ParseRule("Expression",
 					new OrderedChoice(
 						new RuleRef("OrderedChoice"),
 						new RuleRef("Sequence")
 						)
-					).AnnotatingMatchesWith(ProcessExpression),
+					),
 
 				new ParseRule("OrderedChoice",
 					new Sequence(
@@ -269,11 +263,11 @@ namespace Naucera.Iambic
 								)
 							)
 						)
-					).AnnotatingMatchesWith(ProcessOrderedChoice),
+					),
 
 				new ParseRule("Sequence",
 					new OneOrMore(new RuleRef("Prefix"))
-					).AnnotatingMatchesWith(ProcessSequence),
+					),
 
 				new ParseRule("Prefix",
 					new Sequence(
@@ -285,7 +279,7 @@ namespace Naucera.Iambic
 							),
 						new RuleRef("Suffix")
 						)
-					).AnnotatingMatchesWith(ProcessPrefix),
+					),
 
 				new ParseRule("Suffix",
 					new Sequence(
@@ -298,7 +292,7 @@ namespace Naucera.Iambic
 								)
 							)
 						)
-					).AnnotatingMatchesWith(ProcessSuffix),
+					),
 
 				new ParseRule("Primary",
 					new OrderedChoice(
@@ -313,14 +307,14 @@ namespace Naucera.Iambic
 							),
 						new RuleRef("Literal")
 						)
-					).AnnotatingMatchesWith(ProcessPrimary),
+					),
 
 				new ParseRule("Identifier",
 					new Sequence(
 						new PatternTerminal(@"\w+"),
 						new Optional(new RuleRef("Ignorable"))
 						)
-					).AnnotatingMatchesWith(ProcessIdentifier),
+					),
 
 				new ParseRule("Literal",
 					new OrderedChoice(
@@ -328,28 +322,28 @@ namespace Naucera.Iambic
 						new RuleRef("RegexLiteral"),
 						new RuleRef("CustomMatcher")
 						)
-					).AnnotatingMatchesWith(ProcessLiteral),
+					),
 
 				new ParseRule("BasicLiteral",
 					new Sequence(
 						new PatternTerminal(@"'(\\\\|\\'|[^'])*'"),
 						new Optional(new RuleRef("Ignorable"))
 						)
-					).AnnotatingMatchesWith(ProcessBasicLiteral),
+					),
 
 				new ParseRule("RegexLiteral",
 					new Sequence(
 						new PatternTerminal(@"/(\\\\|\\/|[^/])*/"),
 						new Optional(new RuleRef("Ignorable"))
 						)
-					).AnnotatingMatchesWith(ProcessRegexLiteral),
+					),
 
 				new ParseRule("CustomMatcher",
 					new Sequence(
 						new PatternTerminal(@"\{\w+\}"),
 						new Optional(new RuleRef("Ignorable"))
 						)
-					).AnnotatingMatchesWith(ProcessCustomMatcher),
+					),
 
 				new ParseRule("EndOfInput", new PatternTerminal("$")),
 
@@ -460,7 +454,21 @@ namespace Naucera.Iambic
 						new PatternTerminal(@"\r?\n")
 						)
 					)
-				);
+				)
+				
+				.Tagging("Grammar", with: ProcessGrammar)
+				.Tagging("Definition", with: ProcessDefinition)
+				.Tagging("Expression", with: ProcessExpression)
+				.Tagging("OrderedChoice", with: ProcessOrderedChoice)
+				.Tagging("Sequence", with: ProcessSequence)
+				.Tagging("Prefix", with: ProcessPrefix)
+				.Tagging("Suffix", with: ProcessSuffix)
+				.Tagging("Primary", with: ProcessPrimary)
+				.Tagging("Identifier", with: ProcessIdentifier)
+				.Tagging("Literal", with: ProcessLiteral)
+				.Tagging("BasicLiteral", with: ProcessBasicLiteral)
+				.Tagging("RegexLiteral", with: ProcessRegexLiteral)
+				.Tagging("CustomMatcher", with: ProcessCustomMatcher);
 		}
 
 
@@ -497,8 +505,8 @@ namespace Naucera.Iambic
 
 		static object ProcessDefinition(Token token, ParseContext context, params object[] args)
 		{
-			var ruleName = token[0].Value.ToString();
-			var expr = (ParseExpression)token[2].Value;
+			var ruleName = token[0].Tag.ToString();
+			var expr = (ParseExpression)token[2].Tag;
 			return new ParseRule(ruleName, expr);
 		}
 
@@ -509,7 +517,7 @@ namespace Naucera.Iambic
 
 		static object ProcessExpression(Token token, ParseContext context, params object[] args)
 		{
-			return token[0].Value;
+			return token[0].Tag;
 		}
 
 
@@ -521,7 +529,7 @@ namespace Naucera.Iambic
 		{
 			var grammarConstructs = new List<GrammarConstruct>();
 
-			foreach (var rule in token.Children.Select(c => c.Value).OfType<ParseRule>())
+			foreach (var rule in token.Children.Select(c => c.Tag).OfType<ParseRule>())
 				grammarConstructs.Add(rule);
 
 			foreach (var arg in args)
@@ -547,7 +555,7 @@ namespace Naucera.Iambic
 
 		static object ProcessLiteral(Token token, ParseContext context, params object[] args)
 		{
-			return token[0].Value;
+			return token[0].Tag;
 		}
 
 
@@ -562,7 +570,7 @@ namespace Naucera.Iambic
 				var choiceExpressions = new List<ParseExpression>();
 
 				for (var i = 0; i < token.ChildCount; ++i) {
-					var child = token[i].Value as ParseExpression;
+					var child = token[i].Tag as ParseExpression;
 					if (child != null)
 						choiceExpressions.Add(child);
 				}
@@ -571,7 +579,7 @@ namespace Naucera.Iambic
 			}
 
 			// Otherwise, just return the first sequence
-			return token[0].Value;
+			return token[0].Tag;
 		}
 
 
@@ -583,7 +591,7 @@ namespace Naucera.Iambic
 		{
 			// Wrap the expression with a predicate if a prefix is present
 			if (token.ChildCount > 1) {
-				var expression = (ParseExpression)token[1].Value;
+				var expression = (ParseExpression)token[1].Tag;
 
 				if (token[0].Matched("AND"))
 					return new Match(expression);
@@ -592,7 +600,7 @@ namespace Naucera.Iambic
 			}
 
 			// Otherwise, return the raw expression
-			return token[0].Value;
+			return token[0].Tag;
 		}
 
 
@@ -604,7 +612,7 @@ namespace Naucera.Iambic
 		{
 
 			if (token.ChildCount == 1) {
-				var firstChild = token[0].Value;
+				var firstChild = token[0].Tag;
 
 				// Primary is an identifier - wrap it as a rule reference
 				if (firstChild is string)
@@ -615,7 +623,7 @@ namespace Naucera.Iambic
 			}
 
 			// Primary is a nested expression - propagate it
-			return token[1].Value;
+			return token[1].Tag;
 		}
 
 
@@ -640,12 +648,12 @@ namespace Naucera.Iambic
 		{
 			// Unwrap sequences of only one nested expression and use as-is
 			if (token.ChildCount == 1)
-				return token[0].Value;
+				return token[0].Tag;
 
 			// Otherwise, build a proper sequence from the nested children
 			var expressions = new List<ParseExpression>();
 			for (var i = 0; i < token.ChildCount; ++i)
-				expressions.Add((ParseExpression)token[i].Value);
+				expressions.Add((ParseExpression)token[i].Tag);
 
 			return new Sequence(expressions.ToArray());
 		}
@@ -657,7 +665,7 @@ namespace Naucera.Iambic
 
 		static object ProcessSuffix(Token token, ParseContext context, params object[] args)
 		{
-			var expression = (ParseExpression)token[0].Value;
+			var expression = (ParseExpression)token[0].Tag;
 
 			// Wrap the expression if a quantifier is present
 			if (token.ChildCount > 1) {

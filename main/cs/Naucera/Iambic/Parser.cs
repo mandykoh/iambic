@@ -62,6 +62,7 @@ namespace Naucera.Iambic
 		readonly ParseRule mRootRule;
 		readonly ParseRule[] mRules;
 		readonly Dictionary<string, GrammarConstruct> mConstructNameMap;
+		readonly TokenAnnotation[] mTokenTaggers;
 		readonly TokenConversion<T> mResultConversion;
 		int mMaxErrors = 1;
 
@@ -101,7 +102,7 @@ namespace Naucera.Iambic
 			mRootRule = rootRule;
 			mRules = parseRules.ToArray();
 
-			// Setup the map of grammar constructs by names
+			// Set up the map of grammar constructs by names
 			mConstructNameMap = new Dictionary<string, GrammarConstruct>(grammarConstructs.Length + 1) { { mRootRule.Name, mRootRule } };
 			foreach (var construct in grammarConstructs) {
 				if (mConstructNameMap.ContainsKey(construct.Name))
@@ -110,22 +111,38 @@ namespace Naucera.Iambic
 				mConstructNameMap[construct.Name] = construct;
 			}
 
-			// Compile the rules
-			foreach (var rule in mRules)
-				rule.Compile(this);
+			// Compile the rules and assign indices
+			for (var i = 0; i < mRules.Length; ++i) {
+				mRules[i].Compile(this);
+				mRules[i].ParserIndex = i;
+			}
 
 			// Check the rules for well-formedness
 			foreach (var rule in mRules)
 				rule.CheckWellFormed();
+
+			// Assign indices to custom matchers
+			var customMatchers = grammarConstructs.OfType<CustomMatcher>().ToArray();
+			for (var i = 0; i < customMatchers.Length; ++i)
+				customMatchers[i].ParserIndex = mRules.Length + i;
+
+			// Set up table of token taggers for each rule/matcher index
+			mTokenTaggers = new TokenAnnotation[mRules.Length + customMatchers.Length];
 		}
 
 
-		Parser(ParseRule rootRule, ParseRule[] rules, Dictionary<string, GrammarConstruct> constructNameMap, TokenConversion<T> resultConversion, int maxErrors)
+		Parser(ParseRule rootRule,
+			   ParseRule[] rules,
+			   Dictionary<string,
+			   GrammarConstruct> constructNameMap,
+			   TokenAnnotation[] tokenTaggers,
+			   TokenConversion<T> resultConversion,
+			   int maxErrors)
 		{
-			// TODO: Copy entire parser state
 			mRootRule = rootRule;
 			mRules = rules;
-			mConstructNameMap = new Dictionary<string, GrammarConstruct>(constructNameMap);
+			mConstructNameMap = constructNameMap;
+			mTokenTaggers = tokenTaggers.ToArray();
 			mResultConversion = resultConversion;
 			mMaxErrors = maxErrors;
 		}
@@ -172,113 +189,6 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// Recursively invokes token annotations to annotate a token tree after
-		/// successful parsing.
-		/// </summary>
-		/// 
-		/// <remarks>
-		/// The result of invoking the annotation for the specified token is
-		/// returned, or null if no annotation is defined for the token.
-		/// </remarks>
-
-		static object AnnotateTokens(ParseContext context, Token token, params object[] args)
-		{
-			// Invoke the processors for the child tokens and replace the children
-			// with their results.
-
-			for (int i = 0, c = token.ChildCount; i < c; ++i)
-				token[i] = token[i].WithValue(AnnotateTokens(context, token[i], args));
-
-			// Invoke the processor for the current token if it has one
-			var origin = token.GrammarConstruct;
-			if (origin != null && origin.HasTokenAnnotation)
-				return origin.AnnotateToken(token, context, args);
-
-			return null;
-		}
-
-
-		/// <summary>
-		/// Registers the token annotation for a named grammar construct.
-		/// </summary>
-		/// 
-		/// <remarks>
-		/// Each annotation registered in this way causes tokens produced by the
-		/// named grammar rule or custom matcher being annotated by the result
-		/// of invoking the annotation.
-		/// </remarks>
-		/// 
-		/// <param name="constructName">
-		/// Name of the grammar rule or custom matcher which produced the tokens
-		/// to be annotated.</param>
-		/// 
-		/// <param name="with">
-		/// A token annotation which ignores the parsing context and arguments
-		/// given to Parse().</param>
-		/// 
-		/// <returns>
-		/// This parser.</returns>
-
-		public Parser<T> Annotating(string constructName, TokenAnnotationWithNoContext with)
-		{
-			return Annotating(constructName, (token, ctx, args) => with(token));
-		}
-
-
-		/// <summary>
-		/// Registers the token annotation for a named grammar construct.
-		/// </summary>
-		/// 
-		/// <remarks>
-		/// Each annotation registered in this way causes tokens produced by the
-		/// named grammar rule or custom matcher being annotated by the result
-		/// of invoking the annotation.
-		/// </remarks>
-		/// 
-		/// <param name="constructName">
-		/// Name of the grammar rule or custom matcher which produced the tokens
-		/// to be annotated.</param>
-		/// 
-		/// <param name="with">
-		/// A token conversion which ignores arguments given to Parse().</param>
-		/// 
-		/// <returns>
-		/// This parser.</returns>
-
-		public Parser<T> Annotating(string constructName, TokenAnnotationWithNoArgs with)
-		{
-			return Annotating(constructName, (token, ctx, args) => with(token, ctx));
-		}
-
-
-		/// <summary>
-		/// Registers the token annotation for a named grammar construct.
-		/// </summary>
-		/// 
-		/// <remarks>
-		/// Each annotation registered in this way causes tokens produced by the
-		/// named grammar rule or custom matcher being annotated by the result
-		/// of invoking the annotation.
-		/// </remarks>
-		/// 
-		/// <param name="constructName">
-		/// Name of the grammar rule or custom matcher which produced the tokens
-		/// to be annotated.</param>
-		/// 
-		/// <param name="with">
-		/// A token conversion.</param>
-		/// 
-		/// <returns>
-		/// This parser.</returns>
-		
-		public Parser<T> Annotating(string constructName, TokenAnnotation with)
-		{
-			mConstructNameMap[constructName].AnnotatingMatchesWith(with);
-			return this;
-		}
-
-
-		/// <summary>
 		/// Returns a copy of this parser with a new result token conversion.
 		/// </summary>
 		/// 
@@ -293,7 +203,7 @@ namespace Naucera.Iambic
 		
 		public Parser<TConverted> ConvertingResultUsing<TConverted>(TokenConversion<TConverted> conversion)
 		{
-			return new Parser<TConverted>(mRootRule, mRules, mConstructNameMap, conversion, mMaxErrors);
+			return new Parser<TConverted>(mRootRule, mRules, mConstructNameMap, mTokenTaggers, conversion, mMaxErrors);
 		}
 
 
@@ -312,7 +222,7 @@ namespace Naucera.Iambic
 		
 		public Parser<TConverted> ConvertingResultUsing<TConverted>(TokenConversionWithNoArgs<TConverted> conversion)
 		{
-			return new Parser<TConverted>(mRootRule, mRules, mConstructNameMap, (t, ctx, args) => conversion(t, ctx), mMaxErrors);
+			return ConvertingResultUsing((token, ctx, args) => conversion(token, ctx));
 		}
 
 
@@ -331,7 +241,7 @@ namespace Naucera.Iambic
 		
 		public Parser<TConverted> ConvertingResultUsing<TConverted>(TokenConversionWithNoContext<TConverted> conversion)
 		{
-			return new Parser<TConverted>(mRootRule, mRules, mConstructNameMap, (t, ctx, args) => conversion(t), mMaxErrors);
+			return ConvertingResultUsing((token, ctx, args) => conversion(token));
 		}
 
 
@@ -387,22 +297,6 @@ namespace Naucera.Iambic
 
 
 		/// <summary>
-		/// Returns the index of the specified rule, or -1 if the rule is not
-		/// defined for this parser.
-		/// </summary>
-
-		internal int IndexForRule(ParseRule rule)
-		{
-			for (var i = 0; i < mRules.Length; ++i) {
-				if (mRules[i] == rule)
-					return i;
-			}
-
-			return -1;
-		}
-
-
-		/// <summary>
 		/// Parses the specified text and converts tokens to user-defined values.
 		/// </summary>
 		/// 
@@ -437,7 +331,7 @@ namespace Naucera.Iambic
 			var resultToken = ParseRawWith(context, text);
 
 			// Tag tokens
-			resultToken = resultToken.WithValue(AnnotateTokens(context, resultToken, args));
+			resultToken = resultToken.WithTag(TagTokens(context, resultToken, args));
 
 			// Convert and return the result
 			return mResultConversion(resultToken, context, args);
@@ -469,6 +363,144 @@ namespace Naucera.Iambic
 			} while (++errors < mMaxErrors);
 
 			throw new SyntaxException(context, token);
+		}
+
+
+		/// <summary>
+		/// Registers the token annotation for a named grammar construct.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// Each annotation registered in this way causes tokens produced by the
+		/// named grammar rule or custom matcher being annotated by the result
+		/// of invoking the annotation.
+		/// </remarks>
+		/// 
+		/// <param name="constructName">
+		/// Name of the grammar rule or custom matcher which produced the tokens
+		/// to be annotated.</param>
+		/// 
+		/// <param name="with">
+		/// A token annotation which ignores the parsing context and arguments
+		/// given to Parse().</param>
+		/// 
+		/// <returns>
+		/// This parser.</returns>
+
+		public Parser<T> Tagging(string constructName, TokenAnnotationWithNoToken with)
+		{
+			return Tagging(constructName, (token, ctx, args) => with());
+		}
+
+
+		/// <summary>
+		/// Registers the token annotation for a named grammar construct.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// Each annotation registered in this way causes tokens produced by the
+		/// named grammar rule or custom matcher being annotated by the result
+		/// of invoking the annotation.
+		/// </remarks>
+		/// 
+		/// <param name="constructName">
+		/// Name of the grammar rule or custom matcher which produced the tokens
+		/// to be annotated.</param>
+		/// 
+		/// <param name="with">
+		/// A token annotation which ignores the parsing context and arguments
+		/// given to Parse().</param>
+		/// 
+		/// <returns>
+		/// This parser.</returns>
+
+		public Parser<T> Tagging(string constructName, TokenAnnotationWithNoContext with)
+		{
+			return Tagging(constructName, (token, ctx, args) => with(token));
+		}
+
+
+		/// <summary>
+		/// Registers the token annotation for a named grammar construct.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// Each annotation registered in this way causes tokens produced by the
+		/// named grammar rule or custom matcher being annotated by the result
+		/// of invoking the annotation.
+		/// </remarks>
+		/// 
+		/// <param name="constructName">
+		/// Name of the grammar rule or custom matcher which produced the tokens
+		/// to be annotated.</param>
+		/// 
+		/// <param name="with">
+		/// A token conversion which ignores arguments given to Parse().</param>
+		/// 
+		/// <returns>
+		/// This parser.</returns>
+
+		public Parser<T> Tagging(string constructName, TokenAnnotationWithNoArgs with)
+		{
+			return Tagging(constructName, (token, ctx, args) => with(token, ctx));
+		}
+
+
+		/// <summary>
+		/// Registers the token annotation for a named grammar construct.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// Each annotation registered in this way causes tokens produced by the
+		/// named grammar rule or custom matcher being annotated by the result
+		/// of invoking the annotation.
+		/// </remarks>
+		/// 
+		/// <param name="constructName">
+		/// Name of the grammar rule or custom matcher which produced the tokens
+		/// to be annotated.</param>
+		/// 
+		/// <param name="with">
+		/// A token conversion.</param>
+		/// 
+		/// <returns>
+		/// This parser.</returns>
+		
+		public Parser<T> Tagging(string constructName, TokenAnnotation with)
+		{
+			mTokenTaggers[mConstructNameMap[constructName].ParserIndex] = with;
+			return this;
+		}
+
+
+		/// <summary>
+		/// Recursively invokes token annotations to annotate a token tree after
+		/// successful parsing.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// The result of invoking the annotation for the specified token is
+		/// returned, or null if no annotation is defined for the token.
+		/// </remarks>
+
+		object TagTokens(ParseContext context, Token token, params object[] args)
+		{
+			// Invoke the processors for the child tokens and replace the children
+			// with their results.
+
+			for (int i = 0, c = token.ChildCount; i < c; ++i)
+				token[i] = token[i].WithTag(TagTokens(context, token[i], args));
+
+			// Invoke the tagger for the current token if it has one
+			var origin = token.GrammarConstruct;
+			if (origin == null)
+				return null;
+
+			var tagger = mTokenTaggers[origin.ParserIndex];
+			if (tagger == null)
+				return null;
+
+			return tagger(token, context, args);
 		}
 
 

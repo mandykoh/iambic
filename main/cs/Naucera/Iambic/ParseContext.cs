@@ -290,11 +290,11 @@ namespace Naucera.Iambic
 		internal ParseContext CacheResult(ParseRule rule, int ruleOffset, bool accepted, Token result)
 		{
 			// Create a cache for this rule and stop using the empty one
-			if (ReferenceEquals(mRuleCaches[rule.Index], EmptyRuleCache))
-				mRuleCaches[rule.Index] = new Dictionary<int, CacheEntry>();
+			if (ReferenceEquals(mRuleCaches[rule.ParserIndex], EmptyRuleCache))
+				mRuleCaches[rule.ParserIndex] = new Dictionary<int, CacheEntry>();
 
 			var entry = new CacheEntry(mOffset, accepted, result);
-			mRuleCaches[rule.Index][ruleOffset] = entry;
+			mRuleCaches[rule.ParserIndex][ruleOffset] = entry;
 			return this;
 		}
 
@@ -483,7 +483,7 @@ namespace Naucera.Iambic
 
 		internal CacheEntry UseCachedResult(ParseRule rule)
 		{
-			var index = rule.Index;
+			var index = rule.ParserIndex;
 
 			CacheEntry entry;
 			if (!mRuleCaches[index].TryGetValue(mOffset, out entry))

@@ -65,11 +65,11 @@ namespace Naucera.Iambic
 			const string text = "aaa";
 
 			var p = new Parser<IEnumerable<string>>(
-				(token, ctx, args) => (IEnumerable<string>)token.Value,
+				(token, ctx, args) => (IEnumerable<string>)token.Tag,
 				new ParseRule("A", new ZeroOrMore(new RuleRef("B"))),
 				new ParseRule("B", new LiteralTerminal("a")))
-				.Annotating("A", with: token => token.ChildValues.OfType<string>())
-				.Annotating("B", with: (token, ctx) => ctx.MatchedText(token));
+				.Tagging("A", with: token => token.ChildValues.OfType<string>())
+				.Tagging("B", with: (token, ctx) => ctx.MatchedText(token));
 
 			var values = p.Parse(text);
 

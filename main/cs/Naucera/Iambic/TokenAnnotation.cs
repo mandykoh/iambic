@@ -116,4 +116,25 @@ namespace Naucera.Iambic
 	/// Value to annotate the token with in the parse tree.</returns>
 
 	public delegate object TokenAnnotationWithNoContext(Token token);
+
+
+	/// <summary>
+	/// Returns a value to tag a token with.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// <para>
+	/// This is invoked by Parser.Parse(), and only when parsing has succeeded.
+	/// </para>
+	///
+	/// <para>
+	/// When this is invoked, each child of the token being tagged is guaranteed
+	/// to have been tagged with a value of its own, unless the child has no tag
+	/// defined (using the Parser.Tagging() method).</para>
+	/// </remarks>
+	///
+	/// <returns>
+	/// Value to tag a token with in the parse tree.</returns>
+
+	public delegate object TokenAnnotationWithNoToken();
 }

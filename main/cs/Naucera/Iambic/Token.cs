@@ -51,7 +51,7 @@ namespace Naucera.Iambic
 		int mEndOffset;
 		GrammarConstruct mGrammarConstruct;
 		List<Token> mChildren;
-		object mValue;
+		object mTag;
 
 
 		internal Token(int offset, int endOffset)
@@ -60,7 +60,7 @@ namespace Naucera.Iambic
 			mEndOffset = endOffset;
 			mGrammarConstruct = null;
 			mChildren = null;
-			mValue = null;
+			mTag = null;
 		}
 
 
@@ -70,7 +70,7 @@ namespace Naucera.Iambic
 			mEndOffset = endOffset;
 			mGrammarConstruct = grammarConstruct;
 			mChildren = null;
-			mValue = null;
+			mTag = null;
 		}
 
 
@@ -167,7 +167,7 @@ namespace Naucera.Iambic
 		
 		public IEnumerable<object> ChildValues
 		{
-			get { return mChildren.Select(c => c.Value); }
+			get { return mChildren.Select(c => c.Tag); }
 		}
 
 
@@ -222,9 +222,19 @@ namespace Naucera.Iambic
 		}
 
 
-		public object Value
+		/// <summary>
+		/// The value this token has been tagged with.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// Tags are set by using Parser.Tagging().</remarks>
+		/// 
+		/// <value>
+		/// Tagged value, or null.</value>
+		
+		public object Tag
 		{
-			get { return mValue; }
+			get { return mTag; }
 		}
 
 
@@ -335,10 +345,10 @@ namespace Naucera.Iambic
 		}
 
 
-		internal Token WithValue(object value)
+		internal Token WithTag(object value)
 		{
 			var t = this;
-			t.mValue = value;
+			t.mTag = value;
 			return t;
 		}
 
