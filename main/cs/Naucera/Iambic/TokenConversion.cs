@@ -34,21 +34,24 @@ namespace Naucera.Iambic
 	/// <summary>
 	/// Returns a value to convert the given token into.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
 	/// This is invoked by Parser.Parse() on the root token when parsing has
 	/// succeeded, after all tokens have been annotated.
 	/// </remarks>
 	///
+	/// <typeparam name="T">
+	/// Target type to convert the token into.</typeparam>
+	///
 	/// <param name="token">
 	/// Token to be converted.</param>
-	/// 
+	///
 	/// <param name="context">
 	/// Parse context from which the token was generated.</param>
-	/// 
+	///
 	/// <param name="parseArgs">
 	/// Arguments given via the Parse() method of the parser.</param>
-	/// 
+	///
 	/// <returns>
 	/// Value to convert the token into.</returns>
 
@@ -58,36 +61,42 @@ namespace Naucera.Iambic
 	/// <summary>
 	/// Returns a value to convert the given token into.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
 	/// This is invoked by Parser.Parse() on the root token when parsing has
 	/// succeeded, after all tokens have been annotated.
 	/// </remarks>
 	///
+	/// <typeparam name="T">
+	/// Target type to convert the token into.</typeparam>
+	///
 	/// <param name="token">
 	/// Token to be converted.</param>
-	/// 
+	///
 	/// <param name="context">
 	/// Parse context from which the token was generated.</param>
-	/// 
+	///
 	/// <returns>
 	/// Value to convert the token into.</returns>
-	
+
 	public delegate T TokenConversionWithNoArgs<out T>(Token token, ParseContext context);
 
 
 	/// <summary>
 	/// Returns a value to convert the given token into.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
 	/// This is invoked by Parser.Parse() on the root token when parsing has
 	/// succeeded, after all tokens have been annotated.
 	/// </remarks>
 	///
+	/// <typeparam name="T">
+	/// Target type to convert the token into.</typeparam>
+	///
 	/// <param name="token">
 	/// Token to be converted.</param>
-	/// 
+	///
 	/// <returns>
 	/// Value to convert the token into.</returns>
 

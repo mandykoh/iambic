@@ -32,7 +32,7 @@
 namespace Naucera.Iambic
 {
 	/// <summary>
-	/// Exception indicating that a referenced non-terminal was undefined in a
+	/// Exception indicating that a referenced non-terminal was not defined in a
 	/// parse grammar.
 	/// </summary>
 	
@@ -54,6 +54,10 @@ namespace Naucera.Iambic
 			mConstructName = constructName;
 		}
 
+
+		/// <summary>
+		/// Name of the grammar construct which was not defined.
+		/// </summary>
 
 		public string ConstructName
 		{

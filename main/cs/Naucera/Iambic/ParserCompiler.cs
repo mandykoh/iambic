@@ -179,8 +179,9 @@ namespace Naucera.Iambic
 		/// </summary>
 		/// 
 		/// <remarks>
-		/// The generated parser will have no token conversions registered;
-		/// any conversions should be registered using Parser.Replacing().
+		/// The generated parser returns the root of the parse tree as a token
+		/// upon successfully parsing its input. The parser initially will not
+		/// have any tagging registered.
 		/// </remarks>
 		/// 
 		/// <param name="grammar">
@@ -189,7 +190,8 @@ namespace Naucera.Iambic
 		/// <param name="customMatchers">
 		/// Custom matchers referenced by the grammar.</param>
 		///
-		/// <returns>Parser conforming to the specified grammar.</returns>
+		/// <returns>
+		/// Parser conforming to the specified grammar.</returns>
 		///
 		/// <exception cref="SyntaxException">
 		/// Thrown if the grammar specification syntax is incorrect.
