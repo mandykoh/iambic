@@ -74,19 +74,6 @@ namespace Naucera.Iambic
 
 
 		[Test]
-		public void ShouldMapRuleIndicesToRules()
-		{
-			var ruleA = new ParseRule("RuleA", new LiteralTerminal("a"));
-			var ruleB = new ParseRule("RuleB", new LiteralTerminal("b"));
-
-			var parser = new Parser<Token>(null, ruleA, ruleB);
-
-			Assert.AreEqual(ruleA, parser.GetRule(0));
-			Assert.AreEqual(ruleB, parser.GetRule(1));
-		}
-
-
-		[Test]
 		public void ShouldMapRuleNamesToRules()
 		{
 			var ruleA = new ParseRule("RuleA", new LiteralTerminal("a"));

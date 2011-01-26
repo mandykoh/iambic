@@ -277,7 +277,7 @@ namespace Naucera.Iambic
 		/// <exception cref="IndexOutOfRangeException">
 		/// Thrown if no rule with the given index exists.</exception>
 		
-		public ParseRule GetRule(int i)
+		ParseRule GetRule(int i)
 		{
 			return mRules[i];
 		}
