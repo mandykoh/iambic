@@ -1,0 +1,528 @@
+<html>
+  <head>
+    <title>Naucera.Iambic.ParserCompiler</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      a { text-decoration: none }
+
+      div.SideBar {
+        padding-left: 1em;
+        padding-right: 1em;
+        right: 0;
+        float: right;
+        border: thin solid black;
+        background-color: #f2f2f2;
+      }
+    
+      .CollectionTitle { font-weight: bold }
+      .PageTitle { font-size: 150%; font-weight: bold }
+
+      .Summary { }
+      .Signature { }          
+      .Remarks { }
+      .Members { }
+      .Copyright { }
+      
+      .Section { font-size: 125%; font-weight: bold }
+      p.Summary {
+        margin-left: 1em;
+      }
+      .SectionBox { margin-left: 2em }
+      .NamespaceName { font-size: 105%; font-weight: bold }
+      .NamespaceSumary { }
+      .MemberName { font-size: 115%; font-weight: bold; margin-top: 1em }
+      .Subsection { font-size: 105%; font-weight: bold }
+      .SubsectionBox { margin-left: 2em; margin-bottom: 1em }
+
+      .CodeExampleTable { background-color: #f5f5dd; border: thin solid black; padding: .25em; }
+      
+      .TypesListing {
+        border-collapse: collapse;
+      }
+
+      td {
+        vertical-align: top;
+      }
+      th {
+        text-align: left;
+      }
+
+      .TypesListing td { 
+        margin: 0px;  
+        padding: .25em;
+        border: solid gray 1px;
+      }
+
+      .TypesListing th { 
+        margin: 0px;  
+        padding: .25em;
+        background-color: #f2f2f2;
+        border: solid gray 1px;
+      }
+
+      div.Footer {
+        border-top: 1px solid gray;
+        margin-top: 1.5em;
+        padding-top: 0.6em;
+        text-align: center;
+        color: gray;
+      }
+
+      span.NotEntered /* Documentation for this section has not yet been entered */ {
+        font-style: italic;
+        color: red;	
+      }
+
+      div.Header {
+        background: #B0C4DE;
+        border: double;
+        border-color: white;
+        border-width: 7px;
+        padding: 0.5em;
+      }
+
+      div.Header * {
+        font-size: smaller;
+      }
+
+      div.Note {
+      }
+
+      i.ParamRef {
+      }
+
+      i.subtitle {
+      }
+
+      ul.TypeMembersIndex {
+        text-align: left;
+        background: #F8F8F8;
+      }
+
+      ul.TypeMembersIndex li {
+        display: inline;
+        margin:  0.5em;
+      }
+
+      table.HeaderTable {
+      }
+
+      table.SignatureTable {
+      }
+
+      table.Documentation, table.Enumeration, table.TypeDocumentation {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      table.Documentation tr th, table.TypeMembers tr th, table.Enumeration tr th, table.TypeDocumentation tr th {
+        background: whitesmoke;
+        padding: 0.8em;
+        border: 1px solid gray;
+        text-align: left;
+        vertical-align: bottom;
+      }
+
+      table.Documentation tr td, table.TypeMembers tr td, table.Enumeration tr td, table.TypeDocumentation tr td {
+        padding: 0.5em;
+        border: 1px solid gray;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      table.TypeMembers {
+        border: 1px solid #C0C0C0;
+        width: 100%;
+      }
+
+      table.TypeMembers tr td {
+        background: #F8F8F8;
+        border: white;
+      }
+
+      table.Documentation {
+      }
+
+      table.TypeMembers {
+      }
+
+      div.CodeExample {
+        width: 100%;
+        border: 1px solid #DDDDDD;
+        background-color: #F8F8F8;
+      }
+
+      div.CodeExample p {
+        margin: 0.5em;
+        border-bottom: 1px solid #DDDDDD;
+      }
+
+      div.CodeExample div {
+        margin: 0.5em;
+      }
+
+      h4 {
+        margin-bottom: 0;
+      }
+
+      div.Signature {
+        border: 1px solid #C0C0C0;
+        background: #F2F2F2;
+        padding: 1em;
+      }
+    </style>
+    <script type="text/JavaScript">
+      function toggle_display (block) {
+        var w = document.getElementById (block);
+        var t = document.getElementById (block + ":toggle");
+        if (w.style.display == "none") {
+          w.style.display = "block";
+          t.innerHTML = "⊟";
+        } else {
+          w.style.display = "none";
+          t.innerHTML = "⊞";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="CollectionTitle">
+      <a href="../index.html">Naucera.Iambic</a> : <a href="index.html">Naucera.Iambic Namespace</a></div>
+    <div class="SideBar">
+      <p>
+        <a href="#T:Naucera.Iambic.ParserCompiler">Overview</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.ParserCompiler:Signature">Signature</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.ParserCompiler:Docs">Remarks</a>
+      </p>
+      <p>
+        <a href="#Members">Members</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.ParserCompiler:Members">Member Details</a>
+      </p>
+    </div>
+    <h1 class="PageTitle" id="T:Naucera.Iambic.ParserCompiler">ParserCompiler  Class</h1>
+    <p class="Summary" id="T:Naucera.Iambic.ParserCompiler:Summary">
+            Compiler for conveniently building parsers from a textual grammar.
+            </p>
+    <div id="T:Naucera.Iambic.ParserCompiler:Signature">
+      <div class="Signature">public static class  <b>ParserCompiler</b></div>
+    </div>
+    <div class="Remarks" id="T:Naucera.Iambic.ParserCompiler:Docs">
+      <h4 class="Subsection">
+        <a href="javascript:toggle_display('T:Naucera.Iambic.ParserCompiler:Docs:Remarks')">
+          <span id="T:Naucera.Iambic.ParserCompiler:Docs:Remarks:toggle">⊟</span> Remarks</a>
+      </h4>
+      <blockquote class="SubsectionBox" id="T:Naucera.Iambic.ParserCompiler:Docs:Remarks">
+        <p>
+            Parsers can be described by Parsing Expression Grammars (PEG) using the
+            following self-describing grammar specification syntax:</p>
+        <table class="CodeExampleTable">
+          <tr>
+            <td>
+              <b>
+                <font size="-1"> Example</font>
+              </b>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <pre class="">
+            Grammar := (Ignorable? Definition+ EndOfInput)
+            Definition := (Identifier ASSIGN Expression)
+            Expression := (OrderedChoice || Sequence)
+            OrderedChoice := (Sequence (OR Sequence)+)
+            Sequence := Prefix+
+            Prefix := ((AND || NOT)? Suffix)
+            Suffix := (Primary (QUESTION || STAR || PLUS)?)
+            Primary := ((Identifier !ASSIGN) || (OPEN Expression CLOSE) || Literal)
+            Identifier := (/\w+/ Ignorable?)
+            Literal := (BasicLiteral || RegexLiteral || CustomMatcher)
+            BasicLiteral := (/'(\\\\|\\'|[^'])*'/ Ignorable?)
+            RegexLiteral := (/\/(\\\\|\\\/|[^\/])*\// Ignorable?)
+            CustomMatcher := (/\{\w+\}/ Ignorable?)
+            EndOfInput := /$/
+            ASSIGN := (':=' Ignorable?)
+            OR := ('||' Ignorable?)
+            AND := ('&amp;' Ignorable?)
+            NOT := ('!' Ignorable?)
+            QUESTION := ('?' Ignorable?)
+            STAR := ('*' Ignorable?)
+            PLUS := ('+' Ignorable?)
+            OPEN := ('(' Ignorable?)
+            CLOSE := (')' Ignorable?)
+            Ignorable := (Spacing || LineComment || BlockComment)+
+            Spacing := /\s+/
+            LineComment := ('//' (!EndOfLine /./)* EndOfLine)
+            BlockComment := ('/*' (!'*/' /./)* '*/')
+            EndOfLine := (/\r?\n/ || EndOfInput)
+            </pre>
+            </td>
+          </tr>
+        </table>
+        <p>
+            The root or starting parse rule is always the first rule specified.
+            </p>
+        <p>
+            Literal text strings inside single quotes (') are treated as literals
+            matching against the input string exactly. Embedded apostrophes can be
+            escaped using a backslash, and two backslashes represents a single
+            backslash.
+            </p>
+        <p>
+            Text strings inside forward slashes ('/') are compiled as
+            regular expressions using System.Text.RegularExpressions, and match
+            when the regular expressions match. Embedded forward slashes can be
+            escaped using a backslash, and two backslashes matches a single
+            backslash in the text.</p>
+        <p>
+            Text inside curly braces ('{' and '}'), which must be alphanumeric or
+            the underscore character ('_'), are treated as names of custom matchers
+            to be invoked to match the text. Custom matchers are specified upon
+            creating a parser, and must be supplied if they are referenced in the
+            grammar.</p>
+        <p>
+            Whitespace is ignored, and rules do not need to be separated by line
+            breaks.</p>
+        <p>
+            Comments may be inserted in the grammar using either single line (//)
+            style comments (which extend from the // to the end of the line), or
+            C-style /* */ block comments.</p>
+        <p>
+            Parentheses '()' can be used to group parse expressions for
+            precedence.</p>
+        <p>
+            The following grammar constructs are supported:</p>
+        <table class="Documentation">
+          <tr>
+            <th>Construct</th>
+            <th>Description</th>
+          </tr>
+          <tr valign="top">
+            <td>Sequence: e1 e2</td>
+            <td>
+            	 Matches the first expression against the input string, followed
+            	 by the second expression. No input is consumed unless the entire
+            	 sequence matches.</td>
+          </tr>
+          <tr valign="top">
+            <td>Ordered Choice: e1 || e2</td>
+          </tr>
+          <tr valign="top">
+            <td>Optionality: e?</td>
+            <td>
+            	 Optionally matches the expression against the input string. No
+            	 token is produced if the expression doesn't match.</td>
+          </tr>
+          <tr valign="top">
+            <td>Zero-Or-More: e*</td>
+            <td>
+            	 Matches the expression against the input string zero or more times.
+            	 No token is produced if the expression doesn't match at least once.
+            	 </td>
+          </tr>
+          <tr valign="top">
+            <td>One-Or-More: e+</td>
+            <td>
+            	 Matches the expression against the input sring one or more times.
+            	 </td>
+          </tr>
+          <tr valign="top">
+            <td>Match Predicate: &amp;e</td>
+            <td>
+            	 Matches the expression against the input string, returning a
+            	 successful match if the expression matches but consuming no input.
+            	 </td>
+          </tr>
+          <tr valign="top">
+            <td>Not-Match Predicate: !e</td>
+            <td>
+            	 Matches the expression against the input string, returning a
+            	 successful match only if the expression doesn't match, and
+            	 consuming no input.</td>
+          </tr>
+        </table>
+      </blockquote>
+      <h4 class="Subsection">
+        <a href="javascript:toggle_display('T:Naucera.Iambic.ParserCompiler:Docs:Version Information')">
+          <span id="T:Naucera.Iambic.ParserCompiler:Docs:Version Information:toggle">⊟</span> Requirements</a>
+      </h4>
+      <blockquote class="SubsectionBox" id="T:Naucera.Iambic.ParserCompiler:Docs:Version Information">
+        <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+      <h2 class="Section" id="Members">
+        <a href="javascript:toggle_display('_Members')">
+          <span id="_Members:toggle">⊟</span> Members</a>
+      </h2>
+      <blockquote class="SectionBox" id="_Members">
+        <p>
+								See Also: Inherited members from
+								<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a>.
+							</p>
+        <h3>
+          <a href="javascript:toggle_display('Public Methods')">
+            <span id="Public Methods:toggle">⊟</span> Public Methods</a>
+        </h3>
+        <blockquote id="Public Methods">
+          <div class="SubsectionBox">
+            <table class="TypeMembers">
+              <tr valign="top">
+                <td>
+                  <div>static </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser">BuildPegGrammarParser</a>
+                  </b>()<nobr> : <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;Parser&lt;Token&gt;&gt;</a></nobr><blockquote>
+            Creates a parser which parses the PEG grammar specification
+            language and generates parsers based on grammar specifications.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>static </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[])">Compile</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <b>params</b> <a href="../Naucera.Iambic/CustomMatcher.html">CustomMatcher</a>[])<nobr> : <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;Token&gt;</a></nobr><blockquote>
+            Creates a parser which parses the specified grammar, as expressed
+            by the grammar specification language.
+            </blockquote></td>
+              </tr>
+            </table>
+          </div>
+        </blockquote>
+      </blockquote>
+    </div>
+    <div class="Members" id="T:Naucera.Iambic.ParserCompiler:Members">
+      <h2 class="Section" id="MemberDetails">
+        <a href="javascript:toggle_display('_MemberDetails')">
+          <span id="_MemberDetails:toggle">⊟</span> Member Details</a>
+      </h2>
+      <blockquote class="SectionBox" id="_MemberDetails">
+        <h3 id="M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:member')">
+            <span id="M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:member:toggle">⊟</span> BuildPegGrammarParser Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:member">
+          <p class="Summary">
+            Creates a parser which parses the PEG grammar specification
+            language and generates parsers based on grammar specifications.
+            </p>
+          <div class="Signature">public static <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;Parser&lt;Token&gt;&gt;</a> <b>BuildPegGrammarParser</b> ()</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:Returns')">
+              <span id="M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:Returns">
+            Generated parser.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:Remarks')">
+              <span id="M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:Remarks">
+            <p>
+            This is used internally by Compile() to produce parsers from
+            grammar specifications.</p>
+            <p>
+            The resulting parser returns instances of Parser as the result of
+            parsing a grammar string, in the form described in the
+            documentation for this class.</p>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:Version Information')">
+              <span id="M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParserCompiler.BuildPegGrammarParser:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[])">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):member')">
+            <span id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):member:toggle">⊟</span> Compile Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):member">
+          <p class="Summary">
+            Creates a parser which parses the specified grammar, as expressed
+            by the grammar specification language.
+            </p>
+          <div class="Signature">public static <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;Token&gt;</a> <b>Compile</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> grammar, <b>params</b> <a href="../Naucera.Iambic/CustomMatcher.html">CustomMatcher</a>[] customMatchers)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Parameters')">
+              <span id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Parameters">
+            <dl>
+              <dt>
+                <i>grammar</i>
+              </dt>
+              <dd>
+            Textual PEG specification.</dd>
+              <dt>
+                <i>customMatchers</i>
+              </dt>
+              <dd>
+            Custom matchers referenced by the grammar.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Returns')">
+              <span id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Returns">
+            Parser conforming to the specified grammar.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Exceptions')">
+              <span id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Exceptions:toggle">⊟</span> Exceptions</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Exceptions">
+            <table class="TypeDocumentation">
+              <tr>
+                <th>Type</th>
+                <th>Reason</th>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <a href="../Naucera.Iambic/SyntaxException.html">Naucera.Iambic.SyntaxException</a>
+                </td>
+                <td>
+            Thrown if the grammar specification syntax is incorrect.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <a href="../Naucera.Iambic/InvalidGrammarException.html">Naucera.Iambic.InvalidGrammarException</a>
+                </td>
+                <td>
+            Thrown if the grammar contains a problem.</td>
+              </tr>
+            </table>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Remarks')">
+              <span id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Remarks">
+            The generated parser returns the root of the parse tree as a token
+            upon successfully parsing its input. The parser initially will not
+            have any tagging registered.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Version Information')">
+              <span id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParserCompiler.Compile(System.String,Naucera.Iambic.CustomMatcher[]):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+      </blockquote>
+    </div>
+    <hr size="1" />
+    <div class="Copyright">
+    </div>
+  </body>
+</html>

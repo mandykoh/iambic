@@ -1,0 +1,1040 @@
+<html>
+  <head>
+    <title>Naucera.Iambic.Token</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      a { text-decoration: none }
+
+      div.SideBar {
+        padding-left: 1em;
+        padding-right: 1em;
+        right: 0;
+        float: right;
+        border: thin solid black;
+        background-color: #f2f2f2;
+      }
+    
+      .CollectionTitle { font-weight: bold }
+      .PageTitle { font-size: 150%; font-weight: bold }
+
+      .Summary { }
+      .Signature { }          
+      .Remarks { }
+      .Members { }
+      .Copyright { }
+      
+      .Section { font-size: 125%; font-weight: bold }
+      p.Summary {
+        margin-left: 1em;
+      }
+      .SectionBox { margin-left: 2em }
+      .NamespaceName { font-size: 105%; font-weight: bold }
+      .NamespaceSumary { }
+      .MemberName { font-size: 115%; font-weight: bold; margin-top: 1em }
+      .Subsection { font-size: 105%; font-weight: bold }
+      .SubsectionBox { margin-left: 2em; margin-bottom: 1em }
+
+      .CodeExampleTable { background-color: #f5f5dd; border: thin solid black; padding: .25em; }
+      
+      .TypesListing {
+        border-collapse: collapse;
+      }
+
+      td {
+        vertical-align: top;
+      }
+      th {
+        text-align: left;
+      }
+
+      .TypesListing td { 
+        margin: 0px;  
+        padding: .25em;
+        border: solid gray 1px;
+      }
+
+      .TypesListing th { 
+        margin: 0px;  
+        padding: .25em;
+        background-color: #f2f2f2;
+        border: solid gray 1px;
+      }
+
+      div.Footer {
+        border-top: 1px solid gray;
+        margin-top: 1.5em;
+        padding-top: 0.6em;
+        text-align: center;
+        color: gray;
+      }
+
+      span.NotEntered /* Documentation for this section has not yet been entered */ {
+        font-style: italic;
+        color: red;	
+      }
+
+      div.Header {
+        background: #B0C4DE;
+        border: double;
+        border-color: white;
+        border-width: 7px;
+        padding: 0.5em;
+      }
+
+      div.Header * {
+        font-size: smaller;
+      }
+
+      div.Note {
+      }
+
+      i.ParamRef {
+      }
+
+      i.subtitle {
+      }
+
+      ul.TypeMembersIndex {
+        text-align: left;
+        background: #F8F8F8;
+      }
+
+      ul.TypeMembersIndex li {
+        display: inline;
+        margin:  0.5em;
+      }
+
+      table.HeaderTable {
+      }
+
+      table.SignatureTable {
+      }
+
+      table.Documentation, table.Enumeration, table.TypeDocumentation {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      table.Documentation tr th, table.TypeMembers tr th, table.Enumeration tr th, table.TypeDocumentation tr th {
+        background: whitesmoke;
+        padding: 0.8em;
+        border: 1px solid gray;
+        text-align: left;
+        vertical-align: bottom;
+      }
+
+      table.Documentation tr td, table.TypeMembers tr td, table.Enumeration tr td, table.TypeDocumentation tr td {
+        padding: 0.5em;
+        border: 1px solid gray;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      table.TypeMembers {
+        border: 1px solid #C0C0C0;
+        width: 100%;
+      }
+
+      table.TypeMembers tr td {
+        background: #F8F8F8;
+        border: white;
+      }
+
+      table.Documentation {
+      }
+
+      table.TypeMembers {
+      }
+
+      div.CodeExample {
+        width: 100%;
+        border: 1px solid #DDDDDD;
+        background-color: #F8F8F8;
+      }
+
+      div.CodeExample p {
+        margin: 0.5em;
+        border-bottom: 1px solid #DDDDDD;
+      }
+
+      div.CodeExample div {
+        margin: 0.5em;
+      }
+
+      h4 {
+        margin-bottom: 0;
+      }
+
+      div.Signature {
+        border: 1px solid #C0C0C0;
+        background: #F2F2F2;
+        padding: 1em;
+      }
+    </style>
+    <script type="text/JavaScript">
+      function toggle_display (block) {
+        var w = document.getElementById (block);
+        var t = document.getElementById (block + ":toggle");
+        if (w.style.display == "none") {
+          w.style.display = "block";
+          t.innerHTML = "⊟";
+        } else {
+          w.style.display = "none";
+          t.innerHTML = "⊞";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="CollectionTitle">
+      <a href="../index.html">Naucera.Iambic</a> : <a href="index.html">Naucera.Iambic Namespace</a></div>
+    <div class="SideBar">
+      <p>
+        <a href="#T:Naucera.Iambic.Token">Overview</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.Token:Signature">Signature</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.Token:Docs">Remarks</a>
+      </p>
+      <p>
+        <a href="#Members">Members</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.Token:Members">Member Details</a>
+      </p>
+    </div>
+    <h1 class="PageTitle" id="T:Naucera.Iambic.Token">Token  Struct</h1>
+    <p class="Summary" id="T:Naucera.Iambic.Token:Summary">
+            A parsed token representing a node/subtree of a parse tree.
+            </p>
+    <div id="T:Naucera.Iambic.Token:Signature">
+      <div class="Signature">public struct  <b>Token</b></div>
+    </div>
+    <div class="Remarks" id="T:Naucera.Iambic.Token:Docs">
+      <h4 class="Subsection">
+        <a href="javascript:toggle_display('T:Naucera.Iambic.Token:Docs:Remarks')">
+          <span id="T:Naucera.Iambic.Token:Docs:Remarks:toggle">⊟</span> Remarks</a>
+      </h4>
+      <blockquote class="SubsectionBox" id="T:Naucera.Iambic.Token:Docs:Remarks">
+            Tokens may contain nested children. Tokens may also be tagged with a
+            value (accessible via the Tag property).
+            </blockquote>
+      <h4 class="Subsection">
+        <a href="javascript:toggle_display('T:Naucera.Iambic.Token:Docs:Version Information')">
+          <span id="T:Naucera.Iambic.Token:Docs:Version Information:toggle">⊟</span> Requirements</a>
+      </h4>
+      <blockquote class="SubsectionBox" id="T:Naucera.Iambic.Token:Docs:Version Information">
+        <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+      <h2 class="Section" id="Members">
+        <a href="javascript:toggle_display('_Members')">
+          <span id="_Members:toggle">⊟</span> Members</a>
+      </h2>
+      <blockquote class="SectionBox" id="_Members">
+        <p>
+								See Also: Inherited members from
+								<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.ValueType">ValueType</a>.
+							</p>
+        <h3>
+          <a href="javascript:toggle_display('Public Properties')">
+            <span id="Public Properties:toggle">⊟</span> Public Properties</a>
+        </h3>
+        <blockquote id="Public Properties">
+          <div class="SubsectionBox">
+            <table class="TypeMembers">
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Token.Anonymous">Anonymous</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a>
+                  </i>. 
+            Flag indicating whether this token is anonymous.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Token.Blank">Blank</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a>
+                  </i>. 
+            Flag indicating whether this token is blank, ie. matches an empty
+            string.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Token.ChildCount">ChildCount</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>
+                  </i>. 
+            The number of children this token has.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Token.Children">Children</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Collections.Generic.IEnumerable`1">IEnumerable&lt;Token&gt;</a>
+                  </i>. 
+            A sequence of child tokens for this token.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Token.ChildTags">ChildTags</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Collections.Generic.IEnumerable`1">IEnumerable&lt;object&gt;</a>
+                  </i>. 
+            A sequence of values that the children of this token have been
+            tagged with.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Token.EndOffset">EndOffset</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>
+                  </i>. 
+            The end offset in the parsed text matched by this token.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Token.GrammarConstruct">GrammarConstruct</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="../Naucera.Iambic/GrammarConstruct.html">GrammarConstruct</a>
+                  </i>. 
+            The grammar construct which is fully matched by this token, or null
+            if this token is anonymous.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Token.HasChildren">HasChildren</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a>
+                  </i>. 
+            Flag indicating whether this token has any children.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div><i>default property</i></div><div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Token.Item(System.Int32)">Item</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>)</td>
+                <td>
+                  <i>
+                    <a href="../Naucera.Iambic/Token.html">Token</a>
+                  </i>. 
+            Provides access to the child token at the specified index.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Token.Offset">Offset</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>
+                  </i>. 
+            The starting offset in the parsed text matched by this token.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Token.Tag">Tag</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a>
+                  </i>. 
+            The value this token has been tagged with.
+            </td>
+              </tr>
+            </table>
+          </div>
+        </blockquote>
+        <h3>
+          <a href="javascript:toggle_display('Public Methods')">
+            <span id="Public Methods:toggle">⊟</span> Public Methods</a>
+        </h3>
+        <blockquote id="Public Methods">
+          <div class="SubsectionBox">
+            <table class="TypeMembers">
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Token.Matched(System.String)">Matched</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a></nobr><blockquote>
+            Returns true if this token was created by matching the specified
+            grammar construct name.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Token.MatchedText(System.String)">MatchedText</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a></nobr><blockquote>
+            Returns the portion of the text which was parsed, as represented by
+            this token.</blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext)">ToXml</a>
+                  </b>(<a href="../Naucera.Iambic/ParseContext.html">ParseContext</a>)<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a></nobr><blockquote>
+            Returns the parse tree beginning at this token as an XML string
+            representation.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Token.ToXml(System.String)">ToXml</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a></nobr><blockquote>
+            Returns the parse tree beginning at this token as an XML string
+            representation.
+            </blockquote></td>
+              </tr>
+            </table>
+          </div>
+        </blockquote>
+      </blockquote>
+    </div>
+    <div class="Members" id="T:Naucera.Iambic.Token:Members">
+      <h2 class="Section" id="MemberDetails">
+        <a href="javascript:toggle_display('_MemberDetails')">
+          <span id="_MemberDetails:toggle">⊟</span> Member Details</a>
+      </h2>
+      <blockquote class="SectionBox" id="_MemberDetails">
+        <h3 id="P:Naucera.Iambic.Token.Anonymous">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Anonymous:member')">
+            <span id="P:Naucera.Iambic.Token.Anonymous:member:toggle">⊟</span> Anonymous Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Token.Anonymous:member">
+          <p class="Summary">
+            Flag indicating whether this token is anonymous.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a> <b>Anonymous</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Anonymous:Value')">
+              <span id="P:Naucera.Iambic.Token.Anonymous:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Anonymous:Value">
+            True if anonymous, false otherwise.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Anonymous:Remarks')">
+              <span id="P:Naucera.Iambic.Token.Anonymous:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Anonymous:Remarks">
+            Anonymous tokens do not represent a match of an entire grammar
+            construct, and are produced as a result of evaluating portions of a
+            grammar rule.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Anonymous:Version Information')">
+              <span id="P:Naucera.Iambic.Token.Anonymous:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Anonymous:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Token.Blank">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Blank:member')">
+            <span id="P:Naucera.Iambic.Token.Blank:member:toggle">⊟</span> Blank Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Token.Blank:member">
+          <p class="Summary">
+            Flag indicating whether this token is blank, ie. matches an empty
+            string.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a> <b>Blank</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Blank:Value')">
+              <span id="P:Naucera.Iambic.Token.Blank:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Blank:Value">
+            True if blank, false otherwise.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Blank:Remarks')">
+              <span id="P:Naucera.Iambic.Token.Blank:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Blank:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Blank:Version Information')">
+              <span id="P:Naucera.Iambic.Token.Blank:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Blank:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Token.ChildCount">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Token.ChildCount:member')">
+            <span id="P:Naucera.Iambic.Token.ChildCount:member:toggle">⊟</span> ChildCount Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Token.ChildCount:member">
+          <p class="Summary">
+            The number of children this token has.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> <b>ChildCount</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.ChildCount:Value')">
+              <span id="P:Naucera.Iambic.Token.ChildCount:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.ChildCount:Value">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.ChildCount:Remarks')">
+              <span id="P:Naucera.Iambic.Token.ChildCount:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.ChildCount:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.ChildCount:Version Information')">
+              <span id="P:Naucera.Iambic.Token.ChildCount:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.ChildCount:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Token.Children">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Children:member')">
+            <span id="P:Naucera.Iambic.Token.Children:member:toggle">⊟</span> Children Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Token.Children:member">
+          <p class="Summary">
+            A sequence of child tokens for this token.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Collections.Generic.IEnumerable`1">IEnumerable&lt;Token&gt;</a> <b>Children</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Children:Value')">
+              <span id="P:Naucera.Iambic.Token.Children:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Children:Value">
+            Sequence of children.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Children:Remarks')">
+              <span id="P:Naucera.Iambic.Token.Children:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Children:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Children:Version Information')">
+              <span id="P:Naucera.Iambic.Token.Children:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Children:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Token.ChildTags">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Token.ChildTags:member')">
+            <span id="P:Naucera.Iambic.Token.ChildTags:member:toggle">⊟</span> ChildTags Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Token.ChildTags:member">
+          <p class="Summary">
+            A sequence of values that the children of this token have been
+            tagged with.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Collections.Generic.IEnumerable`1">IEnumerable&lt;object&gt;</a> <b>ChildTags</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.ChildTags:Value')">
+              <span id="P:Naucera.Iambic.Token.ChildTags:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.ChildTags:Value">
+            Sequence of tag values for this token's children.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.ChildTags:Remarks')">
+              <span id="P:Naucera.Iambic.Token.ChildTags:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.ChildTags:Remarks">
+            <p>
+            Values are returned in the same sequence as the children they
+            are from.</p>
+            <p>
+            If no tag has been defined for a child, or tagging has not yet
+            been performed, then the tag value will be null in the sequence
+            for that child.</p>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.ChildTags:Version Information')">
+              <span id="P:Naucera.Iambic.Token.ChildTags:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.ChildTags:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Token.EndOffset">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Token.EndOffset:member')">
+            <span id="P:Naucera.Iambic.Token.EndOffset:member:toggle">⊟</span> EndOffset Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Token.EndOffset:member">
+          <p class="Summary">
+            The end offset in the parsed text matched by this token.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> <b>EndOffset</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.EndOffset:Value')">
+              <span id="P:Naucera.Iambic.Token.EndOffset:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.EndOffset:Value">
+            Zero-based offset in characters from start of text.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.EndOffset:Remarks')">
+              <span id="P:Naucera.Iambic.Token.EndOffset:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.EndOffset:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.EndOffset:Version Information')">
+              <span id="P:Naucera.Iambic.Token.EndOffset:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.EndOffset:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Token.GrammarConstruct">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Token.GrammarConstruct:member')">
+            <span id="P:Naucera.Iambic.Token.GrammarConstruct:member:toggle">⊟</span> GrammarConstruct Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Token.GrammarConstruct:member">
+          <p class="Summary">
+            The grammar construct which is fully matched by this token, or null
+            if this token is anonymous.
+            </p>
+          <div class="Signature">public <a href="../Naucera.Iambic/GrammarConstruct.html">GrammarConstruct</a> <b>GrammarConstruct</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.GrammarConstruct:Value')">
+              <span id="P:Naucera.Iambic.Token.GrammarConstruct:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.GrammarConstruct:Value">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.GrammarConstruct:Remarks')">
+              <span id="P:Naucera.Iambic.Token.GrammarConstruct:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.GrammarConstruct:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.GrammarConstruct:Version Information')">
+              <span id="P:Naucera.Iambic.Token.GrammarConstruct:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.GrammarConstruct:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Token.HasChildren">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Token.HasChildren:member')">
+            <span id="P:Naucera.Iambic.Token.HasChildren:member:toggle">⊟</span> HasChildren Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Token.HasChildren:member">
+          <p class="Summary">
+            Flag indicating whether this token has any children.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a> <b>HasChildren</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.HasChildren:Value')">
+              <span id="P:Naucera.Iambic.Token.HasChildren:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.HasChildren:Value">
+            True if there is at least one child, false otherwise.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.HasChildren:Remarks')">
+              <span id="P:Naucera.Iambic.Token.HasChildren:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.HasChildren:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.HasChildren:Version Information')">
+              <span id="P:Naucera.Iambic.Token.HasChildren:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.HasChildren:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Token.Item(System.Int32)">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Item(System.Int32):member')">
+            <span id="P:Naucera.Iambic.Token.Item(System.Int32):member:toggle">⊟</span> Item Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Token.Item(System.Int32):member">
+          <p class="Summary">
+            Provides access to the child token at the specified index.
+            </p>
+          <div class="Signature">
+            <p>
+              <i>This is the default property for this class.</i>
+            </p>public <a href="../Naucera.Iambic/Token.html">Token</a> this [<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> index] { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Item(System.Int32):Parameters')">
+              <span id="P:Naucera.Iambic.Token.Item(System.Int32):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Item(System.Int32):Parameters">
+            <dl>
+              <dt>
+                <i>index</i>
+              </dt>
+              <dd>
+            Zero-based index of the child.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Item(System.Int32):Value')">
+              <span id="P:Naucera.Iambic.Token.Item(System.Int32):Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Item(System.Int32):Value">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Item(System.Int32):Exceptions')">
+              <span id="P:Naucera.Iambic.Token.Item(System.Int32):Exceptions:toggle">⊟</span> Exceptions</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Item(System.Int32):Exceptions">
+            <table class="TypeDocumentation">
+              <tr>
+                <th>Type</th>
+                <th>Reason</th>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.NullReferenceException">NullReferenceException</a>
+                </td>
+                <td>
+            Thrown if there are no children.</td>
+              </tr>
+            </table>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Item(System.Int32):Remarks')">
+              <span id="P:Naucera.Iambic.Token.Item(System.Int32):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Item(System.Int32):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Item(System.Int32):Version Information')">
+              <span id="P:Naucera.Iambic.Token.Item(System.Int32):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Item(System.Int32):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Token.Matched(System.String)">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Token.Matched(System.String):member')">
+            <span id="M:Naucera.Iambic.Token.Matched(System.String):member:toggle">⊟</span> Matched Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Token.Matched(System.String):member">
+          <p class="Summary">
+            Returns true if this token was created by matching the specified
+            grammar construct name.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a> <b>Matched</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> grammarConstructName)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.Matched(System.String):Parameters')">
+              <span id="M:Naucera.Iambic.Token.Matched(System.String):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.Matched(System.String):Parameters">
+            <dl>
+              <dt>
+                <i>grammarConstructName</i>
+              </dt>
+              <dd>
+            Name of a parse rule or custom matcher.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.Matched(System.String):Returns')">
+              <span id="M:Naucera.Iambic.Token.Matched(System.String):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.Matched(System.String):Returns">
+            True if the named construct produced this token, false otherwise.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.Matched(System.String):Remarks')">
+              <span id="M:Naucera.Iambic.Token.Matched(System.String):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.Matched(System.String):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.Matched(System.String):Version Information')">
+              <span id="M:Naucera.Iambic.Token.Matched(System.String):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.Matched(System.String):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Token.MatchedText(System.String)">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Token.MatchedText(System.String):member')">
+            <span id="M:Naucera.Iambic.Token.MatchedText(System.String):member:toggle">⊟</span> MatchedText Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Token.MatchedText(System.String):member">
+          <p class="Summary">
+            Returns the portion of the text which was parsed, as represented by
+            this token.</p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> <b>MatchedText</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> originalText)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.MatchedText(System.String):Parameters')">
+              <span id="M:Naucera.Iambic.Token.MatchedText(System.String):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.MatchedText(System.String):Parameters">
+            <dl>
+              <dt>
+                <i>originalText</i>
+              </dt>
+              <dd>
+            Original parsed text (eg. ParseContext.BaseText).</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.MatchedText(System.String):Returns')">
+              <span id="M:Naucera.Iambic.Token.MatchedText(System.String):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.MatchedText(System.String):Returns">
+            Portion of original text matched by this token and its children.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.MatchedText(System.String):Remarks')">
+              <span id="M:Naucera.Iambic.Token.MatchedText(System.String):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.MatchedText(System.String):Remarks">
+            This is only valid if this token is the result of a successful
+            parsing. The results are undefined if parsing failed.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.MatchedText(System.String):Version Information')">
+              <span id="M:Naucera.Iambic.Token.MatchedText(System.String):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.MatchedText(System.String):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Token.Offset">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Offset:member')">
+            <span id="P:Naucera.Iambic.Token.Offset:member:toggle">⊟</span> Offset Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Token.Offset:member">
+          <p class="Summary">
+            The starting offset in the parsed text matched by this token.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> <b>Offset</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Offset:Value')">
+              <span id="P:Naucera.Iambic.Token.Offset:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Offset:Value">
+            Zero-based offset in characters from start of text.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Offset:Remarks')">
+              <span id="P:Naucera.Iambic.Token.Offset:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Offset:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Offset:Version Information')">
+              <span id="P:Naucera.Iambic.Token.Offset:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Offset:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Token.Tag">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Tag:member')">
+            <span id="P:Naucera.Iambic.Token.Tag:member:toggle">⊟</span> Tag Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Token.Tag:member">
+          <p class="Summary">
+            The value this token has been tagged with.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a> <b>Tag</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Tag:Value')">
+              <span id="P:Naucera.Iambic.Token.Tag:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Tag:Value">
+            Tagged value, or null.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Tag:Remarks')">
+              <span id="P:Naucera.Iambic.Token.Tag:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Tag:Remarks">
+            Tags are registered by using Parser.Tagging().</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Token.Tag:Version Information')">
+              <span id="P:Naucera.Iambic.Token.Tag:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Token.Tag:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext)">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):member')">
+            <span id="M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):member:toggle">⊟</span> ToXml Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):member">
+          <p class="Summary">
+            Returns the parse tree beginning at this token as an XML string
+            representation.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> <b>ToXml</b> (<a href="../Naucera.Iambic/ParseContext.html">ParseContext</a> context)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Parameters')">
+              <span id="M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Parameters">
+            <dl>
+              <dt>
+                <i>context</i>
+              </dt>
+              <dd>
+            Parsing context which produced this token.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Returns')">
+              <span id="M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Returns">
+            XML representing the parse subtree of this token.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Remarks')">
+              <span id="M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Remarks">
+            Parse rule names are expressed as XML element names, and the content
+            of each element is taken from this token's children and matched
+            text.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Version Information')">
+              <span id="M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.ToXml(Naucera.Iambic.ParseContext):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Token.ToXml(System.String)">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Token.ToXml(System.String):member')">
+            <span id="M:Naucera.Iambic.Token.ToXml(System.String):member:toggle">⊟</span> ToXml Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Token.ToXml(System.String):member">
+          <p class="Summary">
+            Returns the parse tree beginning at this token as an XML string
+            representation.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> <b>ToXml</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> parsedText)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.ToXml(System.String):Parameters')">
+              <span id="M:Naucera.Iambic.Token.ToXml(System.String):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.ToXml(System.String):Parameters">
+            <dl>
+              <dt>
+                <i>parsedText</i>
+              </dt>
+              <dd>
+            Original parsed text (eg. ParseContext.BaseText).</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.ToXml(System.String):Returns')">
+              <span id="M:Naucera.Iambic.Token.ToXml(System.String):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.ToXml(System.String):Returns">
+            XML representing the parse subtree of this token.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.ToXml(System.String):Remarks')">
+              <span id="M:Naucera.Iambic.Token.ToXml(System.String):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.ToXml(System.String):Remarks">
+            Parse rule names are expressed as XML element names, and the content
+            of each element is taken from this token's children and matched
+            text.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Token.ToXml(System.String):Version Information')">
+              <span id="M:Naucera.Iambic.Token.ToXml(System.String):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Token.ToXml(System.String):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+      </blockquote>
+    </div>
+    <hr size="1" />
+    <div class="Copyright">
+    </div>
+  </body>
+</html>

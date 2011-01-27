@@ -1,0 +1,612 @@
+<html>
+  <head>
+    <title>Naucera.Iambic.ParseContext</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      a { text-decoration: none }
+
+      div.SideBar {
+        padding-left: 1em;
+        padding-right: 1em;
+        right: 0;
+        float: right;
+        border: thin solid black;
+        background-color: #f2f2f2;
+      }
+    
+      .CollectionTitle { font-weight: bold }
+      .PageTitle { font-size: 150%; font-weight: bold }
+
+      .Summary { }
+      .Signature { }          
+      .Remarks { }
+      .Members { }
+      .Copyright { }
+      
+      .Section { font-size: 125%; font-weight: bold }
+      p.Summary {
+        margin-left: 1em;
+      }
+      .SectionBox { margin-left: 2em }
+      .NamespaceName { font-size: 105%; font-weight: bold }
+      .NamespaceSumary { }
+      .MemberName { font-size: 115%; font-weight: bold; margin-top: 1em }
+      .Subsection { font-size: 105%; font-weight: bold }
+      .SubsectionBox { margin-left: 2em; margin-bottom: 1em }
+
+      .CodeExampleTable { background-color: #f5f5dd; border: thin solid black; padding: .25em; }
+      
+      .TypesListing {
+        border-collapse: collapse;
+      }
+
+      td {
+        vertical-align: top;
+      }
+      th {
+        text-align: left;
+      }
+
+      .TypesListing td { 
+        margin: 0px;  
+        padding: .25em;
+        border: solid gray 1px;
+      }
+
+      .TypesListing th { 
+        margin: 0px;  
+        padding: .25em;
+        background-color: #f2f2f2;
+        border: solid gray 1px;
+      }
+
+      div.Footer {
+        border-top: 1px solid gray;
+        margin-top: 1.5em;
+        padding-top: 0.6em;
+        text-align: center;
+        color: gray;
+      }
+
+      span.NotEntered /* Documentation for this section has not yet been entered */ {
+        font-style: italic;
+        color: red;	
+      }
+
+      div.Header {
+        background: #B0C4DE;
+        border: double;
+        border-color: white;
+        border-width: 7px;
+        padding: 0.5em;
+      }
+
+      div.Header * {
+        font-size: smaller;
+      }
+
+      div.Note {
+      }
+
+      i.ParamRef {
+      }
+
+      i.subtitle {
+      }
+
+      ul.TypeMembersIndex {
+        text-align: left;
+        background: #F8F8F8;
+      }
+
+      ul.TypeMembersIndex li {
+        display: inline;
+        margin:  0.5em;
+      }
+
+      table.HeaderTable {
+      }
+
+      table.SignatureTable {
+      }
+
+      table.Documentation, table.Enumeration, table.TypeDocumentation {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      table.Documentation tr th, table.TypeMembers tr th, table.Enumeration tr th, table.TypeDocumentation tr th {
+        background: whitesmoke;
+        padding: 0.8em;
+        border: 1px solid gray;
+        text-align: left;
+        vertical-align: bottom;
+      }
+
+      table.Documentation tr td, table.TypeMembers tr td, table.Enumeration tr td, table.TypeDocumentation tr td {
+        padding: 0.5em;
+        border: 1px solid gray;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      table.TypeMembers {
+        border: 1px solid #C0C0C0;
+        width: 100%;
+      }
+
+      table.TypeMembers tr td {
+        background: #F8F8F8;
+        border: white;
+      }
+
+      table.Documentation {
+      }
+
+      table.TypeMembers {
+      }
+
+      div.CodeExample {
+        width: 100%;
+        border: 1px solid #DDDDDD;
+        background-color: #F8F8F8;
+      }
+
+      div.CodeExample p {
+        margin: 0.5em;
+        border-bottom: 1px solid #DDDDDD;
+      }
+
+      div.CodeExample div {
+        margin: 0.5em;
+      }
+
+      h4 {
+        margin-bottom: 0;
+      }
+
+      div.Signature {
+        border: 1px solid #C0C0C0;
+        background: #F2F2F2;
+        padding: 1em;
+      }
+    </style>
+    <script type="text/JavaScript">
+      function toggle_display (block) {
+        var w = document.getElementById (block);
+        var t = document.getElementById (block + ":toggle");
+        if (w.style.display == "none") {
+          w.style.display = "block";
+          t.innerHTML = "⊟";
+        } else {
+          w.style.display = "none";
+          t.innerHTML = "⊞";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="CollectionTitle">
+      <a href="../index.html">Naucera.Iambic</a> : <a href="index.html">Naucera.Iambic Namespace</a></div>
+    <div class="SideBar">
+      <p>
+        <a href="#T:Naucera.Iambic.ParseContext">Overview</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.ParseContext:Signature">Signature</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.ParseContext:Docs">Remarks</a>
+      </p>
+      <p>
+        <a href="#Members">Members</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.ParseContext:Members">Member Details</a>
+      </p>
+    </div>
+    <h1 class="PageTitle" id="T:Naucera.Iambic.ParseContext">ParseContext  Class</h1>
+    <p class="Summary" id="T:Naucera.Iambic.ParseContext:Summary">
+            Context for holding a parsing state and generating tokens for matches
+            based on that state.
+            </p>
+    <div id="T:Naucera.Iambic.ParseContext:Signature">
+      <div class="Signature">public sealed class  <b>ParseContext</b></div>
+    </div>
+    <div class="Remarks" id="T:Naucera.Iambic.ParseContext:Docs">
+      <h4 class="Subsection">
+        <a href="javascript:toggle_display('T:Naucera.Iambic.ParseContext:Docs:Remarks')">
+          <span id="T:Naucera.Iambic.ParseContext:Docs:Remarks:toggle">⊟</span> Remarks</a>
+      </h4>
+      <blockquote class="SubsectionBox" id="T:Naucera.Iambic.ParseContext:Docs:Remarks">
+            Instances of this class are not thread-safe, and are created for each
+            invocation of a Parser on a body of text.
+            </blockquote>
+      <h4 class="Subsection">
+        <a href="javascript:toggle_display('T:Naucera.Iambic.ParseContext:Docs:Version Information')">
+          <span id="T:Naucera.Iambic.ParseContext:Docs:Version Information:toggle">⊟</span> Requirements</a>
+      </h4>
+      <blockquote class="SubsectionBox" id="T:Naucera.Iambic.ParseContext:Docs:Version Information">
+        <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+      <h2 class="Section" id="Members">
+        <a href="javascript:toggle_display('_Members')">
+          <span id="_Members:toggle">⊟</span> Members</a>
+      </h2>
+      <blockquote class="SectionBox" id="_Members">
+        <p>
+								See Also: Inherited members from
+								<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a>.
+							</p>
+        <h3>
+          <a href="javascript:toggle_display('Public Properties')">
+            <span id="Public Properties:toggle">⊟</span> Public Properties</a>
+        </h3>
+        <blockquote id="Public Properties">
+          <div class="SubsectionBox">
+            <table class="TypeMembers">
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.ParseContext.BaseText">BaseText</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>
+                  </i>. 
+            The original source text being parsed.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.ParseContext.ErrorCount">ErrorCount</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>
+                  </i>. 
+            The number of parse errors.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.ParseContext.Expected">Expected</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="../Naucera.Iambic.Expressions/ParseExpression.html">Naucera.Iambic.Expressions.ParseExpression</a>
+                  </i>. 
+            The expected expression, if a parsing error was encountered.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.ParseContext.HasErrors">HasErrors</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a>
+                  </i>. 
+            Flag indicating if any parse errors have been encountered.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.ParseContext.Offset">Offset</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>
+                  </i>. 
+            The current parsing offset in the source text.
+            </td>
+              </tr>
+            </table>
+          </div>
+        </blockquote>
+        <h3>
+          <a href="javascript:toggle_display('Public Methods')">
+            <span id="Public Methods:toggle">⊟</span> Public Methods</a>
+        </h3>
+        <blockquote id="Public Methods">
+          <div class="SubsectionBox">
+            <table class="TypeMembers">
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.ParseContext.GetError(System.Int32)">GetError</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>)<nobr> : <a href="../Naucera.Iambic/Token.html">Token</a></nobr><blockquote>
+            Returns the error with the specified index.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token)">MatchedText</a>
+                  </b>(<a href="../Naucera.Iambic/Token.html">Token</a>)<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a></nobr><blockquote>
+            Returns the portion of the base text being parsed, as represented by
+            the given token.
+            </blockquote></td>
+              </tr>
+            </table>
+          </div>
+        </blockquote>
+      </blockquote>
+    </div>
+    <div class="Members" id="T:Naucera.Iambic.ParseContext:Members">
+      <h2 class="Section" id="MemberDetails">
+        <a href="javascript:toggle_display('_MemberDetails')">
+          <span id="_MemberDetails:toggle">⊟</span> Member Details</a>
+      </h2>
+      <blockquote class="SectionBox" id="_MemberDetails">
+        <h3 id="P:Naucera.Iambic.ParseContext.BaseText">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.BaseText:member')">
+            <span id="P:Naucera.Iambic.ParseContext.BaseText:member:toggle">⊟</span> BaseText Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.ParseContext.BaseText:member">
+          <p class="Summary">
+            The original source text being parsed.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> <b>BaseText</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.BaseText:Value')">
+              <span id="P:Naucera.Iambic.ParseContext.BaseText:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.BaseText:Value">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.BaseText:Remarks')">
+              <span id="P:Naucera.Iambic.ParseContext.BaseText:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.BaseText:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.BaseText:Version Information')">
+              <span id="P:Naucera.Iambic.ParseContext.BaseText:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.BaseText:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.ParseContext.ErrorCount">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.ErrorCount:member')">
+            <span id="P:Naucera.Iambic.ParseContext.ErrorCount:member:toggle">⊟</span> ErrorCount Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.ParseContext.ErrorCount:member">
+          <p class="Summary">
+            The number of parse errors.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> <b>ErrorCount</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.ErrorCount:Value')">
+              <span id="P:Naucera.Iambic.ParseContext.ErrorCount:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.ErrorCount:Value">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.ErrorCount:Remarks')">
+              <span id="P:Naucera.Iambic.ParseContext.ErrorCount:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.ErrorCount:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.ErrorCount:Version Information')">
+              <span id="P:Naucera.Iambic.ParseContext.ErrorCount:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.ErrorCount:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.ParseContext.Expected">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.Expected:member')">
+            <span id="P:Naucera.Iambic.ParseContext.Expected:member:toggle">⊟</span> Expected Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.ParseContext.Expected:member">
+          <p class="Summary">
+            The expected expression, if a parsing error was encountered.
+            </p>
+          <div class="Signature">public <a href="../Naucera.Iambic.Expressions/ParseExpression.html">Naucera.Iambic.Expressions.ParseExpression</a> <b>Expected</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.Expected:Value')">
+              <span id="P:Naucera.Iambic.ParseContext.Expected:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.Expected:Value">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.Expected:Remarks')">
+              <span id="P:Naucera.Iambic.ParseContext.Expected:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.Expected:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.Expected:Version Information')">
+              <span id="P:Naucera.Iambic.ParseContext.Expected:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.Expected:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.ParseContext.GetError(System.Int32)">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.ParseContext.GetError(System.Int32):member')">
+            <span id="M:Naucera.Iambic.ParseContext.GetError(System.Int32):member:toggle">⊟</span> GetError Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.ParseContext.GetError(System.Int32):member">
+          <p class="Summary">
+            Returns the error with the specified index.
+            </p>
+          <div class="Signature">public <a href="../Naucera.Iambic/Token.html">Token</a> <b>GetError</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> i)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParseContext.GetError(System.Int32):Parameters')">
+              <span id="M:Naucera.Iambic.ParseContext.GetError(System.Int32):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParseContext.GetError(System.Int32):Parameters">
+            <dl>
+              <dt>
+                <i>i</i>
+              </dt>
+              <dd>
+            Index of the error.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParseContext.GetError(System.Int32):Returns')">
+              <span id="M:Naucera.Iambic.ParseContext.GetError(System.Int32):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParseContext.GetError(System.Int32):Returns">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParseContext.GetError(System.Int32):Remarks')">
+              <span id="M:Naucera.Iambic.ParseContext.GetError(System.Int32):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParseContext.GetError(System.Int32):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParseContext.GetError(System.Int32):Version Information')">
+              <span id="M:Naucera.Iambic.ParseContext.GetError(System.Int32):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParseContext.GetError(System.Int32):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.ParseContext.HasErrors">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.HasErrors:member')">
+            <span id="P:Naucera.Iambic.ParseContext.HasErrors:member:toggle">⊟</span> HasErrors Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.ParseContext.HasErrors:member">
+          <p class="Summary">
+            Flag indicating if any parse errors have been encountered.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a> <b>HasErrors</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.HasErrors:Value')">
+              <span id="P:Naucera.Iambic.ParseContext.HasErrors:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.HasErrors:Value">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.HasErrors:Remarks')">
+              <span id="P:Naucera.Iambic.ParseContext.HasErrors:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.HasErrors:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.HasErrors:Version Information')">
+              <span id="P:Naucera.Iambic.ParseContext.HasErrors:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.HasErrors:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token)">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):member')">
+            <span id="M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):member:toggle">⊟</span> MatchedText Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):member">
+          <p class="Summary">
+            Returns the portion of the base text being parsed, as represented by
+            the given token.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> <b>MatchedText</b> (<a href="../Naucera.Iambic/Token.html">Token</a> token)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Parameters')">
+              <span id="M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Parameters">
+            <dl>
+              <dt>
+                <i>token</i>
+              </dt>
+              <dd>
+            Token for which to find the matched text.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Returns')">
+              <span id="M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Returns">
+            Text matched by the token (including its children).</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Remarks')">
+              <span id="M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Remarks">
+            This is only valid for tokens which have successfully
+            been parsed.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Version Information')">
+              <span id="M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.ParseContext.MatchedText(Naucera.Iambic.Token):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.ParseContext.Offset">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.Offset:member')">
+            <span id="P:Naucera.Iambic.ParseContext.Offset:member:toggle">⊟</span> Offset Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.ParseContext.Offset:member">
+          <p class="Summary">
+            The current parsing offset in the source text.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> <b>Offset</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.Offset:Value')">
+              <span id="P:Naucera.Iambic.ParseContext.Offset:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.Offset:Value">
+            Zero-based offset in characters.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.Offset:Remarks')">
+              <span id="P:Naucera.Iambic.ParseContext.Offset:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.Offset:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.ParseContext.Offset:Version Information')">
+              <span id="P:Naucera.Iambic.ParseContext.Offset:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.ParseContext.Offset:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+      </blockquote>
+    </div>
+    <hr size="1" />
+    <div class="Copyright">
+    </div>
+  </body>
+</html>

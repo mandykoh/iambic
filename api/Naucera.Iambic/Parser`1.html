@@ -1,0 +1,1232 @@
+<html>
+  <head>
+    <title>Naucera.Iambic.Parser&lt;T&gt;</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      a { text-decoration: none }
+
+      div.SideBar {
+        padding-left: 1em;
+        padding-right: 1em;
+        right: 0;
+        float: right;
+        border: thin solid black;
+        background-color: #f2f2f2;
+      }
+    
+      .CollectionTitle { font-weight: bold }
+      .PageTitle { font-size: 150%; font-weight: bold }
+
+      .Summary { }
+      .Signature { }          
+      .Remarks { }
+      .Members { }
+      .Copyright { }
+      
+      .Section { font-size: 125%; font-weight: bold }
+      p.Summary {
+        margin-left: 1em;
+      }
+      .SectionBox { margin-left: 2em }
+      .NamespaceName { font-size: 105%; font-weight: bold }
+      .NamespaceSumary { }
+      .MemberName { font-size: 115%; font-weight: bold; margin-top: 1em }
+      .Subsection { font-size: 105%; font-weight: bold }
+      .SubsectionBox { margin-left: 2em; margin-bottom: 1em }
+
+      .CodeExampleTable { background-color: #f5f5dd; border: thin solid black; padding: .25em; }
+      
+      .TypesListing {
+        border-collapse: collapse;
+      }
+
+      td {
+        vertical-align: top;
+      }
+      th {
+        text-align: left;
+      }
+
+      .TypesListing td { 
+        margin: 0px;  
+        padding: .25em;
+        border: solid gray 1px;
+      }
+
+      .TypesListing th { 
+        margin: 0px;  
+        padding: .25em;
+        background-color: #f2f2f2;
+        border: solid gray 1px;
+      }
+
+      div.Footer {
+        border-top: 1px solid gray;
+        margin-top: 1.5em;
+        padding-top: 0.6em;
+        text-align: center;
+        color: gray;
+      }
+
+      span.NotEntered /* Documentation for this section has not yet been entered */ {
+        font-style: italic;
+        color: red;	
+      }
+
+      div.Header {
+        background: #B0C4DE;
+        border: double;
+        border-color: white;
+        border-width: 7px;
+        padding: 0.5em;
+      }
+
+      div.Header * {
+        font-size: smaller;
+      }
+
+      div.Note {
+      }
+
+      i.ParamRef {
+      }
+
+      i.subtitle {
+      }
+
+      ul.TypeMembersIndex {
+        text-align: left;
+        background: #F8F8F8;
+      }
+
+      ul.TypeMembersIndex li {
+        display: inline;
+        margin:  0.5em;
+      }
+
+      table.HeaderTable {
+      }
+
+      table.SignatureTable {
+      }
+
+      table.Documentation, table.Enumeration, table.TypeDocumentation {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      table.Documentation tr th, table.TypeMembers tr th, table.Enumeration tr th, table.TypeDocumentation tr th {
+        background: whitesmoke;
+        padding: 0.8em;
+        border: 1px solid gray;
+        text-align: left;
+        vertical-align: bottom;
+      }
+
+      table.Documentation tr td, table.TypeMembers tr td, table.Enumeration tr td, table.TypeDocumentation tr td {
+        padding: 0.5em;
+        border: 1px solid gray;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      table.TypeMembers {
+        border: 1px solid #C0C0C0;
+        width: 100%;
+      }
+
+      table.TypeMembers tr td {
+        background: #F8F8F8;
+        border: white;
+      }
+
+      table.Documentation {
+      }
+
+      table.TypeMembers {
+      }
+
+      div.CodeExample {
+        width: 100%;
+        border: 1px solid #DDDDDD;
+        background-color: #F8F8F8;
+      }
+
+      div.CodeExample p {
+        margin: 0.5em;
+        border-bottom: 1px solid #DDDDDD;
+      }
+
+      div.CodeExample div {
+        margin: 0.5em;
+      }
+
+      h4 {
+        margin-bottom: 0;
+      }
+
+      div.Signature {
+        border: 1px solid #C0C0C0;
+        background: #F2F2F2;
+        padding: 1em;
+      }
+    </style>
+    <script type="text/JavaScript">
+      function toggle_display (block) {
+        var w = document.getElementById (block);
+        var t = document.getElementById (block + ":toggle");
+        if (w.style.display == "none") {
+          w.style.display = "block";
+          t.innerHTML = "⊟";
+        } else {
+          w.style.display = "none";
+          t.innerHTML = "⊞";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="CollectionTitle">
+      <a href="../index.html">Naucera.Iambic</a> : <a href="index.html">Naucera.Iambic Namespace</a></div>
+    <div class="SideBar">
+      <p>
+        <a href="#T:Naucera.Iambic.Parser`1">Overview</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.Parser`1:Signature">Signature</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.Parser`1:Docs">Remarks</a>
+      </p>
+      <p>
+        <a href="#Members">Members</a>
+      </p>
+      <p>
+        <a href="#T:Naucera.Iambic.Parser`1:Members">Member Details</a>
+      </p>
+    </div>
+    <h1 class="PageTitle" id="T:Naucera.Iambic.Parser`1">Parser&lt;T&gt; Generic Class</h1>
+    <p class="Summary" id="T:Naucera.Iambic.Parser`1:Summary">
+            Parser instance which produces tokens based on expression grammar
+            rules.
+            </p>
+    <div id="T:Naucera.Iambic.Parser`1:Signature">
+      <div class="Signature">public sealed class  <b>Parser&lt;T&gt;</b></div>
+    </div>
+    <div class="Remarks" id="T:Naucera.Iambic.Parser`1:Docs">
+      <h4 class="Subsection">
+        <a href="javascript:toggle_display('T:Naucera.Iambic.Parser`1:Docs:Type Parameters')">
+          <span id="T:Naucera.Iambic.Parser`1:Docs:Type Parameters:toggle">⊟</span> Type Parameters</a>
+      </h4>
+      <blockquote class="SubsectionBox" id="T:Naucera.Iambic.Parser`1:Docs:Type Parameters">
+        <dl>
+          <dt>
+            <i>T</i>
+          </dt>
+          <dd>
+            Type of the return value. This is the type which the parser returns
+            after a successful parsing. Parsers which convert the result to a
+            particular type can be created using ConvertingResultUsing().
+            </dd>
+        </dl>
+      </blockquote>
+      <h4 class="Subsection">
+        <a href="javascript:toggle_display('T:Naucera.Iambic.Parser`1:Docs:Remarks')">
+          <span id="T:Naucera.Iambic.Parser`1:Docs:Remarks:toggle">⊟</span> Remarks</a>
+      </h4>
+      <blockquote class="SubsectionBox" id="T:Naucera.Iambic.Parser`1:Docs:Remarks">
+        <p>
+            The first grammar rule specified is always the root grammar rule (also
+            known as the root or starting production), which represents the overall
+            entity being parsed.</p>
+        <p>
+            Instances of this class may be safely used for concurrent parsing by
+            multiple threads, as long as the parser and its rules are not modified
+            during parsing.</p>
+      </blockquote>
+      <h4 class="Subsection">
+        <a href="javascript:toggle_display('T:Naucera.Iambic.Parser`1:Docs:Version Information')">
+          <span id="T:Naucera.Iambic.Parser`1:Docs:Version Information:toggle">⊟</span> Requirements</a>
+      </h4>
+      <blockquote class="SubsectionBox" id="T:Naucera.Iambic.Parser`1:Docs:Version Information">
+        <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+      <h2 class="Section" id="Members">
+        <a href="javascript:toggle_display('_Members')">
+          <span id="_Members:toggle">⊟</span> Members</a>
+      </h2>
+      <blockquote class="SectionBox" id="_Members">
+        <p>
+								See Also: Inherited members from
+								<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a>.
+							</p>
+        <h3>
+          <a href="javascript:toggle_display('Public Constructors')">
+            <span id="Public Constructors:toggle">⊟</span> Public Constructors</a>
+        </h3>
+        <blockquote id="Public Constructors">
+          <div class="SubsectionBox">
+            <table class="TypeMembers">
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <b>
+                      <a href="#C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[])">Parser</a>
+                    </b>(<a href="../Naucera.Iambic/TokenConversion`1.html">TokenConversion&lt;T&gt;</a>, <a href="../Naucera.Iambic/ParseRule.html">ParseRule</a>, <b>params</b> <a href="../Naucera.Iambic/GrammarConstruct.html">GrammarConstruct</a>[])</div>
+                </td>
+                <td>
+            Creates a Parser that uses the specified grammar constructs, which
+            may be ParseRules or CustomMatchers.
+            </td>
+              </tr>
+            </table>
+          </div>
+        </blockquote>
+        <h3>
+          <a href="javascript:toggle_display('Public Properties')">
+            <span id="Public Properties:toggle">⊟</span> Public Properties</a>
+        </h3>
+        <blockquote id="Public Properties">
+          <div class="SubsectionBox">
+            <table class="TypeMembers">
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Parser`1.MaxErrors">MaxErrors</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>
+                  </i>. 
+            The maximum number of errors to report while parsing.
+            </td>
+              </tr>
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:Naucera.Iambic.Parser`1.RuleCount">RuleCount</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>
+                  </i>. 
+            The number of grammar rules defined for this parser.
+            </td>
+              </tr>
+            </table>
+          </div>
+        </blockquote>
+        <h3>
+          <a href="javascript:toggle_display('Public Methods')">
+            <span id="Public Methods:toggle">⊟</span> Public Methods</a>
+        </h3>
+        <blockquote id="Public Methods">
+          <div class="SubsectionBox">
+            <table class="TypeMembers">
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0})">ConvertingResultUsing&lt;TConverted&gt;</a>
+                  </b>(<a href="../Naucera.Iambic/TokenConversion`1.html">TokenConversion&lt;TConverted&gt;</a>)<nobr> : <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;TConverted&gt;</a></nobr><blockquote>
+            Returns a new parser which is a copy of this parser but using the
+            specified conversion for returning parsed results.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0})">ConvertingResultUsing&lt;TConverted&gt;</a>
+                  </b>(<a href="../Naucera.Iambic/TokenConversionWithNoArgs`1.html">TokenConversionWithNoArgs&lt;TConverted&gt;</a>)<nobr> : <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;TConverted&gt;</a></nobr><blockquote>
+            Returns a new parser which is a copy of this parser but using the
+            specified conversion for returning parsed results.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0})">ConvertingResultUsing&lt;TConverted&gt;</a>
+                  </b>(<a href="../Naucera.Iambic/TokenConversionWithNoContext`1.html">TokenConversionWithNoContext&lt;TConverted&gt;</a>)<nobr> : <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;TConverted&gt;</a></nobr><blockquote>
+            Returns a new parser which is a copy of this parser but using the
+            specified conversion for returning parsed results.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Parser`1.GetRule(System.String)">GetRule</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="../Naucera.Iambic/ParseRule.html">ParseRule</a></nobr><blockquote>
+            Returns the grammar rule with the specified name, or null if no such
+            rule has been defined for this parser.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[])">Parse</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a>[])<nobr> : <i title="&#xA;            Type of the return value. This is the type which the parser returns&#xA;            after a successful parsing. Parsers which convert the result to a&#xA;            particular type can be created using ConvertingResultUsing().&#xA;            ">T</i></nobr><blockquote>
+            Parses the specified text and returns the result.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag)">Tagging</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="../Naucera.Iambic/TokenTag.html">TokenTag</a>)<nobr> : <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;T&gt;</a></nobr><blockquote>
+            Registers a tag to be applied to tokens matching the named grammar
+            construct.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs)">Tagging</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="../Naucera.Iambic/TokenTagWithNoArgs.html">TokenTagWithNoArgs</a>)<nobr> : <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;T&gt;</a></nobr><blockquote>
+            Registers a tag to be applied to tokens matching the named grammar
+            construct.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext)">Tagging</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="../Naucera.Iambic/TokenTagWithNoContext.html">TokenTagWithNoContext</a>)<nobr> : <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;T&gt;</a></nobr><blockquote>
+            Registers a tag to be applied to tokens matching the named grammar
+            construct.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken)">Tagging</a>
+                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="../Naucera.Iambic/TokenTagWithNoToken.html">TokenTagWithNoToken</a>)<nobr> : <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;T&gt;</a></nobr><blockquote>
+            Registers a tag to be applied to tokens matching the named grammar
+            construct.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>override </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:Naucera.Iambic.Parser`1.ToString">ToString</a>
+                  </b>()<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a></nobr><blockquote>
+            Returns a string containing the grammar describing this parser, as
+            specified by the ParserFactory documentation.
+            </blockquote></td>
+              </tr>
+            </table>
+          </div>
+        </blockquote>
+      </blockquote>
+    </div>
+    <div class="Members" id="T:Naucera.Iambic.Parser`1:Members">
+      <h2 class="Section" id="MemberDetails">
+        <a href="javascript:toggle_display('_MemberDetails')">
+          <span id="_MemberDetails:toggle">⊟</span> Member Details</a>
+      </h2>
+      <blockquote class="SectionBox" id="_MemberDetails">
+        <h3 id="C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[])">
+          <a href="javascript:toggle_display('C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):member')">
+            <span id="C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):member:toggle">⊟</span> Parser Constructor</a>
+        </h3>
+        <blockquote id="C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):member">
+          <p class="Summary">
+            Creates a Parser that uses the specified grammar constructs, which
+            may be ParseRules or CustomMatchers.
+            </p>
+          <div class="Signature">public  <b>Parser</b> (<a href="../Naucera.Iambic/TokenConversion`1.html">TokenConversion&lt;T&gt;</a> resultConversion, <a href="../Naucera.Iambic/ParseRule.html">ParseRule</a> rootRule, <b>params</b> <a href="../Naucera.Iambic/GrammarConstruct.html">GrammarConstruct</a>[] grammarConstructs)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Parameters')">
+              <span id="C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Parameters">
+            <dl>
+              <dt>
+                <i>resultConversion</i>
+              </dt>
+              <dd>
+            Conversion to apply to the parsed result.</dd>
+              <dt>
+                <i>rootRule</i>
+              </dt>
+              <dd>
+            Root grammar production.</dd>
+              <dt>
+                <i>grammarConstructs</i>
+              </dt>
+              <dd>
+            Parsing grammar constructs.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Exceptions')">
+              <span id="C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Exceptions:toggle">⊟</span> Exceptions</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Exceptions">
+            <table class="TypeDocumentation">
+              <tr>
+                <th>Type</th>
+                <th>Reason</th>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <a href="../Naucera.Iambic/InvalidGrammarException.html">Naucera.Iambic.InvalidGrammarException</a>
+                </td>
+                <td>
+            Thrown on other grammar errors.</td>
+              </tr>
+            </table>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Remarks')">
+              <span id="C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Remarks">
+            At least one ParseRule must be provided, and the first ParseRule is
+            taken to be the root grammar production.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Version Information')">
+              <span id="C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="C:Naucera.Iambic.Parser`1(Naucera.Iambic.TokenConversion{`0},Naucera.Iambic.ParseRule,Naucera.Iambic.GrammarConstruct[]):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0})">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):member')">
+            <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):member:toggle">⊟</span> ConvertingResultUsing&lt;TConverted&gt; Generic Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):member">
+          <p class="Summary">
+            Returns a new parser which is a copy of this parser but using the
+            specified conversion for returning parsed results.
+            </p>
+          <div class="Signature">public <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;TConverted&gt;</a> <b>ConvertingResultUsing&lt;TConverted&gt;</b> (<a href="../Naucera.Iambic/TokenConversion`1.html">TokenConversion&lt;TConverted&gt;</a> conversion)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Type Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Type Parameters:toggle">⊟</span> Type Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Type Parameters">
+            <dl>
+              <dt>
+                <i>TConverted</i>
+              </dt>
+              <dd>
+            Resulting type of the token conversion.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Parameters">
+            <dl>
+              <dt>
+                <i>conversion</i>
+              </dt>
+              <dd>
+            The conversion to perform on parsed results.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Returns')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Returns">
+            New parser.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Remarks')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Version Information')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversion{``0}):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0})">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):member')">
+            <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):member:toggle">⊟</span> ConvertingResultUsing&lt;TConverted&gt; Generic Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):member">
+          <p class="Summary">
+            Returns a new parser which is a copy of this parser but using the
+            specified conversion for returning parsed results.
+            </p>
+          <div class="Signature">public <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;TConverted&gt;</a> <b>ConvertingResultUsing&lt;TConverted&gt;</b> (<a href="../Naucera.Iambic/TokenConversionWithNoArgs`1.html">TokenConversionWithNoArgs&lt;TConverted&gt;</a> conversion)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Type Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Type Parameters:toggle">⊟</span> Type Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Type Parameters">
+            <dl>
+              <dt>
+                <i>TConverted</i>
+              </dt>
+              <dd>
+            Resulting type of the token conversion.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Parameters">
+            <dl>
+              <dt>
+                <i>conversion</i>
+              </dt>
+              <dd>
+            The conversion to perform on parsed results.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Returns')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Returns">
+            New parser.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Remarks')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Version Information')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoArgs{``0}):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0})">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):member')">
+            <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):member:toggle">⊟</span> ConvertingResultUsing&lt;TConverted&gt; Generic Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):member">
+          <p class="Summary">
+            Returns a new parser which is a copy of this parser but using the
+            specified conversion for returning parsed results.
+            </p>
+          <div class="Signature">public <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;TConverted&gt;</a> <b>ConvertingResultUsing&lt;TConverted&gt;</b> (<a href="../Naucera.Iambic/TokenConversionWithNoContext`1.html">TokenConversionWithNoContext&lt;TConverted&gt;</a> conversion)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Type Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Type Parameters:toggle">⊟</span> Type Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Type Parameters">
+            <dl>
+              <dt>
+                <i>TConverted</i>
+              </dt>
+              <dd>
+            Resulting type of the token conversion.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Parameters">
+            <dl>
+              <dt>
+                <i>conversion</i>
+              </dt>
+              <dd>
+            The conversion to perform on parsed results.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Returns')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Returns">
+            New parser.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Remarks')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Version Information')">
+              <span id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ConvertingResultUsing``1(Naucera.Iambic.TokenConversionWithNoContext{``0}):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Parser`1.GetRule(System.String)">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.GetRule(System.String):member')">
+            <span id="M:Naucera.Iambic.Parser`1.GetRule(System.String):member:toggle">⊟</span> GetRule Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Parser`1.GetRule(System.String):member">
+          <p class="Summary">
+            Returns the grammar rule with the specified name, or null if no such
+            rule has been defined for this parser.
+            </p>
+          <div class="Signature">public <a href="../Naucera.Iambic/ParseRule.html">ParseRule</a> <b>GetRule</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> name)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.GetRule(System.String):Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.GetRule(System.String):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.GetRule(System.String):Parameters">
+            <dl>
+              <dt>
+                <i>name</i>
+              </dt>
+              <dd>
+            Name of the grammar rule.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.GetRule(System.String):Returns')">
+              <span id="M:Naucera.Iambic.Parser`1.GetRule(System.String):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.GetRule(System.String):Returns">Parsing grammar rule, or null.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.GetRule(System.String):Remarks')">
+              <span id="M:Naucera.Iambic.Parser`1.GetRule(System.String):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.GetRule(System.String):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.GetRule(System.String):Version Information')">
+              <span id="M:Naucera.Iambic.Parser`1.GetRule(System.String):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.GetRule(System.String):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Parser`1.MaxErrors">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Parser`1.MaxErrors:member')">
+            <span id="P:Naucera.Iambic.Parser`1.MaxErrors:member:toggle">⊟</span> MaxErrors Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Parser`1.MaxErrors:member">
+          <p class="Summary">
+            The maximum number of errors to report while parsing.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> <b>MaxErrors</b>  { set; get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Parser`1.MaxErrors:Value')">
+              <span id="P:Naucera.Iambic.Parser`1.MaxErrors:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Parser`1.MaxErrors:Value">
+            Number of errors to tolerate before a SyntaxException is thrown.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Parser`1.MaxErrors:Remarks')">
+              <span id="P:Naucera.Iambic.Parser`1.MaxErrors:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Parser`1.MaxErrors:Remarks">
+            <p>
+            The default is 1 (parsing fails on the first error).</p>
+            <p>
+            Setting MaxErrors to a higher number will not prevent a
+            SyntaxException from being thrown; rather, it will cause the parser
+            to make an attempt to bypass syntax errors while recording them. The
+            SyntaxException will then contain details of the errors encountered.
+            </p>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Parser`1.MaxErrors:Version Information')">
+              <span id="P:Naucera.Iambic.Parser`1.MaxErrors:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Parser`1.MaxErrors:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[])">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):member')">
+            <span id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):member:toggle">⊟</span> Parse Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):member">
+          <p class="Summary">
+            Parses the specified text and returns the result.
+            </p>
+          <div class="Signature">public <i title="&#xA;            Type of the return value. This is the type which the parser returns&#xA;            after a successful parsing. Parsers which convert the result to a&#xA;            particular type can be created using ConvertingResultUsing().&#xA;            ">T</i> <b>Parse</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> text, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a>[] args)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Parameters">
+            <dl>
+              <dt>
+                <i>text</i>
+              </dt>
+              <dd>
+            Text to parse.</dd>
+              <dt>
+                <i>args</i>
+              </dt>
+              <dd>
+            Optional arguments for token conversion.</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Returns')">
+              <span id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Returns">
+            Parsed and converted result.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Exceptions')">
+              <span id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Exceptions:toggle">⊟</span> Exceptions</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Exceptions">
+            <table class="TypeDocumentation">
+              <tr>
+                <th>Type</th>
+                <th>Reason</th>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <a href="../Naucera.Iambic/SyntaxException.html">Naucera.Iambic.SyntaxException</a>
+                </td>
+                <td>
+            Thrown if parsing fails on syntax errors which were unrecoverable
+            (or MaxErrors was reached).</td>
+              </tr>
+            </table>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Remarks')">
+              <span id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Remarks">
+            <p>
+            Each rule generates a token, with the components of the rule as the
+            token's children, and each token is tagged with a value if a
+            corresponding tag has been registered using Tagging().</p>
+            <p>
+            The final result is returned by applying a conversion specified upon
+            construction (or by using ConvertingResultUsing()) to the token
+            produced by the root grammar rule.</p>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Version Information')">
+              <span id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Parse(System.String,System.Object[]):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:Naucera.Iambic.Parser`1.RuleCount">
+          <a href="javascript:toggle_display('P:Naucera.Iambic.Parser`1.RuleCount:member')">
+            <span id="P:Naucera.Iambic.Parser`1.RuleCount:member:toggle">⊟</span> RuleCount Property</a>
+        </h3>
+        <blockquote id="P:Naucera.Iambic.Parser`1.RuleCount:member">
+          <p class="Summary">
+            The number of grammar rules defined for this parser.
+            </p>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> <b>RuleCount</b>  { get; }</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Parser`1.RuleCount:Value')">
+              <span id="P:Naucera.Iambic.Parser`1.RuleCount:Value:toggle">⊟</span> Value</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Parser`1.RuleCount:Value">
+            Number of ParseRules this parser was created with.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Parser`1.RuleCount:Remarks')">
+              <span id="P:Naucera.Iambic.Parser`1.RuleCount:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Parser`1.RuleCount:Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('P:Naucera.Iambic.Parser`1.RuleCount:Version Information')">
+              <span id="P:Naucera.Iambic.Parser`1.RuleCount:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="P:Naucera.Iambic.Parser`1.RuleCount:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag)">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):member')">
+            <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):member:toggle">⊟</span> Tagging Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):member">
+          <p class="Summary">
+            Registers a tag to be applied to tokens matching the named grammar
+            construct.
+            </p>
+          <div class="Signature">public <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;T&gt;</a> <b>Tagging</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> constructName, <a href="../Naucera.Iambic/TokenTag.html">TokenTag</a> with)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Parameters">
+            <dl>
+              <dt>
+                <i>constructName</i>
+              </dt>
+              <dd>
+            Name of the grammar rule or custom matcher which matches the tokens
+            to be tagged.</dd>
+              <dt>
+                <i>with</i>
+              </dt>
+              <dd>
+            A token tag delegate.
+            </dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Returns')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Returns">
+            This parser.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Exceptions')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Exceptions:toggle">⊟</span> Exceptions</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Exceptions">
+            <table class="TypeDocumentation">
+              <tr>
+                <th>Type</th>
+                <th>Reason</th>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <a href="../Naucera.Iambic/UndefinedConstructException.html">Naucera.Iambic.UndefinedConstructException</a>
+                </td>
+                <td>
+            Thrown if the named construct is not defined for this parser.
+            </td>
+              </tr>
+            </table>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Remarks')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Remarks">
+            Each tag registered in this way causes tokens produced by the named
+            grammar rule or custom matcher to be tagged with the result of
+            invoking the tag delegate.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Version Information')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTag):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs)">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):member')">
+            <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):member:toggle">⊟</span> Tagging Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):member">
+          <p class="Summary">
+            Registers a tag to be applied to tokens matching the named grammar
+            construct.
+            </p>
+          <div class="Signature">public <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;T&gt;</a> <b>Tagging</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> constructName, <a href="../Naucera.Iambic/TokenTagWithNoArgs.html">TokenTagWithNoArgs</a> with)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Parameters">
+            <dl>
+              <dt>
+                <i>constructName</i>
+              </dt>
+              <dd>
+            Name of the grammar rule or custom matcher which matches the tokens
+            to be tagged.</dd>
+              <dt>
+                <i>with</i>
+              </dt>
+              <dd>
+            A token tag delegate which takes the token being tagged and the
+            parsing context.
+            </dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Returns')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Returns">
+            This parser.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Exceptions')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Exceptions:toggle">⊟</span> Exceptions</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Exceptions">
+            <table class="TypeDocumentation">
+              <tr>
+                <th>Type</th>
+                <th>Reason</th>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <a href="../Naucera.Iambic/UndefinedConstructException.html">Naucera.Iambic.UndefinedConstructException</a>
+                </td>
+                <td>
+            Thrown if the named construct is not defined for this parser.
+            </td>
+              </tr>
+            </table>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Remarks')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Remarks">
+            Each tag registered in this way causes tokens produced by the named
+            grammar rule or custom matcher to be tagged with the result of
+            invoking the tag delegate.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Version Information')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoArgs):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext)">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):member')">
+            <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):member:toggle">⊟</span> Tagging Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):member">
+          <p class="Summary">
+            Registers a tag to be applied to tokens matching the named grammar
+            construct.
+            </p>
+          <div class="Signature">public <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;T&gt;</a> <b>Tagging</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> constructName, <a href="../Naucera.Iambic/TokenTagWithNoContext.html">TokenTagWithNoContext</a> with)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Parameters">
+            <dl>
+              <dt>
+                <i>constructName</i>
+              </dt>
+              <dd>
+            Name of the grammar rule or custom matcher which matches the tokens
+            to be tagged.</dd>
+              <dt>
+                <i>with</i>
+              </dt>
+              <dd>
+            A token tag delegate which takes the token being tagged.
+            </dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Returns')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Returns">
+            This parser.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Exceptions')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Exceptions:toggle">⊟</span> Exceptions</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Exceptions">
+            <table class="TypeDocumentation">
+              <tr>
+                <th>Type</th>
+                <th>Reason</th>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <a href="../Naucera.Iambic/UndefinedConstructException.html">Naucera.Iambic.UndefinedConstructException</a>
+                </td>
+                <td>
+            Thrown if the named construct is not defined for this parser.
+            </td>
+              </tr>
+            </table>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Remarks')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Remarks">
+            Each tag registered in this way causes tokens produced by the named
+            grammar rule or custom matcher to be tagged with the result of
+            invoking the tag delegate.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Version Information')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoContext):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken)">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):member')">
+            <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):member:toggle">⊟</span> Tagging Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):member">
+          <p class="Summary">
+            Registers a tag to be applied to tokens matching the named grammar
+            construct.
+            </p>
+          <div class="Signature">public <a href="../Naucera.Iambic/Parser`1.html">Parser&lt;T&gt;</a> <b>Tagging</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> constructName, <a href="../Naucera.Iambic/TokenTagWithNoToken.html">TokenTagWithNoToken</a> with)</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Parameters')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Parameters:toggle">⊟</span> Parameters</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Parameters">
+            <dl>
+              <dt>
+                <i>constructName</i>
+              </dt>
+              <dd>
+            Name of the grammar rule or custom matcher which matches the tokens
+            to be tagged.</dd>
+              <dt>
+                <i>with</i>
+              </dt>
+              <dd>
+            A token tag delegate which takes no arguments.
+            </dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Returns')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Returns">
+            This parser.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Exceptions')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Exceptions:toggle">⊟</span> Exceptions</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Exceptions">
+            <table class="TypeDocumentation">
+              <tr>
+                <th>Type</th>
+                <th>Reason</th>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <a href="../Naucera.Iambic/UndefinedConstructException.html">Naucera.Iambic.UndefinedConstructException</a>
+                </td>
+                <td>
+            Thrown if the named construct is not defined for this parser.
+            </td>
+              </tr>
+            </table>
+          </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Remarks')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Remarks">
+            Each tag registered in this way causes tokens produced by the named
+            grammar rule or custom matcher to be tagged with the result of
+            invoking the tag delegate.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Version Information')">
+              <span id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.Tagging(System.String,Naucera.Iambic.TokenTagWithNoToken):Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:Naucera.Iambic.Parser`1.ToString">
+          <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ToString:member')">
+            <span id="M:Naucera.Iambic.Parser`1.ToString:member:toggle">⊟</span> ToString Method</a>
+        </h3>
+        <blockquote id="M:Naucera.Iambic.Parser`1.ToString:member">
+          <p class="Summary">
+            Returns a string containing the grammar describing this parser, as
+            specified by the ParserFactory documentation.
+            </p>
+          <div class="Signature">public override <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> <b>ToString</b> ()</div>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ToString:Returns')">
+              <span id="M:Naucera.Iambic.Parser`1.ToString:Returns:toggle">⊟</span> Returns</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ToString:Returns">
+            PEG grammar specification for the parser's grammar.</blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ToString:Remarks')">
+              <span id="M:Naucera.Iambic.Parser`1.ToString:Remarks:toggle">⊟</span> Remarks</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ToString:Remarks">
+            The returned string is in a format suitable for passing to the
+            ParserCompiler in order to generate a parser matching the same
+            grammar as this parser.
+            </blockquote>
+          <h4 class="Subsection">
+            <a href="javascript:toggle_display('M:Naucera.Iambic.Parser`1.ToString:Version Information')">
+              <span id="M:Naucera.Iambic.Parser`1.ToString:Version Information:toggle">⊟</span> Requirements</a>
+          </h4>
+          <blockquote class="SubsectionBox" id="M:Naucera.Iambic.Parser`1.ToString:Version Information">
+            <b>Namespace: </b>Naucera.Iambic<br /><b>Assembly: </b>Naucera.Iambic (in Naucera.Iambic.dll)<br /><b>Assembly Versions: </b>1.0.0.0</blockquote>
+          <hr size="1" />
+        </blockquote>
+      </blockquote>
+    </div>
+    <hr size="1" />
+    <div class="Copyright">
+    </div>
+  </body>
+</html>
