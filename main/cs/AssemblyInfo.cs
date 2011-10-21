@@ -34,4 +34,4 @@ using System.Reflection;
 [assembly:AssemblyTitle("Naucera Iambic")]
 [assembly:AssemblyDescription("Naucera Iambic Parser Library")]
 [assembly:AssemblyVersion("1.0.0.0")]
-[assembly:AssemblyCopyright("Copyright © 2011 by Amanda Koh")]
+[assembly:AssemblyCopyright("Copyright Â© 2011 by Amanda Koh")]
