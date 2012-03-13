@@ -1,6 +1,6 @@
 #region license
 
-// Copyright 2011 Amanda Koh. All rights reserved.
+// Copyright 2012 Amanda Koh. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -34,4 +34,4 @@ using System.Reflection;
 [assembly:AssemblyTitle("Naucera Iambic")]
 [assembly:AssemblyDescription("Naucera Iambic Parser Library")]
 [assembly:AssemblyVersion("1.0.0.0")]
-[assembly:AssemblyCopyright("Copyright © 2011 by Amanda Koh")]
+[assembly:AssemblyCopyright("Copyright © 2012 by Amanda Koh")]
