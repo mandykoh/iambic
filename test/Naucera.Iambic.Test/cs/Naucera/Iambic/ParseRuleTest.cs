@@ -1,4 +1,4 @@
-#region license
+﻿#region license
 
 // Copyright 2012 Amanda Koh. All rights reserved.
 //
@@ -29,9 +29,47 @@
 
 #endregion
 
-using System.Reflection;
+using Naucera.Iambic.Expressions;
+using Xunit;
 
-[assembly:AssemblyTitle("Naucera Iambic")]
-[assembly:AssemblyDescription("Naucera Iambic Parser Library")]
-[assembly:AssemblyVersion("1.0.0.0")]
-[assembly:AssemblyCopyright("Copyright © 2012 by Amanda Koh")]
+namespace Naucera.Iambic
+{
+	public class ParseRuleTest
+	{
+		[Fact]
+		public void ShouldInvokeAnnotationDelegateWithParsedToken()
+		{
+			const string text = "abc";
+
+			var processorInvoked = false;
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A", new LiteralTerminal(text)))
+
+				.Tagging("A", with: (token, context, args) => {
+						Assert.Equal(1, token.ChildCount);
+						Assert.Equal(text, token[0].MatchedText(text));
+
+						processorInvoked = true;
+						return null;
+					});
+
+			p.Parse(text);
+
+			Assert.True(processorInvoked);
+		}
+
+
+		[Fact]
+		public void ShouldReturnOutputFromConversion()
+		{
+			var p = new Parser<string>(
+				(token, ctx, args) => token.Tag.ToString(),
+				new ParseRule("A", new LiteralTerminal("a")))
+				.Tagging("A", with: (token, context, args) => "Some value");
+
+			Assert.Equal("Some value", p.Parse("a"));
+		}
+	}
+}

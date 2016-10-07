@@ -29,48 +29,78 @@
 
 #endregion
 
-using Naucera.Iambic.Expressions;
-using NUnit.Framework;
+using Xunit;
 
-namespace Naucera.Iambic
+namespace Naucera.Iambic.Expressions
 {
-	[TestFixture]
-	public class ParseRuleTest
+	public class MatchTest
 	{
-		[Test]
-		public void ShouldInvokeAnnotationDelegateWithParsedToken()
+		[Fact]
+		public void ShouldConvertToGrammarString()
 		{
-			const string text = "abc";
+			var expr = new Match(new LiteralTerminal("a"));
 
-			var processorInvoked = false;
-
-			var p = new Parser<Token>(
-				(token, ctx, args) => token,
-				new ParseRule("A", new LiteralTerminal(text)))
-
-				.Tagging("A", with: (token, context, args) => {
-						Assert.AreEqual(1, token.ChildCount);
-						Assert.AreEqual(text, token[0].MatchedText(text));
-
-						processorInvoked = true;
-						return null;
-					});
-
-			p.Parse(text);
-
-			Assert.IsTrue(processorInvoked);
+			Assert.Equal("&'a'", expr.ToString());
 		}
 
 
-		[Test]
-		public void ShouldReturnOutputFromConversion()
+		[Fact]
+		public void ShouldMatchSubExpressionWithoutConsumingInput()
 		{
-			var p = new Parser<string>(
-				(token, ctx, args) => token.Tag.ToString(),
-				new ParseRule("A", new LiteralTerminal("a")))
-				.Tagging("A", with: (token, context, args) => "Some value");
+			const string text = "ab";
 
-			Assert.AreEqual("Some value", p.Parse("a"));
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A",
+					new Sequence(
+						new Match(new LiteralTerminal("a")),
+						new LiteralTerminal("ab"))
+				));
+
+			p.Parse(text);
+		}
+
+
+		[Fact]
+		public void ShouldNotMatchIfSubexpressionDoesNotMatch()
+		{
+			const string text = "b";
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A",
+					new Sequence(
+						new Match(new LiteralTerminal("a")),
+						new LiteralTerminal("b"))
+				));
+
+			try {
+				p.Parse(text);
+				Assert.True(false, "Expression matched when it should not have");
+			}
+			catch (SyntaxException) {
+				// Expected exception
+			}
+		}
+
+
+		[Fact]
+		public void ShouldNotProduceTokenForMatch()
+		{
+			const string text = "ab";
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A",
+					new Sequence(
+						new Match(new LiteralTerminal("a")),
+						new LiteralTerminal("ab"))
+				));
+
+			var t = p.Parse(text);
+
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal("ab", t[0].MatchedText(text));
 		}
 	}
 }

@@ -31,25 +31,24 @@
 
 using System;
 using Naucera.Iambic.Expressions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Naucera.Iambic
 {
-	[TestFixture]
 	public class ParserTest
 	{
-		[Test]
+		[Fact]
 		public void ParsingWithConversionShouldReturnConvertedResult()
 		{
 			var parser = new Parser<int>(
 				(token, ctx, args) => int.Parse(ctx.MatchedText(token)),
 				new ParseRule("A", new PatternTerminal("[0-9]+")));
 
-			Assert.AreEqual(123, parser.Parse("123"));
+			Assert.Equal(123, parser.Parse("123"));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ParsingWithTaggingShouldPassArgumentsToTagger()
 		{
 			var parser = new Parser<Token>(
@@ -57,11 +56,11 @@ namespace Naucera.Iambic
 				new ParseRule("A", new PatternTerminal("\\d+")))
 				.Tagging("A", (token, ctx, args) => int.Parse(ctx.MatchedText(token)) + (int)args[0]);
 
-			Assert.AreEqual(128, parser.Parse("123", 5).Tag);
+			Assert.Equal(128, parser.Parse("123", 5).Tag);
 		}
 
 
-		[Test]
+		[Fact]
 		public void ParsingWithTaggingShouldSetTagOnTokens()
 		{
 			var parser = new Parser<Token>(
@@ -69,11 +68,11 @@ namespace Naucera.Iambic
 				new ParseRule("A", new PatternTerminal("\\d+")))
 				.Tagging("A", (token, ctx) => int.Parse(ctx.MatchedText(token)));
 
-			Assert.AreEqual(123, parser.Parse("123").Tag);
+			Assert.Equal(123, parser.Parse("123").Tag);
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldMapRuleNamesToRules()
 		{
 			var ruleA = new ParseRule("RuleA", new LiteralTerminal("a"));
@@ -81,12 +80,12 @@ namespace Naucera.Iambic
 
 			var parser = new Parser<Token>(null, ruleA, ruleB);
 
-			Assert.AreEqual(ruleA, parser.GetRule(ruleA.Name));
-			Assert.AreEqual(ruleB, parser.GetRule(ruleB.Name));
+			Assert.Equal(ruleA, parser.GetRule(ruleA.Name));
+			Assert.Equal(ruleB, parser.GetRule(ruleB.Name));
 		}
 
 		
-		[Test]
+		[Fact]
 		public void ShouldNotAllowCustomMatchersWithDuplicateNames()
 		{
 			try {
@@ -96,15 +95,15 @@ namespace Naucera.Iambic
 					new TestCustomMatcher("CustomMatcher"),
 					new TestCustomMatcher("CustomMatcher"));
 
-				Assert.Fail("Expected exception was not thrown");
+				Assert.True(false, "Expected exception was not thrown");
 			}
 			catch (DuplicateConstructException e) {
-				Assert.AreEqual("CustomMatcher", e.ConstructName);
+				Assert.Equal("CustomMatcher", e.ConstructName);
 			}
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldNotAllowGrammarConstructsMatchersWithDuplicateNames()
 		{
 			try {
@@ -114,15 +113,15 @@ namespace Naucera.Iambic
 					new ParseRule("Rule", new CustomMatcherTerminal("Bob")),
 					new TestCustomMatcher("Bob"));
 
-				Assert.Fail("Expected exception was not thrown");
+				Assert.True(false, "Expected exception was not thrown");
 			}
 			catch (DuplicateConstructException e) {
-				Assert.AreEqual("Bob", e.ConstructName);
+				Assert.Equal("Bob", e.ConstructName);
 			}
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldNotAllowRulesWithDuplicateNames()
 		{
 			try {
@@ -131,29 +130,29 @@ namespace Naucera.Iambic
 					new ParseRule("RuleA", new LiteralTerminal("a")),
 					new ParseRule("RuleA", new LiteralTerminal("b")));
 
-				Assert.Fail("Expected exception was not thrown");
+				Assert.True(false, "Expected exception was not thrown");
 			}
 			catch (DuplicateConstructException e) {
-				Assert.AreEqual("RuleA", e.ConstructName);
+				Assert.Equal("RuleA", e.ConstructName);
 			}
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldNotAllowUndefinedCustomMatchers()
 		{
 			try {
 				new Parser<Token>(null, new ParseRule("Rule", new CustomMatcherTerminal("SomeMatcher")));
 
-				Assert.Fail("Expected exception was not thrown");
+				Assert.True(false, "Expected exception was not thrown");
 			}
 			catch (UndefinedConstructException e) {
-				Assert.AreEqual("SomeMatcher", e.ConstructName);
+				Assert.Equal("SomeMatcher", e.ConstructName);
 			}
 		}
 
 
-		[Test]
+		[Fact]
 		public void SpecifyingConversionShouldReturnNewParserWithConversion()
 		{
 			var parser = new Parser<Token>(
@@ -162,11 +161,11 @@ namespace Naucera.Iambic
 
 			Parser<int> convertedParser = parser.ConvertingResultUsing((token, ctx, args) => int.Parse(ctx.MatchedText(token)));
 
-			Assert.AreEqual(123, convertedParser.Parse("123"));
+			Assert.Equal(123, convertedParser.Parse("123"));
 		}
 
 
-		[Test]
+		[Fact]
 		public void SpecifyingConversionShouldReturnNewParserWithIndependentTagging()
 		{
 			var parser = new Parser<Token>(
@@ -177,22 +176,22 @@ namespace Naucera.Iambic
 			Parser<string> convertedParser = parser.ConvertingResultUsing(token => token.Tag.ToString());
 			convertedParser.Tagging("A", () => "tag 2");
 
-			Assert.AreEqual("tag 1", parser.Parse("123").Tag);
-			Assert.AreEqual("tag 2", convertedParser.Parse("123"));
+			Assert.Equal("tag 1", parser.Parse("123").Tag);
+			Assert.Equal("tag 2", convertedParser.Parse("123"));
 		}
 
 
-		[Test]
+		[Fact]
 		public void TaggingUndefinedRuleShouldThrowException()
 		{
 			try {
 				new Parser<Token>(null, new ParseRule("A", new LiteralTerminal("a")))
 					.Tagging("NotARule", (token, ctx, args) => "Some value");
 
-				Assert.Fail("Expected exception was not thrown");
+				Assert.True(false, "Expected exception was not thrown");
 			}
 			catch (UndefinedConstructException e) {
-				Assert.AreEqual("NotARule", e.ConstructName);
+				Assert.Equal("NotARule", e.ConstructName);
 			}
 		}
 

@@ -29,24 +29,23 @@
 
 #endregion
 
-using NUnit.Framework;
+using Xunit;
 
 namespace Naucera.Iambic.Expressions
 {
-	[TestFixture]
-	public class MatchTest
+	public class OneOrMoreTest
 	{
-		[Test]
+		[Fact]
 		public void ShouldConvertToGrammarString()
 		{
-			var expr = new Match(new LiteralTerminal("a"));
+			var expr = new OneOrMore(new LiteralTerminal("a"));
 
-			Assert.AreEqual("&'a'", expr.ToString());
+			Assert.Equal("'a'+", expr.ToString());
 		}
 
 
-		[Test]
-		public void ShouldMatchSubExpressionWithoutConsumingInput()
+		[Fact]
+		public void ShouldMatchSubExpressionOnce()
 		{
 			const string text = "ab";
 
@@ -54,16 +53,33 @@ namespace Naucera.Iambic.Expressions
 				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
-						new Match(new LiteralTerminal("a")),
-						new LiteralTerminal("ab"))
+						new OneOrMore(new LiteralTerminal("a")),
+						new LiteralTerminal("b"))
 				));
 
 			p.Parse(text);
 		}
 
 
-		[Test]
-		public void ShouldNotMatchIfSubexpressionDoesNotMatch()
+		[Fact]
+		public void ShouldMatchSubExpressionRepeatedly()
+		{
+			const string text = "aaab";
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A",
+					new Sequence(
+						new OneOrMore(new LiteralTerminal("a")),
+						new LiteralTerminal("b"))
+					));
+
+			p.Parse(text);
+		}
+
+
+		[Fact]
+		public void ShouldNotLoopForeverIfSubExpressionSuccessfullyMatchesBlank()
 		{
 			const string text = "b";
 
@@ -71,13 +87,30 @@ namespace Naucera.Iambic.Expressions
 				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
-						new Match(new LiteralTerminal("a")),
+						new OneOrMore(new OneOrMore(new LiteralTerminal(""))),
+						new LiteralTerminal("b"))
+					));
+
+			p.Parse(text);
+		}
+
+
+		[Fact]
+		public void ShouldNotMatchSubExpressionZeroTimes()
+		{
+			const string text = "b";
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A",
+					new Sequence(
+						new OneOrMore(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 				));
 
 			try {
 				p.Parse(text);
-				Assert.Fail("Expression matched when it should not have");
+				Assert.True(false, "Expression matched but should not have");
 			}
 			catch (SyntaxException) {
 				// Expected exception
@@ -85,23 +118,55 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		[Test]
-		public void ShouldNotProduceTokenForMatch()
+		[Fact]
+		public void ShouldProduceOneTokenPerTimeMatched()
 		{
-			const string text = "ab";
+			const string text = "aaab";
 
 			var p = new Parser<Token>(
 				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
-						new Match(new LiteralTerminal("a")),
-						new LiteralTerminal("ab"))
+						new OneOrMore(new LiteralTerminal("a")),
+						new LiteralTerminal("b"))
 				));
 
 			var t = p.Parse(text);
 
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("ab", t[0].MatchedText(text));
+			Assert.Equal(4, t.ChildCount);
+			Assert.Equal("a", t[0].MatchedText(text));
+			Assert.Equal("a", t[1].MatchedText(text));
+			Assert.Equal("a", t[2].MatchedText(text));
+			Assert.Equal("b", t[3].MatchedText(text));
+		}
+
+
+		[Fact]
+		public void ShouldRecoverFromParseErrorsAtLastRepetition()
+		{
+			const string text = "xbab";
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A",
+					new Sequence(
+						new OneOrMore(
+							new Sequence(
+								new LiteralTerminal("a"),
+								new LiteralTerminal("b"))))
+				)) { MaxErrors = 2 };
+
+			try {
+				p.Parse(text);
+				Assert.True(false, "Expression matched but should not have");
+			}
+			catch (SyntaxException e) {
+				Assert.Equal(1, e.Context.ErrorCount);
+				Assert.Equal(3, e.Result.ChildCount);
+				Assert.Equal("b", e.Result[0].MatchedText(text));
+				Assert.Equal("a", e.Result[1].MatchedText(text));
+				Assert.Equal("b", e.Result[2].MatchedText(text));
+			}
 		}
 	}
 }

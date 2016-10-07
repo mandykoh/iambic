@@ -29,30 +29,29 @@
 
 #endregion
 
-using NUnit.Framework;
+using Xunit;
 
 namespace Naucera.Iambic.Expressions
 {
-	[TestFixture]
 	public class LiteralTerminalTest
 	{
-		[Test]
+		[Fact]
 		public void ShouldConvertToGrammarString()
 		{
 			var expr = new LiteralTerminal("D'Angelo");
 
-			Assert.AreEqual("'D\\'Angelo'", expr.ToString());
+			Assert.Equal("'D\\'Angelo'", expr.ToString());
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldEscapeLiteralStringExpressions()
 		{
-			Assert.AreEqual("'They\\'re \\\\'", LiteralTerminal.Escape("They're \\"));
+			Assert.Equal("'They\\'re \\\\'", LiteralTerminal.Escape("They're \\"));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldMatchPrefixOfText()
 		{
 			const string text = "applepie";
@@ -60,14 +59,14 @@ namespace Naucera.Iambic.Expressions
 			var p = new Parser<Token>((token, ctx, args) => token, new ParseRule("A", new LiteralTerminal("apple")));
 			var t = p.Parse(text);
 
-			Assert.AreEqual(0, t.Offset);
-			Assert.AreEqual(5, t.EndOffset);
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("apple", t[0].MatchedText(text));
+			Assert.Equal(0, t.Offset);
+			Assert.Equal(5, t.EndOffset);
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal("apple", t[0].MatchedText(text));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldMatchTextAtExactOffsetWhenNotRecovering()
 		{
 			const string text = "apple";
@@ -75,14 +74,14 @@ namespace Naucera.Iambic.Expressions
 			var p = new Parser<Token>((token, ctx, args) => token, new ParseRule("A", new LiteralTerminal("apple")));
 			var t = p.Parse(text);
 
-			Assert.AreEqual(0, t.Offset);
-			Assert.AreEqual(5, t.EndOffset);
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("apple", t[0].MatchedText(text));
+			Assert.Equal(0, t.Offset);
+			Assert.Equal(5, t.EndOffset);
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal("apple", t[0].MatchedText(text));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldMatchTextCaseSensitively()
 		{
 			const string text = "Apple";
@@ -91,7 +90,7 @@ namespace Naucera.Iambic.Expressions
 
 			try {
 				p.Parse(text);
-				Assert.Fail("Expression matched but should not have");
+				Assert.True(false, "Expression matched but should not have");
 			}
 			catch (SyntaxException) {
 				// Expected exception
@@ -99,7 +98,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldMatchTextLenientlyFromOffsetWhenRecovering()
 		{
 			const string text = "abcdefg";
@@ -116,21 +115,21 @@ namespace Naucera.Iambic.Expressions
 			try {
 				p.Parse(text);
 
-				Assert.Fail("Expression matched but should not have");
+				Assert.True(false, "Expression matched but should not have");
 			}
 			catch (SyntaxException e) {
-				Assert.AreEqual(1, e.Context.ErrorCount);
+				Assert.Equal(1, e.Context.ErrorCount);
 			}
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldNotMatchDifferingText()
 		{
 			var p = new Parser<Token>((token, ctx, args) => token, new ParseRule("A", new LiteralTerminal("apple")));
 			try {
 				p.Parse("banana");
-				Assert.Fail("Expression matched but should not have");
+				Assert.True(false, "Expression matched but should not have");
 			}
 			catch (SyntaxException) {
 				// Expected exception
@@ -138,7 +137,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldProduceOneTokenForTheMatch()
 		{
 			const string text = "abc";
@@ -146,15 +145,15 @@ namespace Naucera.Iambic.Expressions
 			var p = new Parser<Token>((token, ctx, args) => token, new ParseRule("A", new LiteralTerminal(text)));
 			var t = p.Parse(text);
 
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual(text, t[0].MatchedText(text));
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal(text, t[0].MatchedText(text));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldUnescapeLiteralStringExpressions()
 		{
-			Assert.AreEqual("They're \\", LiteralTerminal.Unescape("'They\\'re \\\\'"));
+			Assert.Equal("They're \\", LiteralTerminal.Unescape("'They\\'re \\\\'"));
 		}
 	}
 }

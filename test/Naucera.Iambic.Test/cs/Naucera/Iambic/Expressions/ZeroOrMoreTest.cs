@@ -29,40 +29,22 @@
 
 #endregion
 
-using NUnit.Framework;
+using Xunit;
 
 namespace Naucera.Iambic.Expressions
 {
-	[TestFixture]
-	public class OptionalTest
+	public class ZeroOrMoreTest
 	{
-		[Test]
+		[Fact]
 		public void ShouldConvertToGrammarString()
 		{
-			var expr = new Optional(new LiteralTerminal("a"));
+			var expr = new ZeroOrMore(new LiteralTerminal("a"));
 
-			Assert.AreEqual("'a'?", expr.ToString());
+			Assert.Equal("'a'*", expr.ToString());
 		}
 
 
-		[Test]
-		public void ShouldMatchMissingSubExpression()
-		{
-			const string text = "b";
-
-			var p = new Parser<Token>(
-				(token, ctx, args) => token,
-				new ParseRule("A",
-					new Sequence(
-						new Optional(new LiteralTerminal("a")),
-						new LiteralTerminal("b"))
-					));
-
-			p.Parse(text);
-		}
-
-
-		[Test]
+		[Fact]
 		public void ShouldMatchSubExpressionOnce()
 		{
 			const string text = "ab";
@@ -71,7 +53,7 @@ namespace Naucera.Iambic.Expressions
 				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
-						new Optional(new LiteralTerminal("a")),
+						new ZeroOrMore(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 				));
 
@@ -79,24 +61,97 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		[Test]
-		public void ShouldProduceOneTokenIfSubExpressionMatchedAndNotMissing()
+		[Fact]
+		public void ShouldMatchSubExpressionRepeatedly()
 		{
-			const string text = "ab";
+			const string text = "aaab";
 
 			var p = new Parser<Token>(
 				(token, ctx, args) => token,
 				new ParseRule("A",
 					new Sequence(
-						new Optional(new LiteralTerminal("a")),
+						new ZeroOrMore(new LiteralTerminal("a")),
+						new LiteralTerminal("b"))
+					));
+
+			p.Parse(text);
+		}
+
+
+		[Fact]
+		public void ShouldMatchSubExpressionZeroTimes()
+		{
+			const string text = "b";
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A",
+					new Sequence(
+						new ZeroOrMore(new LiteralTerminal("a")),
+						new LiteralTerminal("b"))
+				));
+
+			p.Parse(text);
+		}
+
+
+		[Fact]
+		public void ShouldNotProduceTokenIfMatchedZeroTimes()
+		{
+			const string text = "b";
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A",
+					new Sequence(
+						new ZeroOrMore(new LiteralTerminal("a")),
 						new LiteralTerminal("b"))
 				));
 
 			var t = p.Parse(text);
 
-			Assert.AreEqual(2, t.ChildCount);
-			Assert.AreEqual("a", t[0].MatchedText(text));
-			Assert.AreEqual("b", t[1].MatchedText(text));
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal("b", t[0].MatchedText(text));
+		}
+
+
+		[Fact]
+		public void ShouldProduceOneTokenPerTimeMatched()
+		{
+			const string text = "aaab";
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A",
+					new Sequence(
+						new ZeroOrMore(new LiteralTerminal("a")),
+						new LiteralTerminal("b"))
+				));
+
+			var t = p.Parse(text);
+
+			Assert.Equal(4, t.ChildCount);
+			Assert.Equal("a", t[0].MatchedText(text));
+			Assert.Equal("a", t[1].MatchedText(text));
+			Assert.Equal("a", t[2].MatchedText(text));
+			Assert.Equal("b", t[3].MatchedText(text));
+		}
+
+
+		[Fact]
+		public void ShouldNotLoopForeverIfSubExpressionSuccessfullyMatchesBlank()
+		{
+			const string text = "b";
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A",
+					new Sequence(
+						new ZeroOrMore(new ZeroOrMore(new LiteralTerminal("a"))),
+						new LiteralTerminal("b"))
+				));
+
+			p.Parse(text);
 		}
 	}
 }

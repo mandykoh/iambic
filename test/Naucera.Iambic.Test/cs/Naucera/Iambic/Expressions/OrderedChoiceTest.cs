@@ -29,14 +29,13 @@
 
 #endregion
 
-using NUnit.Framework;
+using Xunit;
 
 namespace Naucera.Iambic.Expressions
 {
-	[TestFixture]
 	public class OrderedChoiceTest
 	{
-		[Test]
+		[Fact]
 		public void ShouldConvertToGrammarString()
 		{
 			var expr = new OrderedChoice(
@@ -46,11 +45,11 @@ namespace Naucera.Iambic.Expressions
 			// Create a parser to ensure the expression is compiled
 			new Parser<Token>((token, ctx, args) => token, new ParseRule("A", expr));
 
-			Assert.AreEqual("('a' || 'b')", expr.ToString());
+			Assert.Equal("('a' || 'b')", expr.ToString());
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldMatchOneSubExpression()
 		{
 			var p = new Parser<Token>(
@@ -62,17 +61,17 @@ namespace Naucera.Iambic.Expressions
 
 			var t = p.Parse("a");
 
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("a", t[0].MatchedText("a"));
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal("a", t[0].MatchedText("a"));
 
 			t = p.Parse("b");
 
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("b", t[0].MatchedText("b"));
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal("b", t[0].MatchedText("b"));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldNotAllowInvalidSubExpression()
 		{
 			try {
@@ -83,30 +82,30 @@ namespace Naucera.Iambic.Expressions
 							new LiteralTerminal("a"),
 							new RuleRef("nonExistantRule"))));
 
-				Assert.Fail("Invalid subexpression was allowed but should have been rejected");
+				Assert.True(false, "Invalid subexpression was allowed but should have been rejected");
 			}
 			catch (UndefinedConstructException e) {
-				Assert.AreEqual("nonExistantRule", e.ConstructName);
+				Assert.Equal("nonExistantRule", e.ConstructName);
 			}
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldNotAllowZeroSubExpressions()
 		{
 			var expr = new OrderedChoice();
 
 			try {
 				new Parser<Token>((token, ctx, args) => token, new ParseRule("A", expr));
-				Assert.Fail("Expression without subexpressions was allowed but should have been rejected");
+				Assert.True(false, "Expression without subexpressions was allowed but should have been rejected");
 			}
 			catch (EmptyCompositeException e) {
-				Assert.AreEqual(expr, e.Expression);
+				Assert.Equal(expr, e.Expression);
 			}
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldProductOneTokenForOneMatchingTerminal()
 		{
 			const string text = "abc";
@@ -121,12 +120,12 @@ namespace Naucera.Iambic.Expressions
 
 			var t = p.Parse(text);
 
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("a", t[0].MatchedText("a"));
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal("a", t[0].MatchedText("a"));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldRecoverFromParseErrorsAtBestMatchingSubExpression()
 		{
 			const string text = "bd";
@@ -141,12 +140,12 @@ namespace Naucera.Iambic.Expressions
 
 			try {
 				p.Parse(text);
-				Assert.Fail("Expression matched but should not have");
+				Assert.True(false, "Expression matched but should not have");
 			}
 			catch (SyntaxException e) {
-				Assert.AreEqual(1, e.Context.ErrorCount);
-				Assert.AreEqual(1, e.Result.ChildCount);
-				Assert.AreEqual("b", e.Result[0].MatchedText(text));
+				Assert.Equal(1, e.Context.ErrorCount);
+				Assert.Equal(1, e.Result.ChildCount);
+				Assert.Equal("b", e.Result[0].MatchedText(text));
 			}
 		}
 	}

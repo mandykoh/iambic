@@ -32,15 +32,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Xunit;
 using Naucera.Iambic.Expressions;
-using NUnit.Framework;
 
 namespace Naucera.Iambic
 {
-	[TestFixture]
 	public class TokenTest
 	{
-		[Test]
+		[Fact]
 		public void IteratingChildrenShouldReturnAllChildren()
 		{
 			const string text = "abc";
@@ -51,15 +50,15 @@ namespace Naucera.Iambic
 			var count = 0;
 
 			foreach (var child in t.Children) {
-				Assert.AreEqual(text[count].ToString(), child.MatchedText(text));
+				Assert.Equal(text[count].ToString(), child.MatchedText(text));
 				++count;
 			}
 
-			Assert.AreEqual(text.Length, count);
+			Assert.Equal(text.Length, count);
 		}
 
 
-		[Test]
+		[Fact]
 		public void IteratingChildTagsShouldReturnAllTags()
 		{
 			const string text = "aaa";
@@ -76,15 +75,15 @@ namespace Naucera.Iambic
 			var count = 0;
 
 			foreach (var v in values) {
-				Assert.AreEqual("a", v);
+				Assert.Equal("a", v);
 				++count;
 			}
 
-			Assert.AreEqual(text.Length, count);
+			Assert.Equal(text.Length, count);
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldEscapeTextForXml()
 		{
 			const string text = "<Apple & Pear>";
@@ -92,11 +91,11 @@ namespace Naucera.Iambic
 			var p = new Parser<Token>((token, ctx, args) => token, new ParseRule("A", new LiteralTerminal(text)));
 			var t = p.Parse(text);
 
-			Assert.AreEqual("&lt;Apple &amp; Pear&gt;", t[0].ToXml(text));
+			Assert.Equal("&lt;Apple &amp; Pear&gt;", t[0].ToXml(text));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldExtractValueFromParsedText()
 		{
 			const string text = "<Apple & Pear>";
@@ -104,11 +103,11 @@ namespace Naucera.Iambic
 			var p = new Parser<Token>((token, ctx, args) => token, new ParseRule("A", new LiteralTerminal(text)));
 			var t = p.Parse(text);
 
-			Assert.AreEqual("<Apple & Pear>", t.MatchedText(text));
+			Assert.Equal("<Apple & Pear>", t.MatchedText(text));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldFormatXmlRespectingSignificantWhitespace()
 		{
 			const string grammar =
@@ -131,7 +130,7 @@ namespace Naucera.Iambic
 			var p = ParserCompiler.Compile(grammar);
 			var t = p.Parse(text);
 
-			Assert.AreEqual(expected.ToString(), t.ToXml(text));
+			Assert.Equal(expected.ToString(), t.ToXml(text));
 		}
 	}
 }

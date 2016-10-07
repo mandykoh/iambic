@@ -29,89 +29,95 @@
 
 #endregion
 
-using NUnit.Framework;
+using Xunit;
 
 namespace Naucera.Iambic.Expressions
 {
-	[TestFixture]
-	public class RuleRefTest
+	public class NotMatchTest
 	{
-		[Test]
+		[Fact]
 		public void ShouldConvertToGrammarString()
 		{
-			var expr = new RuleRef("OtherRule");
+			var expr = new NotMatch(new LiteralTerminal("a"));
 
-			Assert.AreEqual("OtherRule", expr.ToString());
+			Assert.Equal("!'a'", expr.ToString());
 		}
 
 
-		[Test]
-		public void ShouldNotAllowCircularReferences()
+		[Fact]
+		public void ShouldMatchWithoutConsumingInput()
 		{
-			try {
-				new Parser<Token>(
-					(token, ctx, args) => token,
-					new ParseRule("A", new RuleRef("B")),
-					new ParseRule("B", new RuleRef("C")),
-					new ParseRule("C", new RuleRef("A")));
-
-				Assert.Fail("Illegal circular reference was accepted but should have been rejected");
-			}
-			catch (CircularDefinitionException e) {
-				Assert.AreEqual("C", e.BaseRuleName);
-				Assert.AreEqual("A", e.ReferenceName);
-			}
-		}
-
-		
-		[Test]
-		public void ShouldNotAllowReferencingUndefinedRules()
-		{
-			try {
-				new Parser<Token>((token, ctx, args) => token, new ParseRule("A", new RuleRef("B")));
-				Assert.Fail("Undefined reference was accepted but should have been rejected");
-			}
-			catch (UndefinedConstructException e) {
-				Assert.AreEqual("B", e.ConstructName);
-			}
-		}
-
-
-		[Test]
-		public void ShouldParseUsingReferencedRule()
-		{
-			const string text = "apple";
+			const string text = "ab";
 
 			var p = new Parser<Token>(
 				(token, ctx, args) => token,
-				new ParseRule("A", new RuleRef("B")),
-				new ParseRule("B", new LiteralTerminal(text)));
+				new ParseRule("A",
+					new Sequence(
+						new NotMatch(new LiteralTerminal("b")),
+						new LiteralTerminal("ab"))
+				));
 
-			var t = p.Parse(text);
-
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("A", t.GrammarConstruct.Name);
-			Assert.AreEqual("B", t[0].GrammarConstruct.Name);
-			Assert.AreEqual(text, t[0][0].MatchedText(text));
+			p.Parse(text);
 		}
 
 
-		[Test]
-		public void ShouldProduceOneTokenWithOutputFromReferencedRuleAsChildren()
+		[Fact]
+		public void ShouldNotAllowSubexpressionToRecoverFromParseError()
 		{
-			const string text = "apple";
+			const string text = "ab";
 
 			var p = new Parser<Token>(
 				(token, ctx, args) => token,
-				new ParseRule("A", new RuleRef("B")),
-				new ParseRule("B", new LiteralTerminal(text)));
+				new ParseRule("A", new NotMatch(new LiteralTerminal("a"))))
+				{ MaxErrors = 2 };
+
+			try {
+				p.Parse(text);
+				Assert.True(false, "Expression matched but should not have");
+			}
+			catch (SyntaxException e) {
+				Assert.Equal(1, e.Context.ErrorCount);
+				Assert.Equal(0, e.Result.ChildCount);
+			}
+		}
+
+
+		[Fact]
+		public void ShouldNotMatchIfSubexpressionMatches()
+		{
+			const string text = "b";
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A", new NotMatch(new LiteralTerminal("b"))));
+
+			try {
+				p.Parse(text);
+				Assert.True(false, "Expression matched when it should not have");
+			}
+			catch (SyntaxException) {
+				// Expected exception
+			}
+		}
+
+
+		[Fact]
+		public void ShouldNotProduceTokenForMatch()
+		{
+			const string text = "ab";
+
+			var p = new Parser<Token>(
+				(token, ctx, args) => token,
+				new ParseRule("A",
+					new Sequence(
+						new NotMatch(new LiteralTerminal("b")),
+						new LiteralTerminal("ab"))
+				));
 
 			var t = p.Parse(text);
 
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual(1, t[0].ChildCount);
-			Assert.AreEqual("B", t[0].GrammarConstruct.Name);
-			Assert.IsFalse(t[0][0].HasChildren);
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal("ab", t[0].MatchedText(text));
 		}
 	}
 }

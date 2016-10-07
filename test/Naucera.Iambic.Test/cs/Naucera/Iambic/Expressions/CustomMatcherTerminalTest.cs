@@ -29,23 +29,22 @@
 
 #endregion
 
-using NUnit.Framework;
+using Xunit;
 
 namespace Naucera.Iambic.Expressions
 {
-	[TestFixture]
 	public class CustomMatcherLiteralTest
 	{
-		[Test]
+		[Fact]
 		public void ShouldConvertToGrammarString()
 		{
 			var expr = new CustomMatcherTerminal("CustomThing");
 
-			Assert.AreEqual("{CustomThing}", expr.ToString());
+			Assert.Equal("{CustomThing}", expr.ToString());
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldInvokeCustomMatcher()
 		{
 			const string text = "apple";
@@ -57,14 +56,14 @@ namespace Naucera.Iambic.Expressions
 
 			var t = p.Parse(text);
 
-			Assert.AreEqual(0, t.Offset);
-			Assert.AreEqual(5, t.EndOffset);
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("apple", t[0].MatchedText(text));
+			Assert.Equal(0, t.Offset);
+			Assert.Equal(5, t.EndOffset);
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal("apple", t[0].MatchedText(text));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldInvokeCustomMatcherLenientlyWhenRecovering()
 		{
 			const string text = "abcdefg";
@@ -84,15 +83,15 @@ namespace Naucera.Iambic.Expressions
 			try {
 				p.Parse(text);
 
-				Assert.Fail("Expression matched but should not have");
+				Assert.True(false, "Expression matched but should not have");
 			}
 			catch (SyntaxException e) {
-				Assert.AreEqual(1, e.Context.ErrorCount);
+				Assert.Equal(1, e.Context.ErrorCount);
 			}
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldRejectWhenCustomMatcherDoesNotMatch()
 		{
 			var p = new Parser<Token>(
@@ -102,7 +101,7 @@ namespace Naucera.Iambic.Expressions
 
 			try {
 				p.Parse("banana");
-				Assert.Fail("Expression matched but should not have");
+				Assert.True(false, "Expression matched but should not have");
 			}
 			catch (SyntaxException) {
 				// Expected exception
@@ -110,7 +109,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldProduceOneTokenForTheMatch()
 		{
 			const string text = "abc";
@@ -122,8 +121,8 @@ namespace Naucera.Iambic.Expressions
 
 			var t = p.Parse(text);
 
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual(text, t[0].MatchedText(text));
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal(text, t[0].MatchedText(text));
 		}
 
 

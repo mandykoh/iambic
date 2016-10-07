@@ -30,30 +30,29 @@
 #endregion
 
 using System;
-using NUnit.Framework;
+using Xunit;
 
 namespace Naucera.Iambic.Expressions
 {
-	[TestFixture]
 	public class PatternTerminalTest
 	{
-		[Test]
+		[Fact]
 		public void ShouldConvertToGrammarString()
 		{
 			var expr = new PatternTerminal("a*b*c*");
 
-			Assert.AreEqual("/a*b*c*/", expr.ToString());
+			Assert.Equal("/a*b*c*/", expr.ToString());
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldEscapeRegexStringExpressions()
 		{
-			Assert.AreEqual(@"/abc\/def\\ghi/", PatternTerminal.Escape(@"abc/def\\ghi"));
+			Assert.Equal(@"/abc\/def\\ghi/", PatternTerminal.Escape(@"abc/def\\ghi"));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldMatchInSingleLineMode()
 		{
 			const string text = "a\nb\nc\r\n";
@@ -63,12 +62,12 @@ namespace Naucera.Iambic.Expressions
 
 			var t = p.Parse(text);
 
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual(text, t[0].MatchedText(text));
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal(text, t[0].MatchedText(text));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldMatchTextAtExactOffsetWhenNotRecovering()
 		{
 			const string text = "abcd";
@@ -80,7 +79,7 @@ namespace Naucera.Iambic.Expressions
 			try {
 				p.Parse(text);
 
-				Assert.Fail("Expression matched but should not have");
+				Assert.True(false, "Expression matched but should not have");
 			}
 			catch (SyntaxException) {
 				// Expected exception
@@ -88,7 +87,7 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldMatchTextLenientlyFromOffsetWhenRecovering()
 		{
 			const string text = "abcdefg";
@@ -105,15 +104,15 @@ namespace Naucera.Iambic.Expressions
 			try {
 				p.Parse(text);
 
-				Assert.Fail("Expression matched but should not have");
+				Assert.True(false, "Expression matched but should not have");
 			}
 			catch (SyntaxException e) {
-				Assert.AreEqual(1, e.Context.ErrorCount);
+				Assert.Equal(1, e.Context.ErrorCount);
 			}
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldMatchTextUsingRegex()
 		{
 			const string text = "abbccc";
@@ -124,18 +123,18 @@ namespace Naucera.Iambic.Expressions
 
 			var t = p.Parse(text);
 
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual(text, t[0].MatchedText(text));
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal(text, t[0].MatchedText(text));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldNotAllowInvalidRegex()
 		{
 			try {
 				new PatternTerminal("**");
 
-				Assert.Fail("Expression matched but should not have");
+				Assert.True(false, "Expression matched but should not have");
 			}
 			catch (ArgumentException) {
 				// Expected exception
@@ -143,10 +142,10 @@ namespace Naucera.Iambic.Expressions
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldUnescapeRegexStringExpressions()
 		{
-			Assert.AreEqual(@"abc/def\\ghi", PatternTerminal.Unescape(@"/abc\/def\\ghi/"));
+			Assert.Equal(@"abc/def\\ghi", PatternTerminal.Unescape(@"/abc\/def\\ghi/"));
 		}
 	}
 }

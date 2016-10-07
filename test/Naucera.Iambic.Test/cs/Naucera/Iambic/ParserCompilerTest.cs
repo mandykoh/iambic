@@ -30,24 +30,23 @@
 #endregion
 
 using System;
-using NUnit.Framework;
+using Xunit;
 
 namespace Naucera.Iambic
 {
-	[TestFixture]
 	public class ParserCompilerTest
 	{
-		[Test]
+		[Fact]
 		public void ShouldBeAbleToParseOwnPegGrammar()
 		{
 			var pegGrammar = ParserCompiler.BuildPegGrammarParser().ToString();
 			var p = ParserCompiler.Compile(pegGrammar);
 
-			Assert.AreEqual(pegGrammar, p.ToString());
+			Assert.Equal(pegGrammar, p.ToString());
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldBuildPegGrammarParserWithPegGrammar()
 		{
 			var newLine = Environment.NewLine;
@@ -82,11 +81,11 @@ namespace Naucera.Iambic
 				@"BlockComment := ('/*' (!'*/' /./)* '*/')" + newLine +
 				@"EndOfLine := (/$/ || /\r?\n/)" + newLine;
 
-			Assert.AreEqual(grammar, ParserCompiler.BuildPegGrammarParser().ToString());
+			Assert.Equal(grammar, ParserCompiler.BuildPegGrammarParser().ToString());
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldIgnoreBlockCommentsInGrammar()
 		{
 			var p = ParserCompiler.Compile(
@@ -97,11 +96,11 @@ namespace Naucera.Iambic
 
 			p.Parse("abc");
 
-			Assert.AreEqual("A := B" + Environment.NewLine + "B := 'abc'" + Environment.NewLine, p.ToString());
+			Assert.Equal("A := B" + Environment.NewLine + "B := 'abc'" + Environment.NewLine, p.ToString());
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldIgnoreLineCommentsInGrammar()
 		{
 			var p = ParserCompiler.Compile(
@@ -110,16 +109,16 @@ namespace Naucera.Iambic
 
 			p.Parse("abc");
 
-			Assert.AreEqual("A := B" + Environment.NewLine + "B := 'abc'" + Environment.NewLine, p.ToString());
+			Assert.Equal("A := B" + Environment.NewLine + "B := 'abc'" + Environment.NewLine, p.ToString());
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldRejectSpuriousInputAfterGrammar()
 		{
 			try {
 				ParserCompiler.Compile("A := 'abc' :");
-				Assert.Fail("Invalid grammar was accepted but should have been rejected");
+				Assert.True(false, "Invalid grammar was accepted but should have been rejected");
 			}
 			catch (SyntaxException) {
 				// Expected exception
@@ -127,7 +126,7 @@ namespace Naucera.Iambic
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldUnescapeBasicLiteralExpressions()
 		{
 			const string text = "They're \\";
@@ -135,12 +134,12 @@ namespace Naucera.Iambic
 			var p = ParserCompiler.Compile("A := 'They\\'re \\\\'");
 			var t = p.Parse(text);
 
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("They're \\", t[0].MatchedText(text));
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal("They're \\", t[0].MatchedText(text));
 		}
 
 
-		[Test]
+		[Fact]
 		public void ShouldUnescapeRegexLiteralExpressions()
 		{
 			const string text = "abc/def\\ghi\\";
@@ -148,8 +147,8 @@ namespace Naucera.Iambic
 			var p = ParserCompiler.Compile("A := /abc\\/def\\\\ghi\\\\/");
 			var t = p.Parse(text);
 
-			Assert.AreEqual(1, t.ChildCount);
-			Assert.AreEqual("abc/def\\ghi\\", t[0].MatchedText(text));
+			Assert.Equal(1, t.ChildCount);
+			Assert.Equal("abc/def\\ghi\\", t[0].MatchedText(text));
 		}
 	}
 }
